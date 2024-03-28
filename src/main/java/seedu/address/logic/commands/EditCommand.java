@@ -23,7 +23,6 @@ import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 import seedu.address.model.person.Address;
 import seedu.address.model.person.Email;
-import seedu.address.model.person.UniqueLoanList;
 import seedu.address.model.person.Name;
 import seedu.address.model.person.Person;
 import seedu.address.model.person.Phone;
@@ -139,7 +138,6 @@ public class EditCommand extends Command {
         private Email email;
         private Address address;
         private Set<Tag> tags;
-        private UniqueLoanList uniqueLoanList;
 
         public EditPersonDescriptor() {}
 
@@ -153,7 +151,6 @@ public class EditCommand extends Command {
             setEmail(toCopy.email);
             setAddress(toCopy.address);
             setTags(toCopy.tags);
-            setLoanRecords(toCopy.uniqueLoanList);
         }
 
         /**
@@ -212,13 +209,6 @@ public class EditCommand extends Command {
             return (tags != null) ? Optional.of(Collections.unmodifiableSet(tags)) : Optional.empty();
         }
 
-        public void setLoanRecords(UniqueLoanList uniqueLoanList) {
-            this.uniqueLoanList = uniqueLoanList;
-        }
-
-        public Optional<UniqueLoanList> getLoanRecords() {
-            return Optional.ofNullable(uniqueLoanList);
-        }
 
         @Override
         public boolean equals(Object other) {
@@ -236,8 +226,7 @@ public class EditCommand extends Command {
                     && Objects.equals(phone, otherEditPersonDescriptor.phone)
                     && Objects.equals(email, otherEditPersonDescriptor.email)
                     && Objects.equals(address, otherEditPersonDescriptor.address)
-                    && Objects.equals(tags, otherEditPersonDescriptor.tags)
-                    && Objects.equals(uniqueLoanList, otherEditPersonDescriptor.uniqueLoanList);
+                    && Objects.equals(tags, otherEditPersonDescriptor.tags);
         }
 
         @Override

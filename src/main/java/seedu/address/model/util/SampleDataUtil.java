@@ -8,8 +8,11 @@ import seedu.address.commons.util.DateUtil;
 import seedu.address.logic.commands.LinkLoanCommand;
 import seedu.address.model.AddressBook;
 import seedu.address.model.ReadOnlyAddressBook;
-import seedu.address.model.person.*;
-import seedu.address.model.person.UniqueLoanList;
+import seedu.address.model.person.Address;
+import seedu.address.model.person.Email;
+import seedu.address.model.person.Name;
+import seedu.address.model.person.Person;
+import seedu.address.model.person.Phone;
 import seedu.address.model.tag.Tag;
 
 
@@ -17,14 +20,14 @@ import seedu.address.model.tag.Tag;
  * Contains utility methods for populating {@code AddressBook} with sample data.
  */
 public class SampleDataUtil {
-    private static Person Alex =
+    private static Person alex =
             new Person(new Name("Alex Yeoh"), new Phone("87438807"), new Email("alexyeoh@example.com"),
                 new Address("Blk 30 Geylang Street 29, #06-40"),
                 getTagSet("friends"));
 
     public static Person[] getSamplePersons() {
         return new Person[] {
-            Alex,
+            alex,
             new Person(new Name("Bernice Yu"), new Phone("99272758"), new Email("berniceyu@example.com"),
                 new Address("Blk 30 Lorong 3 Serangoon Gardens, #07-18"),
                 getTagSet("colleagues", "friends")),
@@ -49,9 +52,10 @@ public class SampleDataUtil {
             loanDescriptor = new LinkLoanCommand.LinkLoanDescriptor(100, DateUtil.parse("2021-10-10"),
                     DateUtil.parse("2021-12-10"));
             return new LinkLoanCommand.LinkLoanDescriptor[] {
-                    loanDescriptor
+                loanDescriptor
             };
         } catch (Exception e) {
+            e.printStackTrace();
         }
         return null;
     }
@@ -62,7 +66,7 @@ public class SampleDataUtil {
             sampleAb.addPerson(samplePerson);
         }
         for (LinkLoanCommand.LinkLoanDescriptor loanDescriptor : getSampleLoans()) {
-            sampleAb.addLoan(loanDescriptor, Alex);
+            sampleAb.addLoan(loanDescriptor, alex);
         }
         return sampleAb;
     }

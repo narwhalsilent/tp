@@ -18,8 +18,8 @@ import java.util.List;
 import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.commons.util.DateUtil;
 import seedu.address.model.AddressBook;
-import seedu.address.model.person.UniqueLoanList;
 import seedu.address.model.person.Person;
+import seedu.address.model.person.UniqueLoanList;
 
 /**
  * A utility class containing a list of {@code Person} objects to be used in tests.
@@ -29,7 +29,7 @@ public class TypicalPersonsWithLoans {
     public static final Person ALICE = new PersonBuilder().withName("Alice Pauline")
             .withAddress("123, Jurong West Ave 6, #08-111").withEmail("alice@example.com")
             .withPhone("94351253")
-            .withTags("friends").withLoanRecords(LOAN_RECORDS).build();
+            .withTags("friends").build();
     public static final Person BENSON = new PersonBuilder().withName("Benson Meier")
             .withAddress("311, Clementi Ave 2, #02-25")
             .withEmail("johnd@example.com").withPhone("98765432")
@@ -68,9 +68,12 @@ public class TypicalPersonsWithLoans {
     public static UniqueLoanList loanRecords() {
         UniqueLoanList uniqueLoanList = new UniqueLoanList();
         try {
-            uniqueLoanList.addLoan(100F, DateUtil.parse("2020-01-01"), DateUtil.parse("2020-01-13"));
-            uniqueLoanList.addLoan(200F, DateUtil.parse("2020-02-01"), DateUtil.parse("2020-02-13"));
-            uniqueLoanList.addLoan(300F, DateUtil.parse("2020-02-13"), DateUtil.parse("2020-02-14"));
+            uniqueLoanList.addLoan(100F, DateUtil.parse("2020-01-01"),
+                    DateUtil.parse("2020-01-13"), ALICE);
+            uniqueLoanList.addLoan(200F, DateUtil.parse("2020-02-01"),
+                    DateUtil.parse("2020-02-13"), BENSON);
+            uniqueLoanList.addLoan(300F, DateUtil.parse("2020-02-13"),
+                    DateUtil.parse("2020-02-14"), CARL);
         } catch (IllegalValueException e) {
             e.printStackTrace();
         }
@@ -85,6 +88,7 @@ public class TypicalPersonsWithLoans {
         for (Person person : getTypicalPersons()) {
             ab.addPerson(person);
         }
+        ab.setLoans(loanRecords().getLoanList());
         return ab;
     }
 

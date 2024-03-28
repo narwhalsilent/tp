@@ -1,9 +1,13 @@
 package seedu.address.model.person;
 
 import static java.util.Objects.requireNonNull;
-import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.HashSet;
+import java.util.Iterator;
+import java.util.List;
+import java.util.Objects;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -161,10 +165,17 @@ public class UniqueLoanList implements Iterable<Loan> {
 
     /**
      * Marks a loan as not returned.
-     * @param idx A valid index.
+     * @param loanToMark A valid loan.
      */
     public void markLoan(Loan loanToMark) {
         loanToMark.markAsReturned();
+    }
+
+    /**
+     * Marks a loan of the specified index as returned.
+     */
+    public void markLoan(int idx) {
+        internalList.get(idx).markAsReturned();
     }
 
     /**
@@ -186,13 +197,6 @@ public class UniqueLoanList implements Iterable<Loan> {
      */
     public void updateNextLoanId() {
         nextLoanId++;
-    }
-
-    /**
-     * Marks a loan of the specified index as returned.
-     */
-    public void markLoan(int idx) {
-        internalList.get(idx).markAsReturned();
     }
 
     /**
