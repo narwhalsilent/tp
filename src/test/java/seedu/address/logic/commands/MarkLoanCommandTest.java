@@ -11,7 +11,7 @@ import seedu.address.model.AddressBook;
 import seedu.address.model.Model;
 import seedu.address.model.ModelManager;
 import seedu.address.model.UserPrefs;
-import seedu.address.model.person.LoanRecords;
+import seedu.address.model.person.UniqueLoanList;
 import seedu.address.model.person.Person;
 import seedu.address.testutil.PersonBuilder;
 
@@ -19,7 +19,7 @@ import seedu.address.testutil.PersonBuilder;
  * Contains integration tests (interaction with the Model) and unit tests for MarkLoanCommand.
  */
 public class MarkLoanCommandTest {
-    private static LoanRecords LOAN_RECORDS_STUB = LOAN_RECORDS;
+    private static UniqueLoanList LOAN_RECORDS_STUB = LOAN_RECORDS;
     private Model model = new ModelManager(getTypicalAddressBook(), new UserPrefs());
     @Test
     public void execute_markLoanSuccess() {

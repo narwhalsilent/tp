@@ -1,52 +1,46 @@
 package seedu.address.model.person;
 
+import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Objects;
+import java.util.*;
 
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.commons.util.DateUtil;
 import seedu.address.logic.commands.LinkLoanCommand.LinkLoanDescriptor;
+import seedu.address.model.person.exceptions.DuplicateLoanException;
+import seedu.address.model.person.exceptions.LoanNotFoundException;
 
 /**
  * Represents a list of loans in the address book.
  * Guarantees: details are present and not null, field values are validated, immutable.
  */
-public class LoanRecords {
+public class UniqueLoanList implements Iterable<Loan> {
 
     private static final String DATE_MESSAGE_CONSTRAINTS = "Dates must be in the format dd-MM-yyyy.";
     private static int nextLoanId = 1;
 
-    private final List<Loan> loans;
-    /**
-     * Constructs a {@code LoanRecords}.
-     */
-    public LoanRecords() {
-        loans = new ArrayList<>();
-    }
+    private final ObservableList<Loan> internalList = FXCollections.observableArrayList();
+    private final ObservableList<Loan> internalUnmodifiableList =
+            FXCollections.unmodifiableObservableList(internalList);
 
     /**
-     * Constructs a {@code LoanRecords} with a given list of loans.
-     * @param loans A valid list of loans.
+     * Returns true if the list contains an equivalent loan as the given argument.
      */
-    public LoanRecords(List<Loan> loans) {
-        requireAllNonNull(loans);
-        this.loans = loans;
-        for (Loan loan : loans) {
-            nextLoanId = Math.max(nextLoanId, loan.getId() + 1);
-        }
+    public boolean contains(Loan toCheck) {
+        requireNonNull(toCheck);
+        return internalList.stream().anyMatch(toCheck::equals);
     }
 
     /**
      * Adds a loan to the list of loans.
      * @param loan A valid loan.
      */
-    private void addLoan(Loan loan) {
-        loans.add(loan);
+    public void addLoan(Loan loan) {
+        requireNonNull(loan);
+        internalList.add(loan);
         updateNextLoanId();
     }
 
@@ -86,16 +80,47 @@ public class LoanRecords {
             Date end = DateUtil.parse(returnDate);
             addLoan(value, start, end, assignee);
         } catch (IllegalValueException e) {
-            throw new IllegalValueException(LoanRecords.DATE_MESSAGE_CONSTRAINTS);
+            throw new IllegalValueException(UniqueLoanList.DATE_MESSAGE_CONSTRAINTS);
         }
     }
 
     /**
      * Removes a loan from the list of loans.
-     * @param loan A valid loan.
+     * @param toRemove A valid loan.
      */
-    public void removeLoan(Loan loan) {
-        loans.remove(loan);
+    public void removeLoan(Loan toRemove) {
+        requireNonNull(toRemove);
+        if (!internalList.remove(toRemove)) {
+            throw new LoanNotFoundException();
+        }
+    }
+
+    public void setPersons(UniqueLoanList replacement) {
+        requireNonNull(replacement);
+        internalList.setAll(replacement.internalList);
+    }
+
+    public void setLoans(List<Loan> replacement) {
+        requireNonNull(replacement);
+        if (!loansAreUnique(replacement)) {
+            throw new DuplicateLoanException();
+        }
+        internalList.setAll(replacement);
+        for (Loan loan : replacement) {
+            nextLoanId = Math.max(nextLoanId, loan.getId() + 1);
+        }
+    }
+
+    /**
+     * Returns the backing list as an unmodifiable {@code ObservableList}.
+     */
+    public ObservableList<Loan> asUnmodifiableObservableList() {
+        return internalUnmodifiableList;
+    }
+
+    @Override
+    public Iterator<Loan> iterator() {
+        return internalList.iterator();
     }
 
     /**
@@ -103,11 +128,11 @@ public class LoanRecords {
      * @return The loan at the specified index.
      */
     public Loan getLoan(int idx) {
-        return loans.get(idx);
+        return internalList.get(idx);
     }
 
     public Loan getLoanById(int id) {
-        for (Loan loan : loans) {
+        for (Loan loan : internalList) {
             if (loan.getId() == id) {
                 return loan;
             }
@@ -120,7 +145,7 @@ public class LoanRecords {
      * @param idx A valid index.
      */
     public void markLoanAsReturned(int idx) {
-        loans.get(idx).markAsReturned();
+        internalList.get(idx).markAsReturned();
     }
 
     /**
@@ -135,10 +160,18 @@ public class LoanRecords {
     }
 
     /**
+     * Marks a loan as not returned.
+     * @param idx A valid index.
+     */
+    public void markLoan(Loan loanToMark) {
+        loanToMark.markAsReturned();
+    }
+
+    /**
      * @return A list of loans.
      */
     public List<Loan> getLoanList() {
-        return new ArrayList<>(loans);
+        return new ArrayList<>(internalList);
     }
 
     /**
@@ -159,27 +192,27 @@ public class LoanRecords {
      * Marks a loan of the specified index as returned.
      */
     public void markLoan(int idx) {
-        loans.get(idx).markAsReturned();
+        internalList.get(idx).markAsReturned();
     }
 
     /**
      * Marks a loan of the specified index as not returned.
      */
     public void unmarkLoan(int idx) {
-        loans.get(idx).markAsNotReturned();
+        internalList.get(idx).markAsNotReturned();
     }
 
     /**
      * @return The number of loans in the list.
      */
     public int size() {
-        return loans.size();
+        return internalList.size();
     }
     @Override
     public String toString() {
         String output = "Loans:\n";
         int idx = 1;
-        for (Loan loan : loans) {
+        for (Loan loan : internalList) {
             output += idx + ". " + loan.toString() + "\n";
             idx++;
         }
@@ -193,18 +226,18 @@ public class LoanRecords {
         }
 
         // instanceof handles nulls
-        if (!(other instanceof LoanRecords)) {
+        if (!(other instanceof UniqueLoanList)) {
             return false;
         }
 
-        LoanRecords otherLoanRecords = (LoanRecords) other;
+        UniqueLoanList otherUniqueLoanList = (UniqueLoanList) other;
         // create hashset of ids of loans in this and other
         HashSet<Integer> thisLoanIds = new HashSet<>();
         HashSet<Integer> otherLoanIds = new HashSet<>();
-        for (Loan loan : loans) {
+        for (Loan loan : internalList) {
             thisLoanIds.add(loan.getId());
         }
-        for (Loan loan : otherLoanRecords.loans) {
+        for (Loan loan : otherUniqueLoanList.internalList) {
             otherLoanIds.add(loan.getId());
         }
         return thisLoanIds.equals(otherLoanIds);
@@ -212,7 +245,21 @@ public class LoanRecords {
 
     @Override
     public int hashCode() {
-        return Objects.hash(loans, nextLoanId);
+        return Objects.hash(internalList, nextLoanId);
+    }
+
+    /**
+     * Returns true if {@code persons} contains only unique persons.
+     */
+    private boolean loansAreUnique(List<Loan> loans) {
+        for (int i = 0; i < loans.size() - 1; i++) {
+            for (int j = i + 1; j < loans.size(); j++) {
+                if (loans.get(i).equals(loans.get(j))) {
+                    return false;
+                }
+            }
+        }
+        return true;
     }
 
 }

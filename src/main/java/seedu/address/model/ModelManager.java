@@ -4,18 +4,18 @@ import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
 import java.nio.file.Path;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.function.Predicate;
 import java.util.logging.Logger;
 
 import javafx.beans.property.BooleanProperty;
 import javafx.beans.property.SimpleBooleanProperty;
-import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
+import javafx.collections.transformation.SortedList;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.commons.core.LogsCenter;
+import seedu.address.logic.commands.LinkLoanCommand;
 import seedu.address.model.person.Loan;
 import seedu.address.model.person.Person;
 
@@ -28,9 +28,8 @@ public class ModelManager implements Model {
     private final AddressBook addressBook;
     private final UserPrefs userPrefs;
     private final FilteredList<Person> filteredPersons;
-
-    private final ObservableList<Loan> currLoanList;
-
+    private final FilteredList<Loan> filteredLoans;
+    private final SortedList<Loan> sortedLoans;
     private final BooleanProperty isLoansTab = new SimpleBooleanProperty(false);
 
     /**
@@ -44,7 +43,8 @@ public class ModelManager implements Model {
         this.addressBook = new AddressBook(addressBook);
         this.userPrefs = new UserPrefs(userPrefs);
         filteredPersons = new FilteredList<>(this.addressBook.getPersonList());
-        currLoanList = FXCollections.observableList(new ArrayList<>());
+        filteredLoans = new FilteredList<>(this.addressBook.getLoanList());
+        sortedLoans = new SortedList<>(filteredLoans);
     }
 
     public ModelManager() {
@@ -122,7 +122,33 @@ public class ModelManager implements Model {
         addressBook.setPerson(target, editedPerson);
     }
 
-    //=========== Filtered Person List Accessors =============================================================
+    @Override
+    public boolean hasLoan(Loan loan) {
+        requireNonNull(loan);
+        return addressBook.hasLoan(loan);
+    }
+
+    @Override
+    public void deleteLoan(Loan target) {
+        addressBook.removeLoan(target);
+    }
+
+    @Override
+    public void addLoan(Loan loan) {
+        addressBook.addLoan(loan);
+    }
+
+    @Override
+    public void addLoan(LinkLoanCommand.LinkLoanDescriptor loanDescription, Person assignee) {
+        addressBook.addLoan(loanDescription, assignee);
+    }
+
+    @Override
+    public void markLoan(Loan loanToMark) {
+        addressBook.markLoan(loanToMark);
+    }
+
+    //=========== Filtered Lists Accessors =============================================================
 
     /**
      * Returns an unmodifiable view of the list of {@code Person} backed by the internal list of
@@ -140,6 +166,17 @@ public class ModelManager implements Model {
     }
 
     @Override
+    public ObservableList<Loan> getSortedLoanList() {
+        return sortedLoans;
+    }
+
+    @Override
+    public void updateFilteredLoanList(Predicate<Loan> predicate) {
+        requireNonNull(predicate);
+        filteredLoans.setPredicate(predicate);
+    }
+
+    @Override
     public boolean equals(Object other) {
         if (other == this) {
             return true;
@@ -153,18 +190,14 @@ public class ModelManager implements Model {
         ModelManager otherModelManager = (ModelManager) other;
         return addressBook.equals(otherModelManager.addressBook)
                 && userPrefs.equals(otherModelManager.userPrefs)
-                && filteredPersons.equals(otherModelManager.filteredPersons);
+                && filteredPersons.equals(otherModelManager.filteredPersons)
+                && sortedLoans.equals(otherModelManager.sortedLoans);
     }
 
     @Override
     public void setLoanList(List<Loan> loanList) {
-        currLoanList.clear();
-        currLoanList.setAll(loanList);
-    }
-
-    @Override
-    public ObservableList<Loan> getLoanList() {
-        return currLoanList;
+        filteredLoans.clear();
+        filteredLoans.setAll(loanList);
     }
 
     @Override

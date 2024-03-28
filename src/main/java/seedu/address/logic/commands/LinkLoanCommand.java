@@ -15,6 +15,7 @@ import seedu.address.commons.util.ToStringBuilder;
 import seedu.address.logic.Messages;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
+import seedu.address.model.person.Loan;
 import seedu.address.model.person.Person;
 
 /**
@@ -66,7 +67,7 @@ public class LinkLoanCommand extends Command {
 
         Person targetPerson = lastShownList.get(linkTarget.getZeroBased());
 
-        targetPerson.linkLoan(toLink);
+        model.addLoan(toLink, targetPerson);
 
         return new CommandResult(String.format(MESSAGE_SUCCESS, Messages.format(targetPerson)));
     }

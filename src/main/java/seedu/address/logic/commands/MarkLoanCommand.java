@@ -1,19 +1,14 @@
 package seedu.address.logic.commands;
 
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
-import static seedu.address.logic.commands.DeleteLoanCommand.MESSAGE_FAILURE_PERSON;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_LOAN_INDEX;
 
 import java.util.List;
 
 import seedu.address.commons.core.index.Index;
-import seedu.address.logic.Messages;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 import seedu.address.model.person.Loan;
-import seedu.address.model.person.LoanRecords;
-import seedu.address.model.person.Name;
-import seedu.address.model.person.Person;
 
 
 /**
@@ -34,7 +29,6 @@ public class MarkLoanCommand extends Command {
     public static final String MESSAGE_FAILURE_PERSON = "No person found for Person number: %1$d";
     public static final String MESSAGE_FAILURE_LOAN = "No loan has been found "
             + "for loan number: %1$d for %2$s";
-    private final Index personIndex;
     private final Index loanIndex;
 
     /**
@@ -42,39 +36,30 @@ public class MarkLoanCommand extends Command {
      * @param personIndex
      * @param loanIndex
      */
-    public MarkLoanCommand(Index personIndex, Index loanIndex) {
-        requireAllNonNull(personIndex, loanIndex);
-        this.personIndex = personIndex;
+    public MarkLoanCommand(Index loanIndex) {
+        requireAllNonNull(loanIndex);
         this.loanIndex = loanIndex;
     }
 
     @Override
     public CommandResult execute(Model model) throws CommandException {
-        List<Person> lastShownList = model.getFilteredPersonList();
-        Person personToEdit;
-        LoanRecords loanRecords;
-        try {
-            personToEdit = lastShownList.get(personIndex.getZeroBased());
-        } catch (IndexOutOfBoundsException i) {
-            throw new CommandException(Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);
+        List<Loan> lastShownList = model.getSortedLoanList();
+        if (loanIndex.getZeroBased() >= lastShownList.size()) {
+            // in reality, it's loan index outside of list range. We will be concerned about it later.
+            throw new CommandException(String.format(MESSAGE_FAILURE_LOAN, loanIndex.getOneBased()));
         }
-        try {
-            loanRecords = personToEdit.getLoanRecords();
-            loanRecords.markLoan(loanIndex.getZeroBased());
-        } catch (IndexOutOfBoundsException i) {
-            throw new CommandException(String.format(MESSAGE_FAILURE_LOAN, loanIndex.getOneBased(),
-                    personToEdit.getName()));
-        }
-        return new CommandResult(generateSuccessMessage(personToEdit.getName(),
-                loanRecords.getLoan(loanIndex.getZeroBased())));
+        // delete specified loan number
+        Loan loanToMark = lastShownList.get(loanIndex.getZeroBased());
+        model.markLoan(loanToMark);
+        return new CommandResult(generateSuccessMessage(loanToMark));
     }
 
     /**
      * Generates a command execution success message after loan is deleted from the
      * {@code personToEdit}.
      */
-    private String generateSuccessMessage(Name personName, Loan markedLoan) {
-        return String.format(MESSAGE_SUCCESS, personName, markedLoan);
+    private String generateSuccessMessage(Loan markedLoan) {
+        return String.format(MESSAGE_SUCCESS, markedLoan);
     }
 
     @Override
@@ -87,7 +72,6 @@ public class MarkLoanCommand extends Command {
             return false;
         }
         MarkLoanCommand e = (MarkLoanCommand) other;
-        return personIndex.equals(e.personIndex)
-                && loanIndex.equals(e.loanIndex);
+        return loanIndex.equals(e.loanIndex);
     }
 }

@@ -5,6 +5,7 @@ import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 import java.util.Date;
 
 import seedu.address.commons.util.DateUtil;
+import seedu.address.logic.commands.LinkLoanCommand;
 
 /**
  * Represents a Loan in the address book.
@@ -103,6 +104,10 @@ public class Loan {
 
     public Person getAssignee() {
         return assignee;
+    }
+
+    public boolean isAssignedTo(Person person) {
+        return assignee.equals(person);
     }
 
     /**

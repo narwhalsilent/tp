@@ -18,14 +18,14 @@ import java.util.List;
 import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.commons.util.DateUtil;
 import seedu.address.model.AddressBook;
-import seedu.address.model.person.LoanRecords;
+import seedu.address.model.person.UniqueLoanList;
 import seedu.address.model.person.Person;
 
 /**
  * A utility class containing a list of {@code Person} objects to be used in tests.
  */
 public class TypicalPersonsWithLoans {
-    public static final LoanRecords LOAN_RECORDS = loanRecords();
+    public static final UniqueLoanList LOAN_RECORDS = loanRecords();
     public static final Person ALICE = new PersonBuilder().withName("Alice Pauline")
             .withAddress("123, Jurong West Ave 6, #08-111").withEmail("alice@example.com")
             .withPhone("94351253")
@@ -65,16 +65,16 @@ public class TypicalPersonsWithLoans {
     /**
      * Returns an {@code LoanRecords} stub with some typical loans.
      */
-    public static LoanRecords loanRecords() {
-        LoanRecords loanRecords = new LoanRecords();
+    public static UniqueLoanList loanRecords() {
+        UniqueLoanList uniqueLoanList = new UniqueLoanList();
         try {
-            loanRecords.addLoan(100F, DateUtil.parse("2020-01-01"), DateUtil.parse("2020-01-13"));
-            loanRecords.addLoan(200F, DateUtil.parse("2020-02-01"), DateUtil.parse("2020-02-13"));
-            loanRecords.addLoan(300F, DateUtil.parse("2020-02-13"), DateUtil.parse("2020-02-14"));
+            uniqueLoanList.addLoan(100F, DateUtil.parse("2020-01-01"), DateUtil.parse("2020-01-13"));
+            uniqueLoanList.addLoan(200F, DateUtil.parse("2020-02-01"), DateUtil.parse("2020-02-13"));
+            uniqueLoanList.addLoan(300F, DateUtil.parse("2020-02-13"), DateUtil.parse("2020-02-14"));
         } catch (IllegalValueException e) {
             e.printStackTrace();
         }
-        return loanRecords;
+        return uniqueLoanList;
     }
 
     /**

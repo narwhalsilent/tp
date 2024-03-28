@@ -23,7 +23,7 @@ import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 import seedu.address.model.person.Address;
 import seedu.address.model.person.Email;
-import seedu.address.model.person.LoanRecords;
+import seedu.address.model.person.UniqueLoanList;
 import seedu.address.model.person.Name;
 import seedu.address.model.person.Person;
 import seedu.address.model.person.Phone;
@@ -101,9 +101,8 @@ public class EditCommand extends Command {
         Email updatedEmail = editPersonDescriptor.getEmail().orElse(personToEdit.getEmail());
         Address updatedAddress = editPersonDescriptor.getAddress().orElse(personToEdit.getAddress());
         Set<Tag> updatedTags = editPersonDescriptor.getTags().orElse(personToEdit.getTags());
-        LoanRecords updatedLoanRecords = editPersonDescriptor.getLoanRecords().orElse(personToEdit.getLoanRecords());
 
-        return new Person(updatedName, updatedPhone, updatedEmail, updatedAddress, updatedTags, updatedLoanRecords);
+        return new Person(updatedName, updatedPhone, updatedEmail, updatedAddress, updatedTags);
     }
 
     @Override
@@ -140,7 +139,7 @@ public class EditCommand extends Command {
         private Email email;
         private Address address;
         private Set<Tag> tags;
-        private LoanRecords loanRecords;
+        private UniqueLoanList uniqueLoanList;
 
         public EditPersonDescriptor() {}
 
@@ -154,7 +153,7 @@ public class EditCommand extends Command {
             setEmail(toCopy.email);
             setAddress(toCopy.address);
             setTags(toCopy.tags);
-            setLoanRecords(toCopy.loanRecords);
+            setLoanRecords(toCopy.uniqueLoanList);
         }
 
         /**
@@ -213,12 +212,12 @@ public class EditCommand extends Command {
             return (tags != null) ? Optional.of(Collections.unmodifiableSet(tags)) : Optional.empty();
         }
 
-        public void setLoanRecords(LoanRecords loanRecords) {
-            this.loanRecords = loanRecords;
+        public void setLoanRecords(UniqueLoanList uniqueLoanList) {
+            this.uniqueLoanList = uniqueLoanList;
         }
 
-        public Optional<LoanRecords> getLoanRecords() {
-            return Optional.ofNullable(loanRecords);
+        public Optional<UniqueLoanList> getLoanRecords() {
+            return Optional.ofNullable(uniqueLoanList);
         }
 
         @Override
@@ -238,7 +237,7 @@ public class EditCommand extends Command {
                     && Objects.equals(email, otherEditPersonDescriptor.email)
                     && Objects.equals(address, otherEditPersonDescriptor.address)
                     && Objects.equals(tags, otherEditPersonDescriptor.tags)
-                    && Objects.equals(loanRecords, otherEditPersonDescriptor.loanRecords);
+                    && Objects.equals(uniqueLoanList, otherEditPersonDescriptor.uniqueLoanList);
         }
 
         @Override

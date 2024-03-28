@@ -3,10 +3,14 @@ package seedu.address.model;
 import static java.util.Objects.requireNonNull;
 
 import java.util.List;
+import java.util.Objects;
 
 import javafx.collections.ObservableList;
 import seedu.address.commons.util.ToStringBuilder;
+import seedu.address.logic.commands.LinkLoanCommand;
+import seedu.address.model.person.Loan;
 import seedu.address.model.person.Person;
+import seedu.address.model.person.UniqueLoanList;
 import seedu.address.model.person.UniquePersonList;
 
 /**
@@ -16,6 +20,7 @@ import seedu.address.model.person.UniquePersonList;
 public class AddressBook implements ReadOnlyAddressBook {
 
     private final UniquePersonList persons;
+    private final UniqueLoanList loans;
 
     /*
      * The 'unusual' code block below is a non-static initialization block, sometimes used to avoid duplication
@@ -26,6 +31,7 @@ public class AddressBook implements ReadOnlyAddressBook {
      */
     {
         persons = new UniquePersonList();
+        loans = new UniqueLoanList();
     }
 
     public AddressBook() {}
@@ -49,12 +55,21 @@ public class AddressBook implements ReadOnlyAddressBook {
     }
 
     /**
+     * Replaces the contents of the loan list with {@code loans}.
+     * {@code loans} must not contain duplicate loans.
+     */
+    public void setLoans(List<Loan> loans) {
+        this.loans.setLoans(loans);
+    }
+
+    /**
      * Resets the existing data of this {@code AddressBook} with {@code newData}.
      */
     public void resetData(ReadOnlyAddressBook newData) {
         requireNonNull(newData);
 
         setPersons(newData.getPersonList());
+        setLoans(newData.getLoanList());
     }
 
     //// person-level operations
@@ -94,6 +109,40 @@ public class AddressBook implements ReadOnlyAddressBook {
         persons.remove(key);
     }
 
+    //// loan-level operations
+
+    /**
+     * Returns true if a loan with the same identity as {@code loan} exists in the address book.
+     */
+    public boolean hasLoan(Loan loan) {
+        requireNonNull(loan);
+        return loans.contains(loan);
+    }
+
+    /**
+     * Adds a loan to the address book.
+     * The loan must not already exist in the address book.
+     */
+    public void addLoan(Loan l) {
+        loans.addLoan(l);
+    }
+
+    public void addLoan(LinkLoanCommand.LinkLoanDescriptor loanDescription, Person assignee) {
+        loans.addLoan(loanDescription, assignee);
+    }
+
+    public void markLoan(Loan loanToMark) {
+        loans.markLoan(loanToMark);
+    }
+
+    /**
+     * Removes {@code key} from this {@code AddressBook}.
+     * {@code key} must exist in the address book.
+     */
+    public void removeLoan(Loan key) {
+        loans.removeLoan(key);
+    }
+
     //// util methods
 
     @Override
@@ -109,6 +158,11 @@ public class AddressBook implements ReadOnlyAddressBook {
     }
 
     @Override
+    public ObservableList<Loan> getLoanList() {
+        return loans.asUnmodifiableObservableList();
+    }
+
+    @Override
     public boolean equals(Object other) {
         if (other == this) {
             return true;
@@ -120,11 +174,11 @@ public class AddressBook implements ReadOnlyAddressBook {
         }
 
         AddressBook otherAddressBook = (AddressBook) other;
-        return persons.equals(otherAddressBook.persons);
+        return persons.equals(otherAddressBook.persons) && loans.equals(otherAddressBook.loans);
     }
 
     @Override
     public int hashCode() {
-        return persons.hashCode();
+        return Objects.hash(persons, loans);
     }
 }
