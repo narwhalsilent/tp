@@ -23,13 +23,10 @@ public class DeleteLoanCommand extends Command {
             + PREFIX_LOAN_INDEX + "LOAN_INDEX\n"
             + "Both INDEX and LOAN_INDEX must be positive integers.\n"
             + "Example: " + COMMAND_WORD + " 1 " + "l/1";
-    public static final String MESSAGE_ARGUMENTS = "Person number: %1$d, Loan Index: %2$d";
     public static final String MESSAGE_SUCCESS = "Loan deleted.\n"
-            + "Person Name: %1$s\n"
-            + "Loan: %2$s";
-    public static final String MESSAGE_FAILURE_PERSON = "No person found for Person number: %1$d";
+            + "Loan: %1$s";
     public static final String MESSAGE_FAILURE_LOAN = "No loan has been found "
-            + "for loan number: %1$d for %2$s";
+            + "for loan number: %1$d";
     private final Index loanIndex;
 
     /**

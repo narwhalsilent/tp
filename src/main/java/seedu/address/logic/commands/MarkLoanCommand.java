@@ -22,13 +22,10 @@ public class MarkLoanCommand extends Command {
             + "Both INDEX and LOAN_INDEX must be positive integers.\n"
             + "Example: " + COMMAND_WORD + " 1 " + "l/2\n"
             + "This marks the loan of loan index 2 of the person at index 1 as paid.";
-    public static final String MESSAGE_NOT_IMPLEMENTED_YET = "Remark command not implemented yet";
     public static final String MESSAGE_SUCCESS = "Loan marked.\n"
-            + "Person Name: %1$s\n"
-            + "Loan: %2$s";
-    public static final String MESSAGE_FAILURE_PERSON = "No person found for Person number: %1$d";
+            + "Loan: %1$s";
     public static final String MESSAGE_FAILURE_LOAN = "No loan has been found "
-            + "for loan number: %1$d for %2$s";
+            + "for loan number: %1$d";
     private final Index loanIndex;
 
     /**
