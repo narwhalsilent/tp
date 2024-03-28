@@ -56,8 +56,8 @@ public class LoanRecords {
      * @param startDate A valid start date.
      * @param returnDate A valid return date.
      */
-    public void addLoan(float value, Date startDate, Date returnDate) {
-        Loan loan = new Loan(nextLoanId, value, startDate, returnDate);
+    public void addLoan(float value, Date startDate, Date returnDate, Person assignee) {
+        Loan loan = new Loan(nextLoanId, value, startDate, returnDate, assignee);
         addLoan(loan);
     }
 
@@ -65,11 +65,11 @@ public class LoanRecords {
      * Adds a loan to the list of loans.
      * @param loanDescription A valid LinkLoanDescriptor, which contains details about the loan to be added.
      */
-    public void addLoan(LinkLoanDescriptor loanDescription) {
+    public void addLoan(LinkLoanDescriptor loanDescription, Person assignee) {
         float value = loanDescription.getValue();
         Date startDate = loanDescription.getStartDate();
         Date returnDate = loanDescription.getReturnDate();
-        addLoan(value, startDate, returnDate);
+        addLoan(value, startDate, returnDate, assignee);
     }
 
     /**
@@ -79,11 +79,12 @@ public class LoanRecords {
      * @param returnDate A valid return date.
      * @throws IllegalValueException If the date string is not in the correct format.
      */
-    public void addLoan(float value, String startDate, String returnDate) throws IllegalValueException {
+    public void addLoan(float value, String startDate, String returnDate, Person assignee)
+            throws IllegalValueException {
         try {
             Date start = DateUtil.parse(startDate);
             Date end = DateUtil.parse(returnDate);
-            addLoan(value, start, end);
+            addLoan(value, start, end, assignee);
         } catch (IllegalValueException e) {
             throw new IllegalValueException(LoanRecords.DATE_MESSAGE_CONSTRAINTS);
         }

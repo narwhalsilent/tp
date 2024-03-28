@@ -78,7 +78,7 @@ public class Person {
      * by adding it to the loan records.
      */
     public void linkLoan(LinkLoanDescriptor loanDescription) {
-        loanRecords.addLoan(loanDescription);
+        loanRecords.addLoan(loanDescription, this);
     }
 
     /**

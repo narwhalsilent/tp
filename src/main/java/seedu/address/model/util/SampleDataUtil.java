@@ -22,16 +22,18 @@ import seedu.address.model.tag.Tag;
 public class SampleDataUtil {
     public static Person[] getSamplePersons() {
         LoanRecords tempLoanRecords = new LoanRecords();
+        Person Alex = new Person(new Name("Alex Yeoh"), new Phone("87438807"), new Email("alexyeoh@example.com"),
+                new Address("Blk 30 Geylang Street 29, #06-40"),
+                getTagSet("friends"),
+                tempLoanRecords);
         try {
-            tempLoanRecords.addLoan(100, DateUtil.parse("2020-01-01"), DateUtil.parse("2020-01-02"));
+            tempLoanRecords.addLoan(100, DateUtil.parse("2020-01-01"),
+                    DateUtil.parse("2020-01-02"), Alex);
         } catch (Exception e) {
             e.printStackTrace();
         }
         return new Person[] {
-            new Person(new Name("Alex Yeoh"), new Phone("87438807"), new Email("alexyeoh@example.com"),
-                new Address("Blk 30 Geylang Street 29, #06-40"),
-                getTagSet("friends"),
-                tempLoanRecords),
+            Alex,
             new Person(new Name("Bernice Yu"), new Phone("99272758"), new Email("berniceyu@example.com"),
                 new Address("Blk 30 Lorong 3 Serangoon Gardens, #07-18"),
                 getTagSet("colleagues", "friends"),
