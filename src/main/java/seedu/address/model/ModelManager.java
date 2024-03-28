@@ -44,7 +44,7 @@ public class ModelManager implements Model {
         this.userPrefs = new UserPrefs(userPrefs);
         filteredPersons = new FilteredList<>(this.addressBook.getPersonList());
         filteredLoans = new FilteredList<>(this.addressBook.getLoanList());
-        sortedLoans = new SortedList<>(filteredLoans);
+        sortedLoans = new SortedList<>(filteredLoans, Loan::compareTo);
     }
 
     public ModelManager() {

@@ -11,7 +11,7 @@ import seedu.address.logic.commands.LinkLoanCommand;
  * Represents a Loan in the address book.
  * Guarantees: details are present and not null, field values are validated, immutable.
  */
-public class Loan {
+public class Loan implements Comparable<Loan> {
 
     public static final String DATE_CONSTRAINTS = "Dates should be of the form " + DateUtil.DATE_FORMAT
             + " and the loan start date must be before the return date.";
@@ -108,6 +108,10 @@ public class Loan {
 
     public boolean isAssignedTo(Person person) {
         return assignee.equals(person);
+    }
+
+    public int compareTo(Loan other) {
+        return this.returnDate.compareTo(other.returnDate);
     }
 
     /**

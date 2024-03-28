@@ -23,7 +23,7 @@ public interface Model {
     /**
      * {@code Predicate} that always evaluates to true
      */
-    Predicate<Loan> PREDICATE_SHOW_ALL_LOANS = unused -> true;
+    Predicate<Loan> PREDICATE_SHOW_ALL_ACTIVE_LOANS = loan -> loan.isActive();
 
     /**
      * Replaces user prefs data with the data in {@code userPrefs}.
