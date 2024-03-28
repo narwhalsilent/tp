@@ -41,7 +41,7 @@ public class ViewLoanCommand extends Command {
 
         Person personToShowLoan = lastShownList.get(targetIndex.getZeroBased());
         model.updateFilteredPersonList(person -> person.equals(personToShowLoan));
-        model.updateFilteredLoanList(loan -> loan.isAssignedTo(personToShowLoan));
+        model.updateFilteredLoanList(loan -> loan.isAssignedTo(personToShowLoan) && loan.isActive());
         return new CommandResult(String.format(MESSAGE_SUCCESS, Messages.format(personToShowLoan)),
                 false, false, true);
     }
