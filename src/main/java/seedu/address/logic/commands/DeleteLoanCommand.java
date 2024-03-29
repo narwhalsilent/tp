@@ -47,7 +47,7 @@ public class DeleteLoanCommand extends Command {
         // delete specified loan number
         Loan loanToRemove = lastShownList.get(loanIndex.getZeroBased());
         model.deleteLoan(loanToRemove);
-        return new CommandResult(generateSuccessMessage(loanToRemove), false, false ,true);
+        return new CommandResult(generateSuccessMessage(loanToRemove), false, false , true);
     }
 
     /**
