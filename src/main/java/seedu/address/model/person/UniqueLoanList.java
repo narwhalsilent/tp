@@ -168,7 +168,14 @@ public class UniqueLoanList implements Iterable<Loan> {
      * @param loanToMark A valid loan.
      */
     public void markLoan(Loan loanToMark) {
+        int index = internalList.indexOf(loanToMark);
+
+        if (index == -1) {
+            throw new LoanNotFoundException();
+        }
+
         loanToMark.markAsReturned();
+        internalList.set(index, loanToMark);
     }
 
     /**

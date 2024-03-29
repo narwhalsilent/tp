@@ -48,7 +48,7 @@ public class MarkLoanCommand extends Command {
         // delete specified loan number
         Loan loanToMark = lastShownList.get(loanIndex.getZeroBased());
         model.markLoan(loanToMark);
-        return new CommandResult(generateSuccessMessage(loanToMark));
+        return new CommandResult(generateSuccessMessage(loanToMark), false, false, true);
     }
 
     /**
