@@ -471,6 +471,56 @@ This update switches the display between the two lists inside `MainWindow`.
     * Cons: `Model` needs a reference to `MainWindow` to update the GUI directly. This increases coupling between the
       components.
 
+### Linking a loan - Khor Jun Wei
+
+#### Implementation
+
+Linking a loan is implemented through the `linkloan` command, which adds a loan to the list. This was achieved through
+the addition of a `LinkLoanCommand` class, which handles the retrieval of targets (the target loan and person)
+and the execution of the command.
+
+The `LinkLoanCommand` class is instantiated in the `LinkLoanCommandParser` class, while the
+`LinkLoanCommandParser` is instantiated in the `AddressBookParser` class. Both classes are instantiated when the user
+enters a `linkloan` command, which needs to be of the format `linkloan INDEX v/ VALUE s/ START_DATE r/ RETURN_DATE`
+where INDEX (a positive whole number) is the index of the person, VALUE (a positive decimal number) is the value of the loan,
+and START_DATE and RETURN_DATE (both dates in the format yyyy-mm-dd) are the start and return dates of the loan respectively. 
+
+The `LinkLoanCommand` class contains the following fields which can prove to be useful for the user:
+
+* `toLink`: the description of the loan to be linked as a `LinkLoanDescriptor`, including its value, start date and return date
+* `linkTarget`: the index of the person to link the loan to
+* Several string fields that are displayed to the user under different scenarios.
+
+Sequence diagram for the linking of loans:
+![LinkLoanSequenceDiagram](images/LinkLoanSequenceDiagram.png)
+
+
+#### Design Considerations
+
+##### Aspect: How the command is executed:
+
+* **Alternative 1 (current choice):** The `LinkLoanCommand` class is responsible for executing the command only.
+    * Pros: Follows the Single Responsibility Principle. Simpler to debug.
+    * Cons: May result in more classes.
+* **Alternative 2:** The `LogicManager` class is responsible for executing the command.
+    * Pros: More centralized command execution.
+    * Cons: May result in the `LogicManager` class becoming too large. This also goes against various SWE principles,
+      and makes the code harder to maintain.
+
+##### Aspect: How the command parameters (i.e. loan details) are stored:
+
+* **Alternative 1 (current choice):** The parameters are stored in a temporary `LinkLoanDescriptor`, 
+which is then passed into the `LinkLoanCommand`.
+    * Pros: As it follows the style of the `EditCommand`, it is simpler to debug. In addition, it follows the Single Responsibility Principle
+  as then the `LinkLoanDescriptor` will be in charge of handling the loan details.
+  * Cons: An additional `LinkLoanDescriptor` nested class is needed in `LinkLoanCommand`.
+* **Alternative 2:** Each detail about the loan (e.g. value, start date) is stored
+separately in the `LinkLoanCommand`.
+    * Pros: Eliminates the need for any additional classes.
+    * Cons: Reduces the ease for potentially adding new loan details in the future,
+  as then each time a new field would need to be added to `LinkLoanCommand`. In addition,
+  may be more difficult to debug due to novelty of code.
+
 --------------------------------------------------------------------------------------------------------------------
 
 ## **Documentation, logging, testing, configuration, dev-ops**
