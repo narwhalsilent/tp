@@ -304,7 +304,7 @@ _{more aspects and alternatives to be added}
 #### Implementation
 
 The `Analytics` class handles the analysis of a `LoanRecords` object. This class can only be instantiated by calling the
-static method `getAnalytics(LoanRecords loanRecords)`.
+static method `getAnalytics(LoanRecords uniqueLoanList)`.
 
 It contains the following fields that can prove to be useful for the user:
 

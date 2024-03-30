@@ -53,7 +53,7 @@ public interface Logic {
      */
     void setGuiSettings(GuiSettings guiSettings);
 
-    ObservableList<Loan> getLoanList();
+    ObservableList<Loan> getSortedLoanList();
 
     void setIsLoansTab(boolean isLoansTab);
 

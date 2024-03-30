@@ -66,7 +66,7 @@ public class LinkLoanCommand extends Command {
 
         Person targetPerson = lastShownList.get(linkTarget.getZeroBased());
 
-        targetPerson.linkLoan(toLink);
+        model.addLoan(toLink, targetPerson);
 
         return new CommandResult(String.format(MESSAGE_SUCCESS, Messages.format(targetPerson)));
     }

@@ -9,7 +9,6 @@ import seedu.address.commons.util.ToStringBuilder;
 import seedu.address.logic.Messages;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
-import seedu.address.model.person.LoanRecords;
 import seedu.address.model.person.Person;
 
 /**
@@ -41,10 +40,9 @@ public class ViewLoanCommand extends Command {
 
         Person personToShowLoan = lastShownList.get(targetIndex.getZeroBased());
         model.updateFilteredPersonList(person -> person.equals(personToShowLoan));
-        LoanRecords loanRecords = personToShowLoan.getLoanRecords();
-
-        model.setLoanList(loanRecords.getLoanList());
-        return new CommandResult(String.format(MESSAGE_SUCCESS, Messages.format(personToShowLoan)), false, false, true);
+        model.updateFilteredLoanList(loan -> loan.isAssignedTo(personToShowLoan) && loan.isActive());
+        return new CommandResult(String.format(MESSAGE_SUCCESS, Messages.format(personToShowLoan)),
+                false, false, true);
     }
 
     @Override

@@ -89,8 +89,8 @@ public class LogicManager implements Logic {
     }
 
     @Override
-    public ObservableList<Loan> getLoanList() {
-        return model.getLoanList();
+    public ObservableList<Loan> getSortedLoanList() {
+        return model.getSortedLoanList();
     }
 
     @Override

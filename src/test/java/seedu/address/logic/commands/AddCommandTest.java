@@ -152,6 +152,11 @@ public class AddCommandTest {
         }
 
         @Override
+        public boolean hasLoan(Loan loan) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
         public ObservableList<Person> getFilteredPersonList() {
             throw new AssertionError("This method should not be called.");
         }
@@ -167,7 +172,12 @@ public class AddCommandTest {
         }
 
         @Override
-        public ObservableList<Loan> getLoanList() {
+        public ObservableList<Loan> getSortedLoanList() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void updateFilteredLoanList(Predicate<Loan> predicate) {
             throw new AssertionError("This method should not be called.");
         }
 
@@ -178,6 +188,26 @@ public class AddCommandTest {
 
         @Override
         public void setIsLoansTab(Boolean isLoansTab) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void markLoan(Loan loanToMark) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void deleteLoan(Loan loan) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void addLoan(Loan loan) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void addLoan(LinkLoanCommand.LinkLoanDescriptor loanDescription, Person assignee) {
             throw new AssertionError("This method should not be called.");
         }
     }

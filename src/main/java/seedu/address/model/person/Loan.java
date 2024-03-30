@@ -10,7 +10,7 @@ import seedu.address.commons.util.DateUtil;
  * Represents a Loan in the address book.
  * Guarantees: details are present and not null, field values are validated, immutable.
  */
-public class Loan {
+public class Loan implements Comparable<Loan> {
 
     public static final String DATE_CONSTRAINTS = "Dates should be of the form " + DateUtil.DATE_FORMAT
             + " and the loan start date must be before the return date.";
@@ -22,40 +22,45 @@ public class Loan {
     private final Date startDate;
     private final Date returnDate;
     private boolean isReturned;
+    private Person assignee;
 
     /**
      * Constructs a {@code Loan} with a given id.
      *
-     * @param id A valid id.
-     * @param value A valid value.
-     * @param startDate A valid start date.
+     * @param id         A valid id.
+     * @param value      A valid value.
+     * @param startDate  A valid start date.
      * @param returnDate A valid return date.
+     * @param assignee   A valid assignee.
      */
-    public Loan(int id, float value, Date startDate, Date returnDate) {
-        requireAllNonNull(id, value, startDate, returnDate);
+    public Loan(int id, float value, Date startDate, Date returnDate, Person assignee) {
+        requireAllNonNull(id, value, startDate, returnDate, assignee);
         this.id = id;
         this.value = value;
         this.startDate = startDate;
         this.returnDate = returnDate;
         this.isReturned = false;
+        this.assignee = assignee;
     }
 
     /**
      * Constructs a {@code Loan} with a given id and return status.
      *
-     * @param id A valid id.
-     * @param value A valid value.
-     * @param startDate A valid start date.
+     * @param id         A valid id.
+     * @param value      A valid value.
+     * @param startDate  A valid start date.
      * @param returnDate A valid return date.
      * @param isReturned A valid return status.
+     * @param assignee   A valid assignee.
      */
-    public Loan(int id, float value, Date startDate, Date returnDate, boolean isReturned) {
-        requireAllNonNull(id, value, startDate, returnDate, isReturned);
+    public Loan(int id, float value, Date startDate, Date returnDate, boolean isReturned, Person assignee) {
+        requireAllNonNull(id, value, startDate, returnDate, isReturned, assignee);
         this.id = id;
         this.value = value;
         this.startDate = startDate;
         this.returnDate = returnDate;
         this.isReturned = isReturned;
+        this.assignee = assignee;
     }
 
     /**
@@ -94,6 +99,18 @@ public class Loan {
 
     public boolean isActive() {
         return !isReturned;
+    }
+
+    public Person getAssignee() {
+        return assignee;
+    }
+
+    public boolean isAssignedTo(Person person) {
+        return assignee.equals(person);
+    }
+
+    public int compareTo(Loan other) {
+        return this.returnDate.compareTo(other.returnDate);
     }
 
     /**

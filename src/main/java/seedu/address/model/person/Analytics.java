@@ -127,13 +127,13 @@ public class Analytics {
 
     /**
      * Returns an Analytics object that represents the analytics of a LoanRecords object.
-     * @param loanRecords The LoanRecords object to get the analytics from.
+     * @param uniqueLoanList The LoanRecords object to get the analytics from.
      * @return The Analytics object that represents the analytics of the LoanRecords object.
      */
-    public static Analytics getAnalytics(LoanRecords loanRecords) {
+    public static Analytics getAnalytics(UniqueLoanList uniqueLoanList) {
         Analytics analytics = new Analytics();
-        for (int i = 0; i < loanRecords.size(); i++) {
-            Loan loan = loanRecords.getLoan(i);
+        for (int i = 0; i < uniqueLoanList.size(); i++) {
+            Loan loan = uniqueLoanList.getLoan(i);
             analytics.updateNumFields(loan);
             analytics.updateValueFields(loan);
             analytics.updateDateFields(loan);

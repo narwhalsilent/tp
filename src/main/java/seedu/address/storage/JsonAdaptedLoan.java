@@ -16,7 +16,8 @@ public class JsonAdaptedLoan {
     private final String startDate;
     private final String returnDate;
     private final int id;
-    private boolean isReturned;
+    private final boolean isReturned;
+    private final JsonAdaptedPerson assignee;
 
     /**
      * Constructs a {@code JsonAdaptedLoan} with the given loan details.
@@ -24,12 +25,14 @@ public class JsonAdaptedLoan {
     @JsonCreator
     public JsonAdaptedLoan(@JsonProperty("value") float value, @JsonProperty("startDate") String startDate,
                            @JsonProperty("returnDate") String returnDate, @JsonProperty("id") int id,
-                           @JsonProperty("isReturned") boolean isReturned) {
+                           @JsonProperty("isReturned") boolean isReturned,
+                           @JsonProperty("assignee") JsonAdaptedPerson assignee) {
         this.value = value;
         this.startDate = startDate;
         this.returnDate = returnDate;
         this.id = id;
         this.isReturned = isReturned;
+        this.assignee = assignee;
     }
 
     /**
@@ -41,6 +44,7 @@ public class JsonAdaptedLoan {
         returnDate = DateUtil.format(source.getReturnDate());
         id = source.getId();
         isReturned = source.isReturned();
+        assignee = new JsonAdaptedPerson(source.getAssignee());
     }
 
     /**
@@ -55,7 +59,8 @@ public class JsonAdaptedLoan {
         if (!Loan.isValidDates(DateUtil.parse(startDate), DateUtil.parse(returnDate))) {
             throw new IllegalValueException(Loan.DATE_CONSTRAINTS);
         }
-        return new Loan(id, value, DateUtil.parse(startDate), DateUtil.parse(returnDate), isReturned);
+        return new Loan(id, value, DateUtil.parse(startDate), DateUtil.parse(returnDate), isReturned,
+                assignee.toModelType());
     }
 
 }

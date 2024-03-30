@@ -9,10 +9,10 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 
 import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.model.person.Loan;
-import seedu.address.model.person.LoanRecords;
+import seedu.address.model.person.UniqueLoanList;
 
 /**
- * Jackson-friendly version of {@link LoanRecords}.
+ * Jackson-friendly version of {@link UniqueLoanList}.
  */
 public class JsonAdaptedLoanRecords {
 
@@ -31,7 +31,7 @@ public class JsonAdaptedLoanRecords {
     /**
      * Converts a given {@code LoanRecords} into this class for Jackson use.
      */
-    public JsonAdaptedLoanRecords(LoanRecords source) {
+    public JsonAdaptedLoanRecords(UniqueLoanList source) {
         if (source != null) {
             loans = source.getLoanList().stream()
                 .map(JsonAdaptedLoan::new)
@@ -45,7 +45,7 @@ public class JsonAdaptedLoanRecords {
      * Factory method to create a new instance of JsonAdaptedLoanRecords
      * to disambiguate the constructor for null values.
      */
-    public static JsonAdaptedLoanRecords factory(LoanRecords source) {
+    public static JsonAdaptedLoanRecords factory(UniqueLoanList source) {
         return new JsonAdaptedLoanRecords(source);
     }
 
@@ -54,7 +54,7 @@ public class JsonAdaptedLoanRecords {
      *
      * @throws IllegalValueException if there were any data constraints violated in the adapted loan.
      */
-    public LoanRecords toModelType() throws IllegalValueException {
+    public UniqueLoanList toModelType() throws IllegalValueException {
         if (loans == null) {
             throw new IllegalValueException(MISSING_MESSAGE);
         }
@@ -63,9 +63,11 @@ public class JsonAdaptedLoanRecords {
         for (JsonAdaptedLoan loan : loans) {
             loanList.add(loan.toModelType());
         }
-        LoanRecords loanRecords = new LoanRecords(loanList);
+        UniqueLoanList uniqueLoanList = new UniqueLoanList();
 
-        return loanRecords;
+        uniqueLoanList.setLoans(loanList);
+
+        return uniqueLoanList;
     }
 
 }

@@ -21,6 +21,7 @@ import seedu.address.logic.commands.LinkLoanCommand;
 import seedu.address.logic.commands.ListCommand;
 import seedu.address.logic.commands.MarkLoanCommand;
 import seedu.address.logic.commands.ViewLoanCommand;
+import seedu.address.logic.commands.ViewLoansCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
 
 /**
@@ -92,6 +93,9 @@ public class AddressBookParser {
 
         case MarkLoanCommand.COMMAND_WORD:
             return new MarkLoanCommandParser().parse(arguments);
+
+        case ViewLoansCommand.COMMAND_WORD:
+            return new ViewLoansCommand();
 
         default:
             logger.finer("This user input caused a ParseException: " + userInput);

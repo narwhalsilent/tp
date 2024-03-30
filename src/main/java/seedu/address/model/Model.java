@@ -7,6 +7,7 @@ import java.util.function.Predicate;
 import javafx.beans.property.BooleanProperty;
 import javafx.collections.ObservableList;
 import seedu.address.commons.core.GuiSettings;
+import seedu.address.logic.commands.LinkLoanCommand;
 import seedu.address.model.person.Loan;
 import seedu.address.model.person.Person;
 
@@ -18,6 +19,16 @@ public interface Model {
      * {@code Predicate} that always evaluates to true
      */
     Predicate<Person> PREDICATE_SHOW_ALL_PERSONS = unused -> true;
+
+    /**
+     * {@code Predicate} that always evaluates to false
+     */
+    Predicate<Person> PREDICATE_SHOW_NO_PERSON = unused -> false;
+
+    /**
+     * {@code Predicate} that evaluates to true if the loan is active
+     */
+    Predicate<Loan> PREDICATE_SHOW_ALL_ACTIVE_LOANS = loan -> loan.isActive();
 
     /**
      * Replaces user prefs data with the data in {@code userPrefs}.
@@ -84,6 +95,25 @@ public interface Model {
     void setPerson(Person target, Person editedPerson);
 
     /**
+     * Returns true if a loan with the same identity as {@code loan} exists in the address book.
+     */
+    boolean hasLoan(Loan loan);
+
+    /**
+     * Deletes the given loan.
+     * The loan must exist in the address book.
+     */
+    void deleteLoan(Loan target);
+
+    /**
+     * Adds the given loan.
+     * {@code loan} must not already exist in the address book.
+     */
+    void addLoan(Loan loan);
+
+    void addLoan(LinkLoanCommand.LinkLoanDescriptor loanDescription, Person assignee);
+
+    /**
      * Returns an unmodifiable view of the filtered person list
      */
     ObservableList<Person> getFilteredPersonList();
@@ -95,11 +125,15 @@ public interface Model {
      */
     void updateFilteredPersonList(Predicate<Person> predicate);
 
-    void setLoanList(List<Loan> loanList);
+    ObservableList<Loan> getSortedLoanList();
 
-    ObservableList<Loan> getLoanList();
+    void updateFilteredLoanList(Predicate<Loan> predicate);
+
+    void setLoanList(List<Loan> loanList);
 
     BooleanProperty getIsLoansTab();
 
     void setIsLoansTab(Boolean isLoansTab);
+
+    void markLoan(Loan loanToMark);
 }
