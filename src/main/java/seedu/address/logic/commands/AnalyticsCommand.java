@@ -38,8 +38,8 @@ public class AnalyticsCommand extends Command {
         model.updateFilteredLoanList(loan -> loan.isAssignedTo(targetPerson) && loan.isActive());
         Analytics targetAnalytics = Analytics.getAnalytics(model.getSortedLoanList());
         // TODO: Implement analytics GUI display logic
-
-        return new CommandResult(MESSAGE_SUCCESS + targetAnalytics, false, false, true);
+        model.setAnalytics(targetAnalytics);
+        return new CommandResult(MESSAGE_SUCCESS + model.getAnalytics().getValue(), false, false, true);
     }
 
     @Override
