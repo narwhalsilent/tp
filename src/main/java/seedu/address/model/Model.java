@@ -5,9 +5,11 @@ import java.util.List;
 import java.util.function.Predicate;
 
 import javafx.beans.property.BooleanProperty;
+import javafx.beans.property.ObjectProperty;
 import javafx.collections.ObservableList;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.logic.commands.LinkLoanCommand;
+import seedu.address.model.person.Analytics;
 import seedu.address.model.person.Loan;
 import seedu.address.model.person.Person;
 import seedu.address.model.person.UniqueLoanList;
@@ -143,5 +145,7 @@ public interface Model {
 
     void markLoan(Loan loanToMark);
 
-    UniqueLoanList getUniqueLoanList();
+    void setAnalytics(Analytics analytics);
+
+    ObjectProperty<Analytics> getAnalytics();
 }

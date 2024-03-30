@@ -36,8 +36,9 @@ public class AnalyticsCommand extends Command {
 
         Person targetPerson = lastShownList.get(targetIndex.getZeroBased());
         model.updateFilteredLoanList(loan -> loan.isAssignedTo(targetPerson) && loan.isActive());
-        Analytics targetAnalytics = Analytics.getAnalytics(model.getUniqueLoanList());
+        Analytics targetAnalytics = Analytics.getAnalytics(model.getSortedLoanList());
         // TODO: Implement analytics GUI display logic
+
         return new CommandResult(MESSAGE_SUCCESS + targetAnalytics, false, false, true);
     }
 

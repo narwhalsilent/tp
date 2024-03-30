@@ -121,7 +121,8 @@ public class MainWindow extends UiPart<Stage> {
      */
     void fillInnerParts() {
         this.isLoansTab = logic.getIsLoansTab();
-
+        // Initial value of isLoansTab is false by default
+        assert (!this.isLoansTab.getValue());
 
         personListPanel = new PersonListPanel(logic.getFilteredPersonList());
         // By default, the person list panel is shown
@@ -138,7 +139,6 @@ public class MainWindow extends UiPart<Stage> {
                 personListPanelPlaceholder.getChildren().add(personListPanel.getRoot());
             }
         });
-
 
         resultDisplay = new ResultDisplay();
         resultDisplayPlaceholder.getChildren().add(resultDisplay.getRoot());
