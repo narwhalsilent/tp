@@ -35,9 +35,11 @@ public class AnalyticsCommand extends Command {
         }
 
         Person targetPerson = lastShownList.get(targetIndex.getZeroBased());
-        Analytics targetAnalytics = targetPerson.getAnalytics();
+        // Filter loans to only show loans assigned to the target person
+        model.updateFilteredLoanList(loan -> loan.isAssignedTo(targetPerson) && loan.isActive());
+        Analytics targetAnalytics = Analytics.getAnalytics(model.getUniqueLoanList());
         // TODO: Implement analytics generation
-        return new CommandResult(MESSAGE_SUCCESS, false, false, true);
+        return new CommandResult(MESSAGE_SUCCESS + targetAnalytics, false, false, true);
     }
 
     @Override

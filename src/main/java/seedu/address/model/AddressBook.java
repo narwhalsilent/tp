@@ -28,13 +28,13 @@ public class AddressBook implements ReadOnlyAddressBook {
      *
      * Note that non-static init blocks are not recommended to use. There are other ways to avoid duplication
      *   among constructors.
-     */
-    {
+     */ {
         persons = new UniquePersonList();
         loans = new UniqueLoanList();
     }
 
-    public AddressBook() {}
+    public AddressBook() {
+    }
 
     /**
      * Creates an AddressBook using the Persons in the {@code toBeCopied}
@@ -160,6 +160,10 @@ public class AddressBook implements ReadOnlyAddressBook {
     @Override
     public ObservableList<Loan> getLoanList() {
         return loans.asUnmodifiableObservableList();
+    }
+
+    public UniqueLoanList getUniqueLoanList() {
+        return loans;
     }
 
     @Override
