@@ -18,6 +18,7 @@ import seedu.address.commons.core.LogsCenter;
 import seedu.address.logic.commands.LinkLoanCommand;
 import seedu.address.model.person.Loan;
 import seedu.address.model.person.Person;
+import seedu.address.model.person.UniqueLoanList;
 
 /**
  * Represents the in-memory model of the address book data.
@@ -168,6 +169,11 @@ public class ModelManager implements Model {
     @Override
     public ObservableList<Loan> getSortedLoanList() {
         return sortedLoans;
+    }
+
+    @Override
+    public UniqueLoanList getUniqueLoanList() {
+        return addressBook.getUniqueLoanList();
     }
 
     @Override

@@ -54,7 +54,7 @@ public class Person {
         return address;
     }
 
-    public Analytics getAnalytics() {
+    public Analytics getAnalytics() { // This method will likely be deprecated
         // TODO
         return null;
     }

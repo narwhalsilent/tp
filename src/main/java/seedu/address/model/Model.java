@@ -10,6 +10,7 @@ import seedu.address.commons.core.GuiSettings;
 import seedu.address.logic.commands.LinkLoanCommand;
 import seedu.address.model.person.Loan;
 import seedu.address.model.person.Person;
+import seedu.address.model.person.UniqueLoanList;
 
 /**
  * The API of the Model component.
@@ -136,4 +137,6 @@ public interface Model {
     void setIsLoansTab(Boolean isLoansTab);
 
     void markLoan(Loan loanToMark);
+
+    UniqueLoanList getUniqueLoanList();
 }
