@@ -25,6 +25,7 @@ public class AnalyticsPanel extends UiPart<Region> {
     }
 
     private void updateChart(Analytics analytics) {
+        System.out.println("Updated Chart due to change in analytics");
         pieChart.getData().clear();
         ObservableList<PieChart.Data> pieChartData = FXCollections.observableArrayList(
                 new PieChart.Data("Overdue", analytics.getNumOverdueLoans()),

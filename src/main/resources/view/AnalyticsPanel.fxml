@@ -4,6 +4,6 @@
 <?import javafx.scene.layout.AnchorPane?>
 
 <AnchorPane xmlns:fx="http://javafx.com/fxml" fx:id="root" prefHeight="400.0" prefWidth="600.0"
-            xmlns="http://javafx.com/javafx/17" fx:controller="seedu.address.ui.AnalyticsPanel">
+            xmlns="http://javafx.com/javafx/17">
     <PieChart fx:id="pieChart" layoutX="48.0" layoutY="48.0" prefHeight="304.0" prefWidth="504.0"/>
 </AnchorPane>
