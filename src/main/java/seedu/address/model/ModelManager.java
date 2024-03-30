@@ -50,7 +50,7 @@ public class ModelManager implements Model {
         filteredPersons = new FilteredList<>(this.addressBook.getPersonList());
         filteredLoans = new FilteredList<>(this.addressBook.getLoanList());
         sortedLoans = new SortedList<>(filteredLoans, Loan::compareTo);
-        targetAnalytics.setValue();
+        targetAnalytics.setValue(null);
     }
 
     public ModelManager() {
