@@ -60,6 +60,9 @@ public class MainWindow extends UiPart<Stage> {
     @FXML
     private AnalyticsPanel analyticsPanel;
 
+    @FXML
+    private StackPane analyticsPanelPlaceholder;
+
     private BooleanProperty isLoansTab;
 
     /**
@@ -142,7 +145,8 @@ public class MainWindow extends UiPart<Stage> {
                 personListPanelPlaceholder.getChildren().add(personListPanel.getRoot());
             }
         });
-        this.analyticsPanel = new AnalyticsPanel(logic.getAnalytics());
+        analyticsPanel = new AnalyticsPanel(logic.getAnalytics());
+        analyticsPanelPlaceholder.getChildren().add(analyticsPanel.getRoot());
         resultDisplay = new ResultDisplay();
         resultDisplayPlaceholder.getChildren().add(resultDisplay.getRoot());
 
