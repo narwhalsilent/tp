@@ -5,6 +5,7 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.chart.PieChart;
+import javafx.scene.control.Label;
 import javafx.scene.layout.Region;
 import seedu.address.model.person.Analytics;
 
@@ -19,18 +20,20 @@ public class AnalyticsPanel extends UiPart<Region> {
      */
     public AnalyticsPanel(ObjectProperty<Analytics> analytics) {
         super(FXML);
+        pieChart.setData(FXCollections.observableArrayList());
         analytics.addListener((observable, oldValue, newValue) -> {
             updateChart(newValue);
         });
     }
 
     private void updateChart(Analytics analytics) {
-        System.out.println("Updated Chart due to change in analytics");
-        pieChart.getData().clear();
+        System.out.println("Updating chart");
         ObservableList<PieChart.Data> pieChartData = FXCollections.observableArrayList(
-                new PieChart.Data("Overdue", analytics.getNumOverdueLoans()),
-                new PieChart.Data("Not Overdue", analytics.getNumLoans() - analytics.getNumOverdueLoans())
+                new PieChart.Data("Active Loans", analytics.getNumActiveLoans()),
+                new PieChart.Data("Overdue Loans", analytics.getNumOverdueLoans())
         );
         pieChart.setData(pieChartData);
     }
+    
+
 }
