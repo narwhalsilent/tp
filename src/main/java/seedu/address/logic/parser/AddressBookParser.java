@@ -94,9 +94,6 @@ public class AddressBookParser {
         case MarkLoanCommand.COMMAND_WORD:
             return new MarkLoanCommandParser().parse(arguments);
 
-        case ViewLoansCommand.COMMAND_WORD:
-            return new ViewLoansCommand();
-
         case AnalyticsCommand.COMMAND_WORD:
             return new AnalyticsCommandParser().parse(arguments);
 

@@ -14,7 +14,7 @@ import seedu.address.model.person.Person;
 /**
  * Represents a command to view the loans associated with a contact.
  */
-public class ViewLoanCommand extends Command {
+public class ViewLoanCommand extends ViewLoanRelatedCommand {
     public static final String COMMAND_WORD = "viewloan";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD
@@ -25,7 +25,8 @@ public class ViewLoanCommand extends Command {
     public static final String MESSAGE_SUCCESS = "Listed all loans associated with: %1$s";
     private final Index targetIndex;
 
-    public ViewLoanCommand(Index targetIndex) {
+    public ViewLoanCommand(Index targetIndex, boolean isShowAllLoans) {
+        super(isShowAllLoans);
         this.targetIndex = targetIndex;
     }
 
@@ -40,7 +41,11 @@ public class ViewLoanCommand extends Command {
 
         Person personToShowLoan = lastShownList.get(targetIndex.getZeroBased());
         model.updateFilteredPersonList(person -> person.equals(personToShowLoan));
-        model.updateFilteredLoanList(loan -> loan.isAssignedTo(personToShowLoan) && loan.isActive());
+        if (isShowAllLoans) {
+            model.updateFilteredLoanList(loan -> loan.isAssignedTo(personToShowLoan));
+        } else {
+            model.updateFilteredLoanList(loan -> loan.isAssignedTo(personToShowLoan) && loan.isActive());
+        }
         return new CommandResult(String.format(MESSAGE_SUCCESS, Messages.format(personToShowLoan)),
                 false, false, true);
     }
