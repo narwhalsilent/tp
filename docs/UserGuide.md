@@ -84,10 +84,7 @@ It supports basic contact and loan handling features like adding, editing, delet
 * If you are using a PDF version of this document, be careful when copying and pasting commands that span multiple lines as space characters surrounding line-breaks may be omitted when copied over to the application.
 </div>
 
-
-There are two types of commands: Contact Management and Loan Management. 
-
-Here is a summary of the commands available:
+There are three main categories of commands: Contact Management, Basic Loan Management, and Advanced Loan Management.
 
 ### Contact Management
 
@@ -126,11 +123,10 @@ Action | Format, Examples
 
 ## Features Description
 
-This section provides a detailed description of the features available in LoanGuardPro.
-
-There are two main types of features: Contact Management and Loan Management.
-
-Within Loan Management, there are two categories: Basic Loan Management and Advanced Loan Management.
+This section provides a detailed description of the features available in LoanGuardPro. There are three main categories of features: 
+* [Contact Management](#contact-management-features)
+* [Basic Loan Management](#basic-loan-management-features)
+* [Advanced Loan Management](#advanced-loan-management-features)
 
 ## Contact Management Features
 
