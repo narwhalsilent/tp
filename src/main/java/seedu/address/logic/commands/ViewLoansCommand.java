@@ -1,7 +1,9 @@
 package seedu.address.logic.commands;
 
 import static java.util.Objects.requireNonNull;
-import static seedu.address.model.Model.*;
+import static seedu.address.model.Model.PREDICATE_SHOW_ALL_ACTIVE_LOANS;
+import static seedu.address.model.Model.PREDICATE_SHOW_ALL_LOANS;
+import static seedu.address.model.Model.PREDICATE_SHOW_NO_PERSON;
 
 import seedu.address.model.Model;
 
