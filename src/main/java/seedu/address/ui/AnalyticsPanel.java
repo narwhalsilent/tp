@@ -34,6 +34,4 @@ public class AnalyticsPanel extends UiPart<Region> {
         );
         pieChart.setData(pieChartData);
     }
-    
-
 }
