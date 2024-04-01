@@ -3,10 +3,35 @@ layout: page
 title: User Guide
 ---
 
-AddressBook Level 3 (AB3) is a **desktop app for managing contacts, optimized for use via a Command Line Interface** (CLI) while still having the benefits of a Graphical User Interface (GUI). If you can type fast, AB3 can get your contact management tasks done faster than traditional GUI apps.
+<!-- AddressBook Level 3 (AB3) is a **desktop app for managing contacts, optimized for use via a Command Line Interface** (CLI) while still having the benefits of a Graphical User Interface (GUI). If you can type fast, AB3 can get your contact management tasks done faster than traditional GUI apps. -->
 
-* Table of Contents
-{:toc}
+## Table of Contents
+[1. Introduction](#introduction)<br>
+[2. Quick Start](#quick-start)<br>
+[3 Command Summary](#command-summary)<br>
+[4. Features Description](#features-description)<br>
+  - [4.1 Contact Management Features](#contact-management-features)<br>
+  - [4.2 Basic Loan Management Features](#basic-loan-management-features)<br>
+  - [4.3 Advanced Loan Management Features](#advanced-loan-management-features)<br>
+
+[5. Advanced Loan Management Features](#advanced-loan-management-features)<br>
+[6. FAQ](#faq)<br>
+[7. Known Issues](#known-issues)<br>
+
+
+--------------------------------------------------------------------------------------------------------------------
+
+## Introduction
+LoanGuardPro is a **desktop app for managing contacts, optimized for use via a Command Line Interface (CLI) while still having the benefits of a Graphical User Interface (GUI)**. If you can type fast, LoanGuardPro can get your contact management tasks done faster than traditional GUI apps. 
+
+It supports basic contact and loan handling features like adding, editing, deleting, and viewing contacts and loans. More advanced features like analysing a client's loaning history are also available.
+
+### How to Use this User Guide
+* If you are new to LoanGuardPro, go to the [Quick Start](#quick-start) section to download and set up the application.
+* If you are looking for detailed explanations of contact management features, refer to the [Contact Management Features](#contact-management-features) section.
+* If you are looking for detailed explanations of basic loan management features, refer to the [Basic Loan Management Features](#basic-loan-management-features) section.
+* If you are looking for detailed explanations of advanced loan management features, refer to the [Advanced Loan Management Features](#advanced-loan-management-features) section.
+* If you encounter any issues, refer to the [Known issues](#known-issues) section.
 
 --------------------------------------------------------------------------------------------------------------------
 
@@ -14,9 +39,9 @@ AddressBook Level 3 (AB3) is a **desktop app for managing contacts, optimized fo
 
 1. Ensure you have Java `11` or above installed in your Computer.
 
-1. Download the latest `addressbook.jar` from [here](https://github.com/se-edu/addressbook-level3/releases).
+1. Download the latest `addressbook.jar` from [here](https://github.com/AY2324S2-CS2103T-W13-1/tp/releases).
 
-1. Copy the file to the folder you want to use as the _home folder_ for your AddressBook.
+1. Copy the file to the folder you want to use as the _home folder_ for your LoanGuardPro.
 
 1. Open a command terminal, `cd` into the folder you put the jar file in, and use the `java -jar addressbook.jar` command to run the application.<br>
    A GUI similar to the below should appear in a few seconds. Note how the app contains some sample data.<br>
@@ -25,21 +50,16 @@ AddressBook Level 3 (AB3) is a **desktop app for managing contacts, optimized fo
 1. Type the command in the command box and press Enter to execute it. e.g. typing **`help`** and pressing Enter will open the help window.<br>
    Some example commands you can try:
 
-   * `list` : Lists all contacts.
+   * `viewloan 1` : View all active loans of the 1st person shown in the current list.
+   * `linkloan 2 v/500.00 s/2024-02-15 r/2025-02-15` : Link a loan of $500.00 to the 2nd person shown in the current list with a start date of 15th Feb 2024 and repayment date of 15th Feb 2025.
 
-   * `add n/John Doe p/98765432 e/johnd@example.com a/John street, block 123, #01-01` : Adds a contact named `John Doe` to the Address Book.
+   * `viewloans` : View all active loans.
 
-   * `delete 3` : Deletes the 3rd contact shown in the current list.
-
-   * `clear` : Deletes all contacts.
-
-   * `exit` : Exits the app.
-
-1. Refer to the [Features](#features) below for details of each command.
+1. Refer to the [Command Summary](#command-summary) section for details of the commands available.
 
 --------------------------------------------------------------------------------------------------------------------
 
-## Features
+## Command summary
 
 <div markdown="block" class="alert alert-info">
 
@@ -63,6 +83,54 @@ AddressBook Level 3 (AB3) is a **desktop app for managing contacts, optimized fo
 * If you are using a PDF version of this document, be careful when copying and pasting commands that span multiple lines as space characters surrounding line-breaks may be omitted when copied over to the application.
 </div>
 
+
+There are two types of commands: Contact Management and Loan Management. 
+
+Here is a summary of the commands available:
+
+### Contact Management
+
+Action | Format, Examples
+--------|------------------
+**Add** | `add n/NAME p/PHONE_NUMBER e/EMAIL a/ADDRESS [t/TAG]…​` <br> e.g., `add n/James Ho p/22224444 e/jamesho@example.com a/123, Clementi Rd, 1234665 t/friend t/colleague`
+**Clear** | `clear`
+**Delete** | `delete INDEX`<br> e.g., `delete 3`
+**Edit** | `edit INDEX [n/NAME] [p/PHONE_NUMBER] [e/EMAIL] [a/ADDRESS] [t/TAG]…​`<br> e.g.,`edit 2 n/James Lee e/jameslee@example.com`
+**Find** | `find KEYWORD [MORE_KEYWORDS]`<br> e.g., `find James Jake`
+**List** | `list`
+**Help** | `help`
+
+### Basic Loan Management
+
+Action | Format, Examples
+--------|------------------
+**Link Loan** | `linkloan INDEX v/VALUE s/START_DATE r/RETURN_DATE`<br> e.g., `linkloan 1 v/500.00 s/2024-02-15 r/2025-02-15`
+**View Loan** | `viewloan OPTIONAL_FLAG INDEX`<br> e.g., `viewloan 1`, `viewloan -a 1`
+**View Loans** | `viewloans OPTIONAL_FLAG`<br> e.g., `viewloans`, `viewloans -a`
+**Mark Loan** | `markloan INDEX`<br> e.g., `markloan 1`
+**Unmark Loan** | `unmarkloan INDEX`<br> e.g., `unmarkloan 1`
+**Edit Loan** | `editloan INDEX`<br> e.g., `editloan 1`
+**Delete Loan** | `deleteloan INDEX`<br> e.g., `deleteloan 1`
+
+### Advanced Loan Management
+
+Action | Format, Examples
+--------|------------------
+**Analyse** | `analyse`
+<!-- TODO: update after implemented -->
+
+--------------------------------------------------------------------------------------------------------------------
+
+## Features Description
+
+This section provides a detailed description of the features available in LoanGuardPro.
+
+There are two main types of features: Contact Management and Loan Management.
+
+Within Loan Management, there are two categories: Basic Loan Management and Advanced Loan Management.
+
+## Contact Management Features
+
 ### Viewing help : `help`
 
 Shows a message explaning how to access the help page.
@@ -78,9 +146,12 @@ Adds a person to the address book.
 
 Format: `add n/NAME p/PHONE_NUMBER e/EMAIL a/ADDRESS [t/TAG]…​`
 
-<div markdown="span" class="alert alert-primary">:bulb: **Tip:**
+:bulb: **Tip:**
 A person can have any number of tags (including 0)
-</div>
+
+Expected Behaviour:
+* A success message in the form of "New person added: [person details]" will be shown.
+* The person will be added to the address book and will be shown in the person list.
 
 Examples:
 * `add n/John Doe p/98765432 e/johnd@example.com a/John street, block 123, #01-01`
@@ -91,6 +162,9 @@ Examples:
 Shows a list of all persons in the address book.
 
 Format: `list`
+
+Expected Behaviour:
+* A list of all persons in the address book will be shown.
 
 ### Editing a person : `edit`
 
@@ -104,6 +178,10 @@ Format: `edit INDEX [n/NAME] [p/PHONE] [e/EMAIL] [a/ADDRESS] [t/TAG]…​`
 * When editing tags, the existing tags of the person will be removed i.e adding of tags is not cumulative.
 * You can remove all the person’s tags by typing `t/` without
     specifying any tags after it.
+
+Expected Behaviour:
+* A success message in the form of "Edited Person: [person details]" will be shown.
+* The person will be updated in the address book and will be shown in the person list.
 
 Examples:
 *  `edit 1 p/91234567 e/johndoe@example.com` Edits the phone number and email address of the 1st person to be `91234567` and `johndoe@example.com` respectively.
@@ -122,6 +200,10 @@ Format: `find KEYWORD [MORE_KEYWORDS]`
 * Persons matching at least one keyword will be returned (i.e. `OR` search).
   e.g. `Hans Bo` will return `Hans Gruber`, `Bo Yang`
 
+Expected Behaviour:
+* A list of persons whose names contain the given keywords will be shown.
+* See the example below for more concrete details.
+
 Examples:
 * `find John` returns `john` and `John Doe`
 * `find alex david` returns `Alex Yeoh`, `David Li`<br>
@@ -137,6 +219,10 @@ Format: `delete INDEX`
 * The index refers to the index number shown in the displayed person list.
 * The index **must be a positive integer** 1, 2, 3, …​
 
+Expected Behaviour:
+* A success message in the form of "Deleted Person: [person details]" will be shown.
+* The person will be removed from the address book and will no longer be shown in the person list.
+
 Examples:
 * `list` followed by `delete 2` deletes the 2nd person in the address book.
 * `find Betsy` followed by `delete 1` deletes the 1st person in the results of the `find` command.
@@ -146,6 +232,10 @@ Examples:
 Clears all entries from the address book.
 
 Format: `clear`
+
+Expected Behaviour:
+* A success message in the form of "Address book has been cleared!" will be shown.
+* The address book will be empty.
 
 ### Exiting the program : `exit`
 
@@ -166,9 +256,115 @@ If your changes to the data file makes its format invalid, AddressBook will disc
 Furthermore, certain edits can cause the AddressBook to behave in unexpected ways (e.g., if a value entered is outside of the acceptable range). Therefore, edit the data file only if you are confident that you can update it correctly.
 </div>
 
-### Archiving data files `[coming in v2.0]`
+--------------------------------------------------------------------------------------------------------------------
 
-_Details coming soon ..._
+## Basic Loan Management Features
+
+### Adding a loan: `linkloan`
+
+Links a loan to a person in the address book. 
+
+:information_source: The word link is used to distinguish between the `add` command for adding a person and the `linkloan` command for linking a loan to a person.
+
+Format: `linkloan INDEX v/VALUE s/START_DATE r/RETURN_DATE`
+
+Expected Behaviour: 
+
+* A success message in the form of "New loan linked: [person name]" will be shown.
+* The loan can then be found in the loan list.
+
+Example: `linkloan 1 v/500.00 s/2024-02-15 r/2025-02-15`
+
+* Links a loan to the person at the specified `INDEX`. The index refers to the index number shown in the displayed person list. The index **must be a positive integer** 1, 2, 3, …​
+
+* The loan value must be a positive number.
+
+* The start date and return date must be in the format `YYYY-MM-DD`.
+
+* The return date must be after the start date.
+
+### Viewing loans of a person: `viewloan`
+
+Shows all active loans of a person in the address book.
+
+Format: `viewloan OPTIONAL_FLAG INDEX`
+
+Expected Behaviour: 
+
+* A success message will in the form of "Listed all loans associated with: [person name]" will be shown. 
+
+* The list of all active loans of the person will be shown.
+
+Examples: `viewloan 1`, `viewloan -a 1`
+
+* Shows all active loans of the person at the specified `INDEX`. The index refers to the index number shown in the displayed person list. The index **must be a positive integer** 1, 2, 3, …​
+
+* The optional flag can be `-a` to show all loans including the inactive ones.
+
+<!-- TODO: add screenshot to show list of active and unactive loans -->
+
+### Viewing all loans: `viewloans`
+
+Shows all active loans in the address book.
+
+Format: `viewloans OPTIONAL_FLAG`
+
+Expected Behaviour:
+
+* A success message in the form of "Listed all loans" will be shown.
+
+* The list of all active loans will be shown.
+
+Examples: `viewloans`, `viewloans -a`
+
+* The optional flag can be `-a` to show all loans including the inactive ones.
+
+<!-- TODO: add screenshot to show list of active and unactive loans -->
+
+### Mark/Unmark a loan as returned: `markloan/unmarkloan`
+
+Marks or unmarks a loan as returned.
+
+Format: `markloan INDEX`, `unmarkloan INDEX`
+
+Expected Behaviour:
+
+* A success message in the form of "Loan marked: [loan details]" or "Loan unmarked: [loan details]" will be shown.
+
+* The status of the loan will be updated accordingly and will be reflected in the loan list.
+
+Examples: `markloan 1`, `unmarkloan 1`
+
+* Marks or unmarks the loan at the specified `INDEX` as returned. The index refers to the index number shown in the displayed loan list. The index **must be a positive integer** 1, 2, 3, …​
+
+### Editing a loan: `editloan`
+
+Edits an existing loan in the address book.
+
+<!-- TODO: update after implemented -->
+### Deleting a loan: `deleteloan`
+
+Deletes a loan permanently from the address book.
+
+Format: `deleteloan INDEX`
+
+Expected Behaviour:
+
+* A success message in the form of "Loan deleted: [loan details]" will be shown.
+
+* The loan will be removed from the loan list.
+
+Example: `deleteloan 1`
+
+* Deletes the loan at the specified `INDEX`. The index refers to the index number shown in the displayed loan list. The index **must be a positive integer** 1, 2, 3, …​
+
+--------------------------------------------------------------------------------------------------------------------
+
+## Advanced Loan Management Features
+
+### Analysing a client's loaning history: `analyse`
+
+<!-- TODO: update after implemented -->
 
 --------------------------------------------------------------------------------------------------------------------
 
@@ -185,14 +381,3 @@ _Details coming soon ..._
 
 --------------------------------------------------------------------------------------------------------------------
 
-## Command summary
-
-Action | Format, Examples
---------|------------------
-**Add** | `add n/NAME p/PHONE_NUMBER e/EMAIL a/ADDRESS [t/TAG]…​` <br> e.g., `add n/James Ho p/22224444 e/jamesho@example.com a/123, Clementi Rd, 1234665 t/friend t/colleague`
-**Clear** | `clear`
-**Delete** | `delete INDEX`<br> e.g., `delete 3`
-**Edit** | `edit INDEX [n/NAME] [p/PHONE_NUMBER] [e/EMAIL] [a/ADDRESS] [t/TAG]…​`<br> e.g.,`edit 2 n/James Lee e/jameslee@example.com`
-**Find** | `find KEYWORD [MORE_KEYWORDS]`<br> e.g., `find James Jake`
-**List** | `list`
-**Help** | `help`
