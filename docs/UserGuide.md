@@ -8,15 +8,14 @@ title: User Guide
 ## Table of Contents
 [1. Introduction](#introduction)<br>
 [2. Quick Start](#quick-start)<br>
-[3 Command Summary](#command-summary)<br>
+[3. Command Summary](#command-summary)<br>
 [4. Features Description](#features-description)<br>
   - [4.1 Contact Management Features](#contact-management-features)<br>
   - [4.2 Basic Loan Management Features](#basic-loan-management-features)<br>
   - [4.3 Advanced Loan Management Features](#advanced-loan-management-features)<br>
 
-[5. Advanced Loan Management Features](#advanced-loan-management-features)<br>
-[6. FAQ](#faq)<br>
-[7. Known Issues](#known-issues)<br>
+[5. FAQ](#faq)<br>
+[6. Known Issues](#known-issues)<br>
 
 
 --------------------------------------------------------------------------------------------------------------------
