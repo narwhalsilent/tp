@@ -35,6 +35,8 @@ public class Loan implements Comparable<Loan> {
      */
     public Loan(int id, float value, Date startDate, Date returnDate, Person assignee) {
         requireAllNonNull(id, value, startDate, returnDate, assignee);
+        assert isValidValue(value);
+        assert id >= 0;
         this.id = id;
         this.value = value;
         this.startDate = startDate;
@@ -55,6 +57,8 @@ public class Loan implements Comparable<Loan> {
      */
     public Loan(int id, float value, Date startDate, Date returnDate, boolean isReturned, Person assignee) {
         requireAllNonNull(id, value, startDate, returnDate, isReturned, assignee);
+        assert isValidValue(value);
+        assert id >= 0;
         this.id = id;
         this.value = value;
         this.startDate = startDate;
