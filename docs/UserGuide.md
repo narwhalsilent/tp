@@ -57,6 +57,7 @@ It supports basic contact and loan handling features like adding, editing, delet
 1. Refer to the [Command Summary](#command-summary) section for details of the commands available.
 
 <div style="text-align: right"><a href="#table-of-contents">Back to top</a></div>
+
 --------------------------------------------------------------------------------------------------------------------
 
 ## Command summary
@@ -120,6 +121,7 @@ Action | Format, Examples
 <!-- TODO: update after implemented -->
 
 <div style="text-align: right"><a href="#table-of-contents">Back to top</a></div>
+
 --------------------------------------------------------------------------------------------------------------------
 
 ## Features Description
@@ -257,6 +259,7 @@ If your changes to the data file makes its format invalid, AddressBook will disc
 Furthermore, certain edits can cause the AddressBook to behave in unexpected ways (e.g., if a value entered is outside of the acceptable range). Therefore, edit the data file only if you are confident that you can update it correctly.
 
 <div style="text-align: right"><a href="#table-of-contents">Back to top</a></div>
+
 --------------------------------------------------------------------------------------------------------------------
 
 ## Basic Loan Management Features
@@ -360,6 +363,7 @@ Example: `deleteloan 1`
 * Deletes the loan at the specified `INDEX`. The index refers to the index number shown in the displayed loan list. The index **must be a positive integer** 1, 2, 3, …​
 
 <div style="text-align: right"><a href="#table-of-contents">Back to top</a></div>
+
 --------------------------------------------------------------------------------------------------------------------
 
 ## Advanced Loan Management Features
@@ -369,6 +373,7 @@ Example: `deleteloan 1`
 <!-- TODO: update after implemented -->
 
 <div style="text-align: right"><a href="#table-of-contents">Back to top</a></div>
+
 --------------------------------------------------------------------------------------------------------------------
 
 ## FAQ
@@ -383,3 +388,5 @@ Example: `deleteloan 1`
 1. **When using multiple screens**, if you move the application to a secondary screen, and later switch to using only the primary screen, the GUI will open off-screen. The remedy is to delete the `preferences.json` file created by the application before running the application again.
 
 <div style="text-align: right"><a href="#table-of-contents">Back to top</a></div>
+
+--------------------------------------------------------------------------------------------------------------------
