@@ -26,6 +26,7 @@ LoanGuardPro is a **desktop app for managing contacts, optimized for use via a C
 It supports basic contact and loan handling features like adding, editing, deleting, and viewing contacts and loans. More advanced features like analysing a client's loaning history are also available.
 
 ### How to Use this User Guide
+* If you are new to Command Line Interfaces (CLI), go to this [website](https://www.theodinproject.com/lessons/foundations-command-line-basics) to learn the basics.
 * If you are new to LoanGuardPro, go to the [Quick Start](#quick-start) section to download and set up the application.
 * If you are looking for detailed explanations of contact management features, refer to the [Contact Management Features](#contact-management-features) section.
 * If you are looking for detailed explanations of basic loan management features, refer to the [Basic Loan Management Features](#basic-loan-management-features) section.
