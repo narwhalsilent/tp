@@ -143,9 +143,15 @@ public interface Model {
 
     void setIsLoansTab(Boolean isLoansTab);
 
+    BooleanProperty getIsAnalyticsTab();
+
+    void setIsAnalyticsTab(Boolean isAnalyticsTab);
+
     void markLoan(Loan loanToMark);
 
     void setAnalytics(Analytics analytics);
 
     ObjectProperty<Analytics> getAnalytics();
+
+
 }

@@ -35,6 +35,7 @@ public class ModelManager implements Model {
     private final FilteredList<Loan> filteredLoans;
     private final SortedList<Loan> sortedLoans;
     private final BooleanProperty isLoansTab = new SimpleBooleanProperty(false);
+    private final BooleanProperty isAnalyticsTab = new SimpleBooleanProperty(false);
     private final ObjectProperty<Analytics> targetAnalytics = new SimpleObjectProperty<>();
 
     /**
@@ -213,7 +214,23 @@ public class ModelManager implements Model {
 
     @Override
     public void setIsLoansTab(Boolean isLoansTab) {
+        if (isLoansTab) {
+            this.isAnalyticsTab.setValue(false);
+        }
         this.isLoansTab.setValue(isLoansTab);
+    }
+
+    @Override
+    public BooleanProperty getIsAnalyticsTab() {
+        return this.isAnalyticsTab;
+    }
+
+    @Override
+    public void setIsAnalyticsTab(Boolean isAnalyticsTab) {
+        if (isAnalyticsTab) {
+            this.isLoansTab.setValue(false);
+        }
+        this.isAnalyticsTab.setValue(isAnalyticsTab);
     }
 
     @Override
