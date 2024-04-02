@@ -54,20 +54,21 @@ public class UniqueLoanList implements Iterable<Loan> {
      * @param startDate A valid start date.
      * @param returnDate A valid return date.
      */
-    public void addLoan(float value, Date startDate, Date returnDate, Person assignee) {
+    public Loan addLoan(float value, Date startDate, Date returnDate, Person assignee) {
         Loan loan = new Loan(nextLoanId, value, startDate, returnDate, assignee);
         addLoan(loan);
+        return loan;
     }
 
     /**
      * Adds a loan to the list of loans.
      * @param loanDescription A valid LinkLoanDescriptor, which contains details about the loan to be added.
      */
-    public void addLoan(LinkLoanDescriptor loanDescription, Person assignee) {
+    public Loan addLoan(LinkLoanDescriptor loanDescription, Person assignee) {
         float value = loanDescription.getValue();
         Date startDate = loanDescription.getStartDate();
         Date returnDate = loanDescription.getReturnDate();
-        addLoan(value, startDate, returnDate, assignee);
+        return addLoan(value, startDate, returnDate, assignee);
     }
 
     /**

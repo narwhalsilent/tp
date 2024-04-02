@@ -208,7 +208,7 @@ public class AddCommandTest {
         }
 
         @Override
-        public void addLoan(LinkLoanCommand.LinkLoanDescriptor loanDescription, Person assignee) {
+        public Loan addLoan(LinkLoanCommand.LinkLoanDescriptor loanDescription, Person assignee) {
             throw new AssertionError("This method should not be called.");
         }
 
