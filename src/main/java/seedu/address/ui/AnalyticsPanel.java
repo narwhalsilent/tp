@@ -75,12 +75,19 @@ public class AnalyticsPanel extends UiPart<Region> {
         }
 
 
-        ObservableList<PieChart.Data> impactData = FXCollections.observableArrayList(
-                new PieChart.Data("Impact Index", data.getImpactIndex()),
-                new PieChart.Data("", 1 - data.getImpactIndex())
-        );
-        impactChart.setData(impactData);
-        impactIndex.setText(String.format("%.2f", data.getImpactIndex() * 100) + "%");
+        if (data.getMaxLoanValue() == 0) {
+            impactIndex.setText("No loans to analyze");
+            impactChart.setDisable(true);
+        } else {
+            impactChart.setDisable(false);
+            ObservableList<PieChart.Data> impactData = FXCollections.observableArrayList(
+                    new PieChart.Data("Impact Index", data.getImpactIndex()),
+                    new PieChart.Data("", 1 - data.getImpactIndex())
+            );
+            impactChart.setData(impactData);
+            impactIndex.setText(String.format("%.2f", data.getImpactIndex() * 100) + "%");
+        }
+
 
         if (data.getUrgencyIndex() == null) {
             urgencyIndex.setText("No loans to analyze");
