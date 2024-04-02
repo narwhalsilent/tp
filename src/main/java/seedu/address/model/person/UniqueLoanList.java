@@ -312,6 +312,11 @@ public class UniqueLoanList implements Iterable<Loan> {
         }
     }
 
+    /**
+     * Returns the maximum loan value of all loans.
+     *
+     * @return The maximum loan value of all loans.
+     */
     public int getMaxLoanValue() {
         int maxLoanValue = 0;
         for (Loan loan : internalList) {
@@ -322,10 +327,17 @@ public class UniqueLoanList implements Iterable<Loan> {
         return maxLoanValue;
     }
 
+    /**
+     * Returns the earliest return date of all loans.
+     * The loan must not be overdue and must not have been returned.
+     *
+     * @return The earliest return date of all loans. Returns null if there are no loans that meet the criteria.
+     */
     public Date getEarliestReturnDate() {
         Date earliestReturnDate = null;
         for (Loan loan : internalList) {
-            if (earliestReturnDate == null || loan.getReturnDate().before(earliestReturnDate)) {
+            if ((earliestReturnDate == null || loan.getReturnDate().before(earliestReturnDate))
+                    && !loan.getReturnDate().before(new Date()) && !loan.isReturned()) {
                 earliestReturnDate = loan.getReturnDate();
             }
         }
