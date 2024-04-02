@@ -1,11 +1,11 @@
 package seedu.address.model.analytics;
 
 import java.time.LocalDate;
+import java.time.ZoneId;
+import java.util.Date;
 
 import seedu.address.model.person.Analytics;
 
-import java.time.ZoneId;
-import java.util.Date;
 
 /**
  * Represents the analytics data of the dashboard with 3 values
@@ -18,6 +18,13 @@ public class DashboardData {
     private float maxLoanValue;
     private Date earliestReturnDate;
 
+    /**
+     * Creates a DashboardData object with the given analytics, max loan value and earliest return date
+     *
+     * @param analytics analytics object to be displayed
+     * @param maxLoanValue maximum loan value of all loans
+     * @param earliestReturnDate earliest return date of all loans (not returned and not overdue)
+     */
     public DashboardData(Analytics analytics, float maxLoanValue, Date earliestReturnDate) {
         this.analytics = analytics;
         this.maxLoanValue = maxLoanValue;
@@ -44,7 +51,7 @@ public class DashboardData {
 
     /**
      * Calculates the urgency index of the dashboard data
-     * Urgency index is calculated as the ratio of the number of days between the earliest return date and the current date
+     * Urgency index is calculated as the ratio of the number of days between the earliest return date and the current
      * to the number of days between the earliest return date and the benchmark date
      *
      * @return urgency index between 0 and 1

@@ -200,11 +200,6 @@ public class AddCommandTest {
         }
 
         @Override
-        public void setDashboardData(DashboardData data) {
-            throw new AssertionError("This method should not be called.");
-        }
-
-        @Override
         public ObjectProperty<DashboardData> getDashboardData() {
             throw new AssertionError("This method should not be called.");
         }

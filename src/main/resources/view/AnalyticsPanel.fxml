@@ -28,6 +28,5 @@
                       HBox.hgrow="ALWAYS"/>
             <Label fx:id="urgencyIndex" style="-fx-text-fill: white;"/>
         </VBox>
-
     </HBox>
 </VBox>

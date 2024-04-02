@@ -1,9 +1,5 @@
 package seedu.address.ui;
 
-import java.time.LocalDate;
-import java.time.ZoneId;
-import java.util.Date;
-
 import javafx.beans.property.ObjectProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -38,8 +34,6 @@ public class AnalyticsPanel extends UiPart<Region> {
 
     @FXML
     private Label urgencyIndex;
-
-    private static final float MAX_IMPACT = 1000000;
 
     /**
      * Creates a {@code AnalyticsPanel} with the given {@code ObjectProperty}.
