@@ -39,6 +39,7 @@ public class AnalyticsCommand extends Command {
         Analytics targetAnalytics = Analytics.getAnalytics(model.getSortedLoanList());
         // TODO: Implement analytics GUI display logic
         model.setAnalytics(targetAnalytics);
+        model.setIsAnalyticsTab(true);
         return new CommandResult(MESSAGE_SUCCESS + model.getAnalytics().getValue(),
                 false, false, false);
     }

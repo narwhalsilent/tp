@@ -61,5 +61,11 @@ public interface Logic {
 
     BooleanProperty getIsLoansTab();
 
+    void setIsAnalyticsTab(boolean isAnalyticsTab);
+
+    BooleanProperty getIsAnalyticsTab();
+
+    void setToPersonTab();
+
     ObjectProperty<Analytics> getAnalytics();
 }
