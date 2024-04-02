@@ -5,10 +5,12 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.chart.PieChart;
-import javafx.scene.control.Label;
 import javafx.scene.layout.Region;
 import seedu.address.model.person.Analytics;
 
+/**
+ * Panel containing the analytics of the loan records.
+ */
 public class AnalyticsPanel extends UiPart<Region> {
     private static final String FXML = "AnalyticsPanel.fxml";
 
