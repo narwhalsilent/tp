@@ -109,4 +109,19 @@ public class LogicManager implements Logic {
     public ObjectProperty<Analytics> getAnalytics() {
         return model.getAnalytics();
     }
+
+    @Override
+    public BooleanProperty getIsAnalyticsTab() {
+        return model.getIsAnalyticsTab();
+    }
+
+    @Override
+    public void setIsAnalyticsTab(boolean isAnalyticsTab) {
+        model.setIsAnalyticsTab(isAnalyticsTab);
+    }
+
+    @Override
+    public void setToPersonTab() {
+        model.setToPersonTab();
+    }
 }

@@ -226,6 +226,12 @@ public class ModelManager implements Model {
     }
 
     @Override
+    public void setToPersonTab() {
+        this.isLoansTab.setValue(false);
+        this.isAnalyticsTab.setValue(false);
+    }
+
+    @Override
     public void setIsAnalyticsTab(Boolean isAnalyticsTab) {
         if (isAnalyticsTab) {
             this.isLoansTab.setValue(false);

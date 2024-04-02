@@ -147,6 +147,8 @@ public interface Model {
 
     void setIsAnalyticsTab(Boolean isAnalyticsTab);
 
+    void setToPersonTab();
+
     void markLoan(Loan loanToMark);
 
     void setAnalytics(Analytics analytics);
