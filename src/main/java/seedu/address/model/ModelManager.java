@@ -21,7 +21,6 @@ import seedu.address.logic.commands.LinkLoanCommand;
 import seedu.address.model.person.Analytics;
 import seedu.address.model.person.Loan;
 import seedu.address.model.person.Person;
-import seedu.address.model.person.UniqueLoanList;
 
 /**
  * Represents the in-memory model of the address book data.

@@ -1,8 +1,8 @@
 package seedu.address.model.person;
 
-import javafx.collections.ObservableList;
-
 import java.util.Date;
+
+import javafx.collections.ObservableList;
 
 /**
  * Represents the analytics of a LoanRecords object.
@@ -133,21 +133,9 @@ public class Analytics {
     /**
      * Returns an Analytics object that represents the analytics of a LoanRecords object.
      *
-     * @param uniqueLoanList The LoanRecords object to get the analytics from.
+     * @param loanList The list of loans to calculate the analytics from.
      * @return The Analytics object that represents the analytics of the LoanRecords object.
      */
-//    public static Analytics getAnalytics(UniqueLoanList uniqueLoanList) {
-//        Analytics analytics = new Analytics();
-//        for (int i = 0; i < uniqueLoanList.size(); i++) {
-//            Loan loan = uniqueLoanList.getLoan(i);
-//            analytics.updateNumFields(loan);
-//            analytics.updateValueFields(loan);
-//            analytics.updateDateFields(loan);
-//        }
-//        analytics.updatePropFields();
-//        analytics.updateAverageFields();
-//        return analytics;
-//    }
     public static Analytics getAnalytics(ObservableList<Loan> loanList) {
         UniqueLoanList uniqueLoanList = new UniqueLoanList();
         uniqueLoanList.setLoans(loanList);
