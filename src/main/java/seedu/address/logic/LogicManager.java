@@ -6,6 +6,7 @@ import java.nio.file.Path;
 import java.util.logging.Logger;
 
 import javafx.beans.property.BooleanProperty;
+import javafx.beans.property.ObjectProperty;
 import javafx.collections.ObservableList;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.commons.core.LogsCenter;
@@ -16,6 +17,7 @@ import seedu.address.logic.parser.AddressBookParser;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.Model;
 import seedu.address.model.ReadOnlyAddressBook;
+import seedu.address.model.person.Analytics;
 import seedu.address.model.person.Loan;
 import seedu.address.model.person.Person;
 import seedu.address.storage.Storage;
@@ -101,5 +103,25 @@ public class LogicManager implements Logic {
     @Override
     public BooleanProperty getIsLoansTab() {
         return model.getIsLoansTab();
+    }
+
+    @Override
+    public ObjectProperty<Analytics> getAnalytics() {
+        return model.getAnalytics();
+    }
+
+    @Override
+    public BooleanProperty getIsAnalyticsTab() {
+        return model.getIsAnalyticsTab();
+    }
+
+    @Override
+    public void setIsAnalyticsTab(boolean isAnalyticsTab) {
+        model.setIsAnalyticsTab(isAnalyticsTab);
+    }
+
+    @Override
+    public void setToPersonTab() {
+        model.setToPersonTab();
     }
 }

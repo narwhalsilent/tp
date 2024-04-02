@@ -9,16 +9,18 @@ import java.util.function.Predicate;
 import java.util.logging.Logger;
 
 import javafx.beans.property.BooleanProperty;
+import javafx.beans.property.ObjectProperty;
 import javafx.beans.property.SimpleBooleanProperty;
+import javafx.beans.property.SimpleObjectProperty;
 import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
 import javafx.collections.transformation.SortedList;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.logic.commands.LinkLoanCommand;
+import seedu.address.model.person.Analytics;
 import seedu.address.model.person.Loan;
 import seedu.address.model.person.Person;
-import seedu.address.model.person.UniqueLoanList;
 
 /**
  * Represents the in-memory model of the address book data.
@@ -32,6 +34,8 @@ public class ModelManager implements Model {
     private final FilteredList<Loan> filteredLoans;
     private final SortedList<Loan> sortedLoans;
     private final BooleanProperty isLoansTab = new SimpleBooleanProperty(false);
+    private final BooleanProperty isAnalyticsTab = new SimpleBooleanProperty(false);
+    private final ObjectProperty<Analytics> targetAnalytics = new SimpleObjectProperty<>();
 
     /**
      * Initializes a ModelManager with the given addressBook and userPrefs.
@@ -46,6 +50,7 @@ public class ModelManager implements Model {
         filteredPersons = new FilteredList<>(this.addressBook.getPersonList());
         filteredLoans = new FilteredList<>(this.addressBook.getLoanList());
         sortedLoans = new SortedList<>(filteredLoans, Loan::compareTo);
+        targetAnalytics.setValue(null);
     }
 
     public ModelManager() {
@@ -172,11 +177,6 @@ public class ModelManager implements Model {
     }
 
     @Override
-    public UniqueLoanList getUniqueLoanList() {
-        return addressBook.getUniqueLoanList();
-    }
-
-    @Override
     public void updateFilteredLoanList(Predicate<Loan> predicate) {
         requireNonNull(predicate);
         filteredLoans.setPredicate(predicate);
@@ -213,7 +213,39 @@ public class ModelManager implements Model {
 
     @Override
     public void setIsLoansTab(Boolean isLoansTab) {
+        if (isLoansTab) {
+            this.isAnalyticsTab.setValue(false);
+        }
         this.isLoansTab.setValue(isLoansTab);
+    }
+
+    @Override
+    public BooleanProperty getIsAnalyticsTab() {
+        return this.isAnalyticsTab;
+    }
+
+    @Override
+    public void setToPersonTab() {
+        this.isLoansTab.setValue(false);
+        this.isAnalyticsTab.setValue(false);
+    }
+
+    @Override
+    public void setIsAnalyticsTab(Boolean isAnalyticsTab) {
+        if (isAnalyticsTab) {
+            this.isLoansTab.setValue(false);
+        }
+        this.isAnalyticsTab.setValue(isAnalyticsTab);
+    }
+
+    @Override
+    public ObjectProperty<Analytics> getAnalytics() {
+        return targetAnalytics;
+    }
+
+    @Override
+    public void setAnalytics(Analytics analytics) {
+        targetAnalytics.setValue(analytics);
     }
 
 }

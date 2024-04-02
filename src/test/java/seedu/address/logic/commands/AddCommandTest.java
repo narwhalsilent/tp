@@ -16,6 +16,7 @@ import java.util.function.Predicate;
 import org.junit.jupiter.api.Test;
 
 import javafx.beans.property.BooleanProperty;
+import javafx.beans.property.ObjectProperty;
 import javafx.collections.ObservableList;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.logic.Messages;
@@ -24,9 +25,9 @@ import seedu.address.model.AddressBook;
 import seedu.address.model.Model;
 import seedu.address.model.ReadOnlyAddressBook;
 import seedu.address.model.ReadOnlyUserPrefs;
+import seedu.address.model.person.Analytics;
 import seedu.address.model.person.Loan;
 import seedu.address.model.person.Person;
-import seedu.address.model.person.UniqueLoanList;
 import seedu.address.testutil.PersonBuilder;
 
 public class AddCommandTest {
@@ -198,6 +199,16 @@ public class AddCommandTest {
         }
 
         @Override
+        public void setAnalytics(Analytics analytics) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public ObjectProperty<Analytics> getAnalytics() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
         public void deleteLoan(Loan loan) {
             throw new AssertionError("This method should not be called.");
         }
@@ -213,9 +224,20 @@ public class AddCommandTest {
         }
 
         @Override
-        public UniqueLoanList getUniqueLoanList() {
+        public void setIsAnalyticsTab(Boolean isAnalyticsTab) {
             throw new AssertionError("This method should not be called.");
         }
+
+        @Override
+        public BooleanProperty getIsAnalyticsTab() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void setToPersonTab() {
+            throw new AssertionError("This method should not be called.");
+        }
+
     }
 
     /**
