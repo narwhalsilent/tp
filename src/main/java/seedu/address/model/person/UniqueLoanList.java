@@ -273,4 +273,30 @@ public class UniqueLoanList implements Iterable<Loan> {
         return true;
     }
 
+    /**
+     * Removes all loans attached to a person.
+     * @param key A valid person.
+     */
+    public void removeLoansAttachedTo(Person key) {
+        internalList.removeIf(loan -> loan.getAssignee().equals(key));
+    }
+
+
+    /**
+     * Modifies the assignee of all loans attached to a person.
+     * @param target A valid person.
+     * @param editedPerson A valid person.
+     */
+    public void modifyLoanAssignee(Person target, Person editedPerson) {
+        for (Loan loan : internalList) {
+            if (loan.getAssignee().equals(target)) {
+                loan.setAssignee(editedPerson);
+            }
+        }
+
+        // Just to update the list for GUI
+        if (!internalList.isEmpty()) {
+            internalList.set(0, internalList.get(0));
+        }
+    }
 }

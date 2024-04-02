@@ -171,4 +171,7 @@ public class Loan implements Comparable<Loan> {
         return id;
     }
 
+    public void setAssignee(Person editedPerson) {
+        assignee = editedPerson;
+    }
 }
