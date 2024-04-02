@@ -1,8 +1,10 @@
 package seedu.address.model.analytics;
 
-import seedu.address.logic.commands.AnalyticsCommand;
+import java.time.LocalDate;
+
 import seedu.address.model.person.Analytics;
 
+import java.time.ZoneId;
 import java.util.Date;
 
 /**
@@ -30,7 +32,20 @@ public class DashboardData {
         return maxLoanValue;
     }
 
-    public Date getEarliestReturnDate() {
-        return earliestReturnDate;
+    /**
+     * Calculates the urgency index of the dashboard data
+     * Urgency index is calculated as the ratio of the number of days between the earliest return date and the current date
+     * to the number of days between the earliest return date and the benchmark date
+     *
+     * @return urgency index between 0 and 1
+     */
+    public float getUrgencyIndex() {
+        // Should take extra measures to ensure no overdue loans are used for calculations
+        LocalDate target = analytics.getEarliestReturnDate().toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
+        LocalDate benchmark = this.earliestReturnDate.toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
+        LocalDate now = LocalDate.now();
+        long dayDiffBenchmark = benchmark.toEpochDay() - now.toEpochDay();
+        long dayDiffTarget = target.toEpochDay() - now.toEpochDay();
+        return (float) dayDiffBenchmark / dayDiffTarget;
     }
 }

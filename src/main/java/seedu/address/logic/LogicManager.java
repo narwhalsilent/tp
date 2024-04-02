@@ -17,6 +17,7 @@ import seedu.address.logic.parser.AddressBookParser;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.Model;
 import seedu.address.model.ReadOnlyAddressBook;
+import seedu.address.model.analytics.DashboardData;
 import seedu.address.model.person.Analytics;
 import seedu.address.model.person.Loan;
 import seedu.address.model.person.Person;
@@ -106,7 +107,7 @@ public class LogicManager implements Logic {
     }
 
     @Override
-    public ObjectProperty<Analytics> getAnalytics() {
+    public ObjectProperty<DashboardData> getAnalytics() {
         return model.getDashboardData();
     }
 
