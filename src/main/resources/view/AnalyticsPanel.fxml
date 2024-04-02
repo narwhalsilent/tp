@@ -4,14 +4,30 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.layout.HBox?>
 
+<?import javafx.scene.control.Label?>
 <VBox xmlns:fx="http://javafx.com/fxml" prefHeight="400.0" prefWidth="600.0"
       xmlns="http://javafx.com/javafx/17">
     <HBox>
-        <PieChart fx:id="reliabilityChart" layoutX="48.0" layoutY="48.0" prefHeight="304.0" prefWidth="504.0"
-                  HBox.hgrow="ALWAYS"/>
-        <PieChart fx:id="impactChart" layoutX="48.0" layoutY="48.0" prefHeight="304.0" prefWidth="504.0"
-                  HBox.hgrow="ALWAYS"/>
-        <PieChart fx:id="urgencyChart" layoutX="48.0" layoutY="48.0" prefHeight="304.0" prefWidth="504.0"
-                  HBox.hgrow="ALWAYS"/>
+        <VBox alignment="CENTER" HBox.hgrow="ALWAYS">
+            <Label style="-fx-text-fill: white">Reliability</Label>
+            <PieChart fx:id="reliabilityChart" layoutX="48.0" layoutY="48.0" prefHeight="200.0" prefWidth="200"
+                      HBox.hgrow="ALWAYS"/>
+            <Label fx:id="reliabilityIndex" style="-fx-text-fill: white;"/>
+        </VBox>
+
+        <VBox alignment="CENTER" HBox.hgrow="ALWAYS">
+            <Label style="-fx-text-fill: white">Impact</Label>
+            <PieChart fx:id="impactChart" layoutX="48.0" layoutY="48.0" prefHeight="200.0" prefWidth="200"
+                      HBox.hgrow="ALWAYS"/>
+            <Label fx:id="impactIndex" style="-fx-text-fill: white;"/>
+        </VBox>
+
+        <VBox alignment="CENTER" HBox.hgrow="ALWAYS">
+            <Label style="-fx-text-fill: white">Urgency</Label>
+            <PieChart fx:id="urgencyChart" layoutX="48.0" layoutY="48.0" prefHeight="200.0" prefWidth="200"
+                      HBox.hgrow="ALWAYS"/>
+            <Label fx:id="urgencyIndex" style="-fx-text-fill: white;"/>
+        </VBox>
+
     </HBox>
 </VBox>
