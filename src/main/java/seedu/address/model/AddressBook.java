@@ -129,8 +129,8 @@ public class AddressBook implements ReadOnlyAddressBook {
         loans.addLoan(l);
     }
 
-    public void addLoan(LinkLoanCommand.LinkLoanDescriptor loanDescription, Person assignee) {
-        loans.addLoan(loanDescription, assignee);
+    public Loan addLoan(LinkLoanCommand.LinkLoanDescriptor loanDescription, Person assignee) {
+        return loans.addLoan(loanDescription, assignee);
     }
 
     public void markLoan(Loan loanToMark) {

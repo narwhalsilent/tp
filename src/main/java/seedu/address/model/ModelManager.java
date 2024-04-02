@@ -140,8 +140,8 @@ public class ModelManager implements Model {
     }
 
     @Override
-    public void addLoan(LinkLoanCommand.LinkLoanDescriptor loanDescription, Person assignee) {
-        addressBook.addLoan(loanDescription, assignee);
+    public Loan addLoan(LinkLoanCommand.LinkLoanDescriptor loanDescription, Person assignee) {
+        return addressBook.addLoan(loanDescription, assignee);
     }
 
     @Override

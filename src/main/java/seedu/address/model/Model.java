@@ -112,7 +112,7 @@ public interface Model {
      */
     void addLoan(Loan loan);
 
-    void addLoan(LinkLoanCommand.LinkLoanDescriptor loanDescription, Person assignee);
+    Loan addLoan(LinkLoanCommand.LinkLoanDescriptor loanDescription, Person assignee);
 
     /**
      * Returns an unmodifiable view of the filtered person list
