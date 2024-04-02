@@ -66,7 +66,6 @@ public class DashboardData {
         LocalDate now = LocalDate.now();
         long dayDiffBenchmark = benchmark.toEpochDay() - now.toEpochDay();
         long dayDiffTarget = target.toEpochDay() - now.toEpochDay();
-        System.out.println("HERE" + dayDiffBenchmark / dayDiffTarget);
         return (float) dayDiffBenchmark / dayDiffTarget;
     }
 

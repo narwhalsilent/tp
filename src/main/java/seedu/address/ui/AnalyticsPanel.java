@@ -63,9 +63,9 @@ public class AnalyticsPanel extends UiPart<Region> {
         Analytics analytics = data.getAnalytics();
         if (analytics.getNumActiveLoans() == 0) {
             reliabilityIndex.setText("No active loans to analyze");
-            reliabilityChart.setDisable(true);
+            reliabilityChart.setVisible(false);
         } else {
-            reliabilityChart.setDisable(false);
+            reliabilityChart.setVisible(true);
             ObservableList<PieChart.Data> reliabilityData = FXCollections.observableArrayList(
                     new PieChart.Data("Reliability Index", analytics.getPropOverdueLoans()),
                     new PieChart.Data("", 1 - analytics.getPropOverdueLoans())
@@ -77,9 +77,9 @@ public class AnalyticsPanel extends UiPart<Region> {
 
         if (data.getMaxLoanValue() == 0) {
             impactIndex.setText("No loans to analyze");
-            impactChart.setDisable(true);
+            impactChart.setVisible(false);
         } else {
-            impactChart.setDisable(false);
+            impactChart.setVisible(true);
             ObservableList<PieChart.Data> impactData = FXCollections.observableArrayList(
                     new PieChart.Data("Impact Index", data.getImpactIndex()),
                     new PieChart.Data("", 1 - data.getImpactIndex())
@@ -91,9 +91,9 @@ public class AnalyticsPanel extends UiPart<Region> {
 
         if (data.getUrgencyIndex() == null) {
             urgencyIndex.setText("No loans to analyze");
-            urgencyChart.setDisable(true);
+            urgencyChart.setVisible(false);
         } else {
-            urgencyChart.setDisable(false);
+            urgencyChart.setVisible(true);
             ObservableList<PieChart.Data> urgencyData = FXCollections.observableArrayList(
                     new PieChart.Data("Urgency Index", data.getUrgencyIndex()),
                     new PieChart.Data("", 1 - data.getUrgencyIndex())
