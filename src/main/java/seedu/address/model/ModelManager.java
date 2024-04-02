@@ -4,6 +4,7 @@ import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
 import java.nio.file.Path;
+import java.util.Date;
 import java.util.List;
 import java.util.function.Predicate;
 import java.util.logging.Logger;
@@ -18,6 +19,7 @@ import javafx.collections.transformation.SortedList;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.logic.commands.LinkLoanCommand;
+import seedu.address.model.analytics.DashboardData;
 import seedu.address.model.person.Analytics;
 import seedu.address.model.person.Loan;
 import seedu.address.model.person.Person;
@@ -35,7 +37,7 @@ public class ModelManager implements Model {
     private final SortedList<Loan> sortedLoans;
     private final BooleanProperty isLoansTab = new SimpleBooleanProperty(false);
     private final BooleanProperty isAnalyticsTab = new SimpleBooleanProperty(false);
-    private final ObjectProperty<Analytics> targetAnalytics = new SimpleObjectProperty<>();
+    private final ObjectProperty<DashboardData> dashboardData = new SimpleObjectProperty<>();
 
     /**
      * Initializes a ModelManager with the given addressBook and userPrefs.
@@ -50,7 +52,7 @@ public class ModelManager implements Model {
         filteredPersons = new FilteredList<>(this.addressBook.getPersonList());
         filteredLoans = new FilteredList<>(this.addressBook.getLoanList());
         sortedLoans = new SortedList<>(filteredLoans, Loan::compareTo);
-        targetAnalytics.setValue(null);
+        dashboardData.setValue(null);
     }
 
     public ModelManager() {
@@ -239,13 +241,14 @@ public class ModelManager implements Model {
     }
 
     @Override
-    public ObjectProperty<Analytics> getAnalytics() {
-        return targetAnalytics;
+    public ObjectProperty<DashboardData> getDashboardData() {
+        return dashboardData;
     }
 
     @Override
-    public void setAnalytics(Analytics analytics) {
-        targetAnalytics.setValue(analytics);
+    public void generateDashboardData(Analytics analytics) {
+        float impactBenchmark = this.addressBook.getUniqueLoanList().getMaxLoanValue();
+        Date urgencyBenchmark = this.addressBook.getUniqueLoanList().getEarliestReturnDate();
+        dashboardData.setValue(new DashboardData(analytics, impactBenchmark, urgencyBenchmark));
     }
-
 }

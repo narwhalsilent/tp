@@ -1,6 +1,7 @@
 package seedu.address.model;
 
 import java.nio.file.Path;
+import java.util.Date;
 import java.util.List;
 import java.util.function.Predicate;
 
@@ -9,6 +10,7 @@ import javafx.beans.property.ObjectProperty;
 import javafx.collections.ObservableList;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.logic.commands.LinkLoanCommand;
+import seedu.address.model.analytics.DashboardData;
 import seedu.address.model.person.Analytics;
 import seedu.address.model.person.Loan;
 import seedu.address.model.person.Person;
@@ -150,9 +152,7 @@ public interface Model {
 
     void markLoan(Loan loanToMark);
 
-    void setAnalytics(Analytics analytics);
+    void generateDashboardData(Analytics analytics);
 
-    ObjectProperty<Analytics> getAnalytics();
-
-
+    ObjectProperty<DashboardData> getDashboardData();
 }

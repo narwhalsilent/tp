@@ -107,7 +107,7 @@ public class LogicManager implements Logic {
 
     @Override
     public ObjectProperty<Analytics> getAnalytics() {
-        return model.getAnalytics();
+        return model.getDashboardData();
     }
 
     @Override
