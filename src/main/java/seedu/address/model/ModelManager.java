@@ -250,6 +250,5 @@ public class ModelManager implements Model {
         float impactBenchmark = this.addressBook.getUniqueLoanList().getMaxLoanValue();
         Date urgencyBenchmark = this.addressBook.getUniqueLoanList().getEarliestReturnDate();
         dashboardData.setValue(new DashboardData(analytics, impactBenchmark, urgencyBenchmark));
-        System.out.println(dashboardData.getValue().toString());
     }
 }

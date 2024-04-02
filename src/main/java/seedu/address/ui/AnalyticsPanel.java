@@ -87,10 +87,8 @@ public class AnalyticsPanel extends UiPart<Region> {
             impactChart.setData(impactData);
             impactIndex.setText(String.format("%.2f", data.getImpactIndex() * 100) + "%");
         }
-
-
         if (data.getUrgencyIndex() == null) {
-            urgencyIndex.setText("No loans to analyze");
+            urgencyIndex.setText("No due loans to analyze");
             urgencyChart.setVisible(false);
         } else {
             urgencyChart.setVisible(true);
