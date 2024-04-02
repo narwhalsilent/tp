@@ -35,13 +35,13 @@ public class AnalyticsCommand extends Command {
         }
 
         Person targetPerson = lastShownList.get(targetIndex.getZeroBased());
-        model.updateFilteredLoanList(loan -> loan.isAssignedTo(targetPerson) && loan.isActive());
+        model.updateFilteredLoanList(loan -> loan.isAssignedTo(targetPerson));
         Analytics targetAnalytics = Analytics.getAnalytics(model.getSortedLoanList());
 
         model.generateDashboardData(targetAnalytics);
         model.setIsAnalyticsTab(true);
 
-        return new CommandResult(MESSAGE_SUCCESS + " for " + targetPerson.getName(),
+        return new CommandResult(MESSAGE_SUCCESS + " for " + targetPerson.getName() + " ",
                 false, false, false);
     }
 

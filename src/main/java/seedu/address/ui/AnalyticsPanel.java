@@ -61,26 +61,38 @@ public class AnalyticsPanel extends UiPart<Region> {
 
     private void updateChart(DashboardData data) {
         Analytics analytics = data.getAnalytics();
-        ObservableList<PieChart.Data> reliabilityData = FXCollections.observableArrayList(
-                new PieChart.Data("Reliability Index", analytics.getPropOverdueLoans()),
-                new PieChart.Data("", 1 - analytics.getPropOverdueLoans())
-        );
-        reliabilityChart.setData(reliabilityData);
+        if (analytics.getNumActiveLoans() == 0) {
+            reliabilityIndex.setText("No active loans to analyze");
+            reliabilityChart.setDisable(true);
+        } else {
+            reliabilityChart.setDisable(false);
+            ObservableList<PieChart.Data> reliabilityData = FXCollections.observableArrayList(
+                    new PieChart.Data("Reliability Index", analytics.getPropOverdueLoans()),
+                    new PieChart.Data("", 1 - analytics.getPropOverdueLoans())
+            );
+            reliabilityChart.setData(reliabilityData);
+            reliabilityIndex.setText(String.format("%.2f", (1 - analytics.getPropOverdueLoans()) * 100) + "%");
+        }
+
 
         ObservableList<PieChart.Data> impactData = FXCollections.observableArrayList(
                 new PieChart.Data("Impact Index", data.getImpactIndex()),
                 new PieChart.Data("", 1 - data.getImpactIndex())
         );
         impactChart.setData(impactData);
-
-        ObservableList<PieChart.Data> urgencyData = FXCollections.observableArrayList(
-                new PieChart.Data("Urgency Index", data.getUrgencyIndex()),
-                new PieChart.Data("", 1 - data.getUrgencyIndex())
-        );
-        urgencyChart.setData(urgencyData);
-
-        reliabilityIndex.setText(String.format("%.2f", (1 - analytics.getPropOverdueLoans()) * 100) + "%");
         impactIndex.setText(String.format("%.2f", data.getImpactIndex() * 100) + "%");
-        urgencyIndex.setText(String.format("%.2f", data.getUrgencyIndex() * 100) + "%");
+
+        if (data.getUrgencyIndex() == null) {
+            urgencyIndex.setText("No loans to analyze");
+            urgencyChart.setDisable(true);
+        } else {
+            urgencyChart.setDisable(false);
+            ObservableList<PieChart.Data> urgencyData = FXCollections.observableArrayList(
+                    new PieChart.Data("Urgency Index", data.getUrgencyIndex()),
+                    new PieChart.Data("", 1 - data.getUrgencyIndex())
+            );
+            urgencyChart.setData(urgencyData);
+            urgencyIndex.setText(String.format("%.2f", data.getUrgencyIndex() * 100) + "%");
+        }
     }
 }

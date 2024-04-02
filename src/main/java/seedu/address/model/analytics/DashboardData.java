@@ -56,13 +56,23 @@ public class DashboardData {
      *
      * @return urgency index between 0 and 1
      */
-    public float getUrgencyIndex() {
+    public Float getUrgencyIndex() {
         // Should take extra measures to ensure no overdue loans are used for calculations
+        if (analytics.getEarliestReturnDate() == null || earliestReturnDate == null) {
+            return null;
+        }
         LocalDate target = analytics.getEarliestReturnDate().toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
         LocalDate benchmark = this.earliestReturnDate.toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
         LocalDate now = LocalDate.now();
         long dayDiffBenchmark = benchmark.toEpochDay() - now.toEpochDay();
         long dayDiffTarget = target.toEpochDay() - now.toEpochDay();
+        System.out.println("HERE" + dayDiffBenchmark / dayDiffTarget);
         return (float) dayDiffBenchmark / dayDiffTarget;
+    }
+
+    @Override
+    public String toString() {
+        return "Analytics: " + analytics + ", Max Loan Value: " + maxLoanValue + ", Earliest Return Date: "
+                + earliestReturnDate;
     }
 }
