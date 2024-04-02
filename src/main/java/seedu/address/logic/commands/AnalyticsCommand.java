@@ -41,7 +41,7 @@ public class AnalyticsCommand extends Command {
         model.generateDashboardData(targetAnalytics);
         model.setIsAnalyticsTab(true);
 
-        return new CommandResult(MESSAGE_SUCCESS + model.getDashboardData().getValue(),
+        return new CommandResult(MESSAGE_SUCCESS + " for " + targetPerson.getName(),
                 false, false, false);
     }
 
