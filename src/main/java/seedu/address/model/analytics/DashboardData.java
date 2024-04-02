@@ -33,6 +33,16 @@ public class DashboardData {
     }
 
     /**
+     * Calculates the impact index of the dashboard data
+     * Impact index is calculated as the ratio of the average loan value to the maximum loan value
+     *
+     * @return impact index between 0 and 1
+     */
+    public float getImpactIndex() {
+        return analytics.getAverageLoanValue() / maxLoanValue;
+    }
+
+    /**
      * Calculates the urgency index of the dashboard data
      * Urgency index is calculated as the ratio of the number of days between the earliest return date and the current date
      * to the number of days between the earliest return date and the benchmark date
