@@ -29,7 +29,6 @@ public class AnalyticsPanel extends UiPart<Region> {
     }
 
     private void updateChart(Analytics analytics) {
-        System.out.println("Updating chart");
         ObservableList<PieChart.Data> pieChartData = FXCollections.observableArrayList(
                 new PieChart.Data("Active Loans", analytics.getNumActiveLoans()),
                 new PieChart.Data("Overdue Loans", analytics.getNumOverdueLoans())

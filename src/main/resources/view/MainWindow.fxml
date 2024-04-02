@@ -48,16 +48,16 @@
 
                 <VBox fx:id="personList" styleClass="pane-with-border" minWidth="340" prefWidth="340"
                       VBox.vgrow="ALWAYS">
-                    <StackPane fx:id="personListPanelPlaceholder" VBox.vgrow="ALWAYS"/>
+                    <StackPane fx:id="personListPanelPlaceholder" VBox.vgrow="NEVER"/>
                 </VBox>
 
                 <VBox fx:id="analytics" styleClass="pane-with-border" minWidth="340" prefWidth="340"
                       VBox.vgrow="ALWAYS">
-                    <StackPane fx:id="analyticsPanelPlaceholder" VBox.vgrow="ALWAYS"/>
+                    <StackPane fx:id="analyticsPanelPlaceholder" VBox.vgrow="NEVER"/>
                 </VBox>
 
                 <VBox fx:id="loanList" styleClass="pane-with-border" minWidth="340" prefWidth="340" VBox.vgrow="ALWAYS">
-                    <StackPane fx:id="loanListPanelPlaceholder" VBox.vgrow="ALWAYS"/>
+                    <StackPane fx:id="loanListPanelPlaceholder" VBox.vgrow="NEVER"/>
                 </VBox>
                 <StackPane fx:id="statusbarPlaceholder" VBox.vgrow="NEVER"/>
             </VBox>
