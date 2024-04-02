@@ -101,6 +101,7 @@ public class AddressBook implements ReadOnlyAddressBook {
         requireNonNull(editedPerson);
 
         persons.setPerson(target, editedPerson);
+        loans.modifyLoanAssignee(target, editedPerson);
     }
 
     /**
@@ -109,6 +110,7 @@ public class AddressBook implements ReadOnlyAddressBook {
      */
     public void removePerson(Person key) {
         persons.remove(key);
+        loans.removeLoansAttachedTo(key);
     }
 
     //// loan-level operations

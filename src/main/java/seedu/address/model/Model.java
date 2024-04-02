@@ -27,6 +27,11 @@ public interface Model {
     Predicate<Person> PREDICATE_SHOW_NO_PERSON = unused -> false;
 
     /**
+     * {@code Predicate} that always evaluate to true
+     */
+    Predicate<Loan> PREDICATE_SHOW_ALL_LOANS = unused -> true;
+
+    /**
      * {@code Predicate} that evaluates to true if the loan is active
      */
     Predicate<Loan> PREDICATE_SHOW_ALL_ACTIVE_LOANS = loan -> loan.isActive();
