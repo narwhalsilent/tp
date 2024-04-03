@@ -19,8 +19,8 @@ public class MarkLoanCommand extends Command {
             + ": Marks the loan number of current person in view as paid.\n"
             + "Parameters: INDEX\n"
             + "INDEX must be a positive integer.\n"
-            + "Example: " + COMMAND_WORD + " 1 " + "l/2\n"
-            + "This marks the loan of loan index 2 of the person at index 1 as paid.";
+            + "Example: " + COMMAND_WORD + " 1\n"
+            + "This marks the loan of loan index 1 of the current person.";
     public static final String MESSAGE_SUCCESS = "Loan marked.\n"
             + "Loan: %1$s";
     public static final String MESSAGE_FAILURE_LOAN = "No loan has been found "
