@@ -208,10 +208,25 @@ public class UniqueLoanList implements Iterable<Loan> {
     }
 
     /**
+     * Unmarks a loan.
+     * @param loanToUnmark A valid loan.
+     */
+    public void unmarkLoan(Loan loanToUnmark) {
+        int index = internalList.indexOf(loanToUnmark);
+
+        if (index == -1) {
+            throw new LoanNotFoundException();
+        }
+
+        loanToUnmark.unmarkAsReturned();
+        internalList.set(index, loanToUnmark);
+    }
+
+    /**
      * Marks a loan of the specified index as not returned.
      */
     public void unmarkLoan(int idx) {
-        internalList.get(idx).markAsNotReturned();
+        internalList.get(idx).unmarkAsReturned();
     }
 
     /**

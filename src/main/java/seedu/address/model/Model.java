@@ -150,6 +150,8 @@ public interface Model {
 
     void markLoan(Loan loanToMark);
 
+    void unmarkLoan(Loan loanToUnmark);
+
     void setAnalytics(Analytics analytics);
 
     ObjectProperty<Analytics> getAnalytics();
