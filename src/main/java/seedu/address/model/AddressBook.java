@@ -101,6 +101,7 @@ public class AddressBook implements ReadOnlyAddressBook {
         requireNonNull(editedPerson);
 
         persons.setPerson(target, editedPerson);
+        loans.modifyLoanAssignee(target, editedPerson);
     }
 
     /**
@@ -109,6 +110,7 @@ public class AddressBook implements ReadOnlyAddressBook {
      */
     public void removePerson(Person key) {
         persons.remove(key);
+        loans.removeLoansAttachedTo(key);
     }
 
     //// loan-level operations
@@ -129,12 +131,22 @@ public class AddressBook implements ReadOnlyAddressBook {
         loans.addLoan(l);
     }
 
-    public void addLoan(LinkLoanCommand.LinkLoanDescriptor loanDescription, Person assignee) {
-        loans.addLoan(loanDescription, assignee);
+    public Loan addLoan(LinkLoanCommand.LinkLoanDescriptor loanDescription, Person assignee) {
+        return loans.addLoan(loanDescription, assignee);
     }
-
+    /**
+     * Marks a loan in the address book.
+     * The loan must exist in the address book.
+     */
     public void markLoan(Loan loanToMark) {
         loans.markLoan(loanToMark);
+    }
+    /**
+     * Unmarks a loan in the address book.
+     * The loan must exist in the address book.
+     */
+    public void unmarkLoan(Loan loanToUnmark) {
+        loans.unmarkLoan(loanToUnmark);
     }
 
     /**

@@ -3,12 +3,14 @@ package seedu.address.logic;
 import java.nio.file.Path;
 
 import javafx.beans.property.BooleanProperty;
+import javafx.beans.property.ObjectProperty;
 import javafx.collections.ObservableList;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.ReadOnlyAddressBook;
+import seedu.address.model.person.Analytics;
 import seedu.address.model.person.Loan;
 import seedu.address.model.person.Person;
 
@@ -58,4 +60,12 @@ public interface Logic {
     void setIsLoansTab(boolean isLoansTab);
 
     BooleanProperty getIsLoansTab();
+
+    void setIsAnalyticsTab(boolean isAnalyticsTab);
+
+    BooleanProperty getIsAnalyticsTab();
+
+    void setToPersonTab();
+
+    ObjectProperty<Analytics> getAnalytics();
 }

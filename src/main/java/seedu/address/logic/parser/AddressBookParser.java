@@ -15,14 +15,15 @@ import seedu.address.logic.commands.Command;
 import seedu.address.logic.commands.DeleteCommand;
 import seedu.address.logic.commands.DeleteLoanCommand;
 import seedu.address.logic.commands.EditCommand;
+import seedu.address.logic.commands.EditLoanCommand;
 import seedu.address.logic.commands.ExitCommand;
 import seedu.address.logic.commands.FindCommand;
 import seedu.address.logic.commands.HelpCommand;
 import seedu.address.logic.commands.LinkLoanCommand;
 import seedu.address.logic.commands.ListCommand;
 import seedu.address.logic.commands.MarkLoanCommand;
-import seedu.address.logic.commands.ViewLoanCommand;
-import seedu.address.logic.commands.ViewLoansCommand;
+import seedu.address.logic.commands.UnmarkLoanCommand;
+import seedu.address.logic.commands.ViewLoanRelatedCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
 
 /**
@@ -88,17 +89,20 @@ public class AddressBookParser {
         case HelpCommand.COMMAND_WORD:
             return new HelpCommand();
 
-        case ViewLoanCommand.COMMAND_WORD:
+        case ViewLoanRelatedCommand.COMMAND_WORD:
             return new ViewLoanCommandParser().parse(arguments);
 
         case MarkLoanCommand.COMMAND_WORD:
             return new MarkLoanCommandParser().parse(arguments);
 
-        case ViewLoansCommand.COMMAND_WORD:
-            return new ViewLoansCommand();
+        case UnmarkLoanCommand.COMMAND_WORD:
+            return new UnmarkLoanCommandParser().parse(arguments);
 
         case AnalyticsCommand.COMMAND_WORD:
             return new AnalyticsCommandParser().parse(arguments);
+
+        case EditLoanCommand.COMMAND_WORD:
+            return new EditLoanCommandParser().parse(arguments);
 
         default:
             logger.finer("This user input caused a ParseException: " + userInput);

@@ -5,12 +5,13 @@ import java.util.List;
 import java.util.function.Predicate;
 
 import javafx.beans.property.BooleanProperty;
+import javafx.beans.property.ObjectProperty;
 import javafx.collections.ObservableList;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.logic.commands.LinkLoanCommand;
+import seedu.address.model.person.Analytics;
 import seedu.address.model.person.Loan;
 import seedu.address.model.person.Person;
-import seedu.address.model.person.UniqueLoanList;
 
 /**
  * The API of the Model component.
@@ -25,6 +26,11 @@ public interface Model {
      * {@code Predicate} that always evaluates to false
      */
     Predicate<Person> PREDICATE_SHOW_NO_PERSON = unused -> false;
+
+    /**
+     * {@code Predicate} that always evaluate to true
+     */
+    Predicate<Loan> PREDICATE_SHOW_ALL_LOANS = unused -> true;
 
     /**
      * {@code Predicate} that evaluates to true if the loan is active
@@ -112,7 +118,7 @@ public interface Model {
      */
     void addLoan(Loan loan);
 
-    void addLoan(LinkLoanCommand.LinkLoanDescriptor loanDescription, Person assignee);
+    Loan addLoan(LinkLoanCommand.LinkLoanDescriptor loanDescription, Person assignee);
 
     /**
      * Returns an unmodifiable view of the filtered person list
@@ -136,7 +142,19 @@ public interface Model {
 
     void setIsLoansTab(Boolean isLoansTab);
 
+    BooleanProperty getIsAnalyticsTab();
+
+    void setIsAnalyticsTab(Boolean isAnalyticsTab);
+
+    void setToPersonTab();
+
     void markLoan(Loan loanToMark);
 
-    UniqueLoanList getUniqueLoanList();
+    void unmarkLoan(Loan loanToUnmark);
+
+    void setAnalytics(Analytics analytics);
+
+    ObjectProperty<Analytics> getAnalytics();
+
+
 }

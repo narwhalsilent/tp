@@ -9,7 +9,9 @@ import javafx.scene.control.MenuItem;
 import javafx.scene.control.TextInputControl;
 import javafx.scene.input.KeyCombination;
 import javafx.scene.input.KeyEvent;
+import javafx.scene.layout.Priority;
 import javafx.scene.layout.StackPane;
+import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.commons.core.LogsCenter;
@@ -57,7 +59,21 @@ public class MainWindow extends UiPart<Stage> {
     @FXML
     private StackPane loanListPanelPlaceholder;
 
+    @FXML
+    private AnalyticsPanel analyticsPanel;
+
+    @FXML
+    private StackPane analyticsPanelPlaceholder;
+    @FXML
+    private VBox loanList;
+    @FXML
+    private VBox analytics;
+    @FXML
+    private VBox personList;
+
     private BooleanProperty isLoansTab;
+
+    private BooleanProperty isAnalyticsTab;
 
     /**
      * Creates a {@code MainWindow} with the given {@code Stage} and {@code Logic}.
@@ -120,26 +136,15 @@ public class MainWindow extends UiPart<Stage> {
      * Fills up all the placeholders of this window.
      */
     void fillInnerParts() {
-        this.isLoansTab = logic.getIsLoansTab();
-
-
+        initializeLocalListeners();
+        // Initial value of isLoansTab is false by default
+        assert (!this.isLoansTab.getValue());
+        // Initial value of isAnalyticsTab is false by default
+        assert (!this.isAnalyticsTab.getValue());
         personListPanel = new PersonListPanel(logic.getFilteredPersonList());
-        // By default, the person list panel is shown
-        personListPanelPlaceholder.getChildren().add(personListPanel.getRoot());
-
         loanListPanel = new LoanListPanel(logic.getSortedLoanList(), logic.getFilteredPersonList());
-
-        this.isLoansTab.addListener((observable, oldValue, newValue) -> {
-            if (newValue) {
-                personListPanelPlaceholder.getChildren().clear();
-                loanListPanelPlaceholder.getChildren().add(loanListPanel.getRoot());
-            } else {
-                loanListPanelPlaceholder.getChildren().clear();
-                personListPanelPlaceholder.getChildren().add(personListPanel.getRoot());
-            }
-        });
-
-
+        analyticsPanel = new AnalyticsPanel(logic.getAnalytics());
+        personListPanelPlaceholder.getChildren().add(personListPanel.getRoot());
         resultDisplay = new ResultDisplay();
         resultDisplayPlaceholder.getChildren().add(resultDisplay.getRoot());
 
@@ -149,6 +154,51 @@ public class MainWindow extends UiPart<Stage> {
         CommandBox commandBox = new CommandBox(this::executeCommand);
         commandBoxPlaceholder.getChildren().add(commandBox.getRoot());
     }
+
+    private void initializeLocalListeners() {
+        // Add listener to update the loans panel when the tab is switched
+        this.isLoansTab = logic.getIsLoansTab();
+        // Add listener to update the analytics panel when the tab is switched
+        this.isAnalyticsTab = logic.getIsAnalyticsTab();
+        logic.setIsAnalyticsTab(false);
+        logic.setIsLoansTab(false);
+        this.isLoansTab.addListener((observable, oldValue, newValue) -> {
+            toggleTabs();
+        });
+        this.isAnalyticsTab.addListener((observable, oldValue, newValue) -> {
+            toggleTabs();
+        });
+    }
+
+    private void toggleTabs() {
+        // At most one can be active at a time
+        assert (!(this.isLoansTab.getValue() && this.isAnalyticsTab.getValue()));
+
+        if (!this.isLoansTab.getValue() && !this.isAnalyticsTab.getValue()) {
+            // Default to person list panel
+            clearAllPlaceholders();
+            VBox.setVgrow(personList, Priority.ALWAYS);
+            personListPanelPlaceholder.getChildren().add(personListPanel.getRoot());
+        } else if (this.isLoansTab.getValue()) {
+            clearAllPlaceholders();
+            VBox.setVgrow(loanList, Priority.ALWAYS);
+            loanListPanelPlaceholder.getChildren().add(loanListPanel.getRoot());
+        } else {
+            clearAllPlaceholders();
+            VBox.setVgrow(analytics, Priority.ALWAYS);
+            analyticsPanelPlaceholder.getChildren().add(analyticsPanel.getRoot());
+        }
+    }
+
+    private void clearAllPlaceholders() {
+        personListPanelPlaceholder.getChildren().clear();
+        VBox.setVgrow(personList, Priority.NEVER);
+        loanListPanelPlaceholder.getChildren().clear();
+        VBox.setVgrow(loanList, Priority.NEVER);
+        analyticsPanelPlaceholder.getChildren().clear();
+        VBox.setVgrow(analytics, Priority.NEVER);
+    }
+
 
     /**
      * Sets the default size based on {@code guiSettings}.

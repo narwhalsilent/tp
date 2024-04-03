@@ -1,7 +1,6 @@
 package seedu.address.logic.commands;
 
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_LOAN_INDEX;
 
 import java.util.List;
 
@@ -17,12 +16,10 @@ public class DeleteLoanCommand extends Command {
     public static final String COMMAND_WORD = "deleteloan";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD
-            + ": Delete the specified loan index of the person who is identified "
-            + "by the index number. "
-            + "Parameters: INDEX "
-            + PREFIX_LOAN_INDEX + "LOAN_INDEX\n"
-            + "Both INDEX and LOAN_INDEX must be positive integers.\n"
-            + "Example: " + COMMAND_WORD + " 1 " + "l/1";
+            + ": Delete the loan number of current person in view "
+            + "Parameters: INDEX\n"
+            + "INDEX must be a positive integer.\n"
+            + "Example: " + COMMAND_WORD + " 1 ";
     public static final String MESSAGE_SUCCESS = "Loan deleted.\n"
             + "Loan: %1$s";
     public static final String MESSAGE_FAILURE_LOAN = "No loan has been found "

@@ -54,20 +54,21 @@ public class UniqueLoanList implements Iterable<Loan> {
      * @param startDate A valid start date.
      * @param returnDate A valid return date.
      */
-    public void addLoan(float value, Date startDate, Date returnDate, Person assignee) {
+    public Loan addLoan(float value, Date startDate, Date returnDate, Person assignee) {
         Loan loan = new Loan(nextLoanId, value, startDate, returnDate, assignee);
         addLoan(loan);
+        return loan;
     }
 
     /**
      * Adds a loan to the list of loans.
      * @param loanDescription A valid LinkLoanDescriptor, which contains details about the loan to be added.
      */
-    public void addLoan(LinkLoanDescriptor loanDescription, Person assignee) {
+    public Loan addLoan(LinkLoanDescriptor loanDescription, Person assignee) {
         float value = loanDescription.getValue();
         Date startDate = loanDescription.getStartDate();
         Date returnDate = loanDescription.getReturnDate();
-        addLoan(value, startDate, returnDate, assignee);
+        return addLoan(value, startDate, returnDate, assignee);
     }
 
     /**
@@ -207,10 +208,25 @@ public class UniqueLoanList implements Iterable<Loan> {
     }
 
     /**
+     * Unmarks a loan.
+     * @param loanToUnmark A valid loan.
+     */
+    public void unmarkLoan(Loan loanToUnmark) {
+        int index = internalList.indexOf(loanToUnmark);
+
+        if (index == -1) {
+            throw new LoanNotFoundException();
+        }
+
+        loanToUnmark.unmarkAsReturned();
+        internalList.set(index, loanToUnmark);
+    }
+
+    /**
      * Marks a loan of the specified index as not returned.
      */
     public void unmarkLoan(int idx) {
-        internalList.get(idx).markAsNotReturned();
+        internalList.get(idx).unmarkAsReturned();
     }
 
     /**
@@ -273,4 +289,30 @@ public class UniqueLoanList implements Iterable<Loan> {
         return true;
     }
 
+    /**
+     * Removes all loans attached to a person.
+     * @param key A valid person.
+     */
+    public void removeLoansAttachedTo(Person key) {
+        internalList.removeIf(loan -> loan.getAssignee().equals(key));
+    }
+
+
+    /**
+     * Modifies the assignee of all loans attached to a person.
+     * @param target A valid person.
+     * @param editedPerson A valid person.
+     */
+    public void modifyLoanAssignee(Person target, Person editedPerson) {
+        for (Loan loan : internalList) {
+            if (loan.getAssignee().equals(target)) {
+                loan.setAssignee(editedPerson);
+            }
+        }
+
+        // Just to update the list for GUI
+        if (!internalList.isEmpty()) {
+            internalList.set(0, internalList.get(0));
+        }
+    }
 }

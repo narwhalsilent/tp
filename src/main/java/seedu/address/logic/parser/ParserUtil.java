@@ -160,4 +160,36 @@ public class ParserUtil {
         }
         return new LinkLoanDescriptor(convertedValue, convertedStartDate, convertedReturnDate);
     }
+
+    /**
+     * Parses {@code String value} into a {@code float}.
+     */
+    public static float parseValue(String value) throws ParseException {
+        requireNonNull(value);
+        String trimmedValue = value.trim();
+        float convertedValue;
+        try {
+            convertedValue = Float.parseFloat(trimmedValue);
+        } catch (NumberFormatException n) {
+            // Ths is caught when the formatter is unable to parse the value correctly
+            throw new ParseException(Loan.VALUE_CONSTRAINTS);
+        }
+        return convertedValue;
+    }
+
+    /**
+     * Parses {@code String date} into a {@code Date}.
+     */
+    public static Date parseDate(String date) throws ParseException {
+        requireNonNull(date);
+        String trimmedDate = date.trim();
+        Date convertedDate;
+        try {
+            convertedDate = DateUtil.parse(trimmedDate);
+        } catch (IllegalValueException i) {
+            // This is caught when the formatter is unable to parse the date correctly
+            throw new ParseException(Loan.DATE_CONSTRAINTS);
+        }
+        return convertedDate;
+    }
 }
