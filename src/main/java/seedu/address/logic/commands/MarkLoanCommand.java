@@ -1,7 +1,6 @@
 package seedu.address.logic.commands;
 
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_LOAN_INDEX;
 
 import java.util.List;
 
@@ -16,10 +15,10 @@ import seedu.address.model.person.Loan;
  */
 public class MarkLoanCommand extends Command {
     public static final String COMMAND_WORD = "markloan";
-    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Marks the loan specified as paid.\n"
-            + "Parameters: INDEX "
-            + PREFIX_LOAN_INDEX + "LOAN_INDEX\n"
-            + "Both INDEX and LOAN_INDEX must be positive integers.\n"
+    public static final String MESSAGE_USAGE = COMMAND_WORD
+            + ": Marks the loan number of current person in view as paid.\n"
+            + "Parameters: INDEX\n"
+            + "INDEX must be a positive integer.\n"
             + "Example: " + COMMAND_WORD + " 1 " + "l/2\n"
             + "This marks the loan of loan index 2 of the person at index 1 as paid.";
     public static final String MESSAGE_SUCCESS = "Loan marked.\n"
@@ -30,7 +29,6 @@ public class MarkLoanCommand extends Command {
 
     /**
      * Creates a MarkLoanCommand to delete the specified loan.
-     * @param personIndex
      * @param loanIndex
      */
     public MarkLoanCommand(Index loanIndex) {

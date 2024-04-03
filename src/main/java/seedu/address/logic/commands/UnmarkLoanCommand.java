@@ -10,30 +10,31 @@ import seedu.address.model.Model;
 import seedu.address.model.person.Loan;
 
 /**
- * Deletes a loan from the address book.
+ * Reverts the status of a loan to unpaid.
  */
-public class DeleteLoanCommand extends Command {
-    public static final String COMMAND_WORD = "deleteloan";
-
+public class UnmarkLoanCommand extends Command {
+    public static final String COMMAND_WORD = "unmarkloan";
     public static final String MESSAGE_USAGE = COMMAND_WORD
-            + ": Delete the loan number of current person in view "
+            + ": Marks the loan number of current person in view as paid.\n"
             + "Parameters: INDEX\n"
             + "INDEX must be a positive integer.\n"
-            + "Example: " + COMMAND_WORD + " 1 ";
-    public static final String MESSAGE_SUCCESS = "Loan deleted.\n"
+            + "Example: " + COMMAND_WORD + " 1 " + "l/2\n"
+            + "This marks the loan of loan index 2 of the person at index 1 as paid.";
+    public static final String MESSAGE_SUCCESS = "Loan unmarked.\n"
             + "Loan: %1$s";
     public static final String MESSAGE_FAILURE_LOAN = "No loan has been found "
             + "for loan number: %1$d";
     private final Index loanIndex;
 
     /**
-     * Creates a DeleteLoanCommand to delete the specified loan.
-     * @param loanIndex index of the loan in the last shown loan list.
+     * Creates a UnmarkLoanCommand to delete the specified loan.
+     * @param loanIndex
      */
-    public DeleteLoanCommand(Index loanIndex) {
+    public UnmarkLoanCommand(Index loanIndex) {
         requireAllNonNull(loanIndex);
         this.loanIndex = loanIndex;
     }
+
     @Override
     public CommandResult execute(Model model) throws CommandException {
         List<Loan> lastShownList = model.getSortedLoanList();
@@ -42,17 +43,17 @@ public class DeleteLoanCommand extends Command {
             throw new CommandException(String.format(MESSAGE_FAILURE_LOAN, loanIndex.getOneBased()));
         }
         // delete specified loan number
-        Loan loanToRemove = lastShownList.get(loanIndex.getZeroBased());
-        model.deleteLoan(loanToRemove);
-        return new CommandResult(generateSuccessMessage(loanToRemove), false, false , true);
+        Loan loanToUnmark = lastShownList.get(loanIndex.getZeroBased());
+        model.unmarkLoan(loanToUnmark);
+        return new CommandResult(generateSuccessMessage(loanToUnmark), false, false, true);
     }
 
     /**
      * Generates a command execution success message after loan is deleted from the
      * {@code personToEdit}.
      */
-    private String generateSuccessMessage(Loan removedLoan) {
-        return String.format(MESSAGE_SUCCESS, removedLoan);
+    private String generateSuccessMessage(Loan markedLoan) {
+        return String.format(MESSAGE_SUCCESS, markedLoan);
     }
 
     @Override
@@ -60,13 +61,11 @@ public class DeleteLoanCommand extends Command {
         if (other == this) {
             return true;
         }
-
         // instanceof handles nulls
-        if (!(other instanceof DeleteLoanCommand)) {
+        if (!(other instanceof UnmarkLoanCommand)) {
             return false;
         }
-
-        DeleteLoanCommand e = (DeleteLoanCommand) other;
+        UnmarkLoanCommand e = (UnmarkLoanCommand) other;
         return loanIndex.equals(e.loanIndex);
     }
 }
