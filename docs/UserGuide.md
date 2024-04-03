@@ -300,7 +300,7 @@ Example: `linkloan 1 v/500.00 s/2024-02-15 r/2025-02-15`
 
 <!-- TODO: JunWu -->
 
-<!-- TODO: add screenshot to show list of active and unactive loans -->
+![viewloan](images/viewloan.png)
 
 ### Mark/Unmark a loan as returned: `markloan/unmarkloan`
 
