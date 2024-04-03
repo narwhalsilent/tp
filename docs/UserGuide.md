@@ -149,6 +149,11 @@ Format: `add n/NAME p/PHONE_NUMBER e/EMAIL a/ADDRESS [t/TAG]…​`
 :bulb: **Tip:**
 A person can have any number of tags (including 0)
 
+Parameters Restrictions:
+* The name must be at least 1 character long and is case-sensitive.
+* The phone number must only contain numbers.
+* The email must be in the format `local-part@domain`.
+
 Expected Behaviour:
 * A success message in the form of "New person added: [person details]" will be shown.
 * The person will be added to the address book and will be shown in the person list.
@@ -172,20 +177,26 @@ Edits an existing person in the address book.
 
 Format: `edit INDEX [n/NAME] [p/PHONE] [e/EMAIL] [a/ADDRESS] [t/TAG]…​`
 
-* Edits the person at the specified `INDEX`. The index refers to the index number shown in the displayed person list. The index **must be a positive integer** 1, 2, 3, …​
+Parameters Restrictions:
 * At least one of the optional fields must be provided.
+* The index must be a positive integer 1, 2, 3, …​
+* The name must be at least 1 character long and is case-sensitive.
+* The phone number must only contain numbers.
+* The email must be in the format `local-part@domain`.
+
+Expected Behaviour:
 * Existing values will be updated to the input values.
 * When editing tags, the existing tags of the person will be removed i.e adding of tags is not cumulative.
 * You can remove all the person’s tags by typing `t/` without
     specifying any tags after it.
-
-Expected Behaviour:
 * A success message in the form of "Edited Person: [person details]" will be shown.
 * The person will be updated in the address book and will be shown in the person list.
 
 Examples:
-*  `edit 1 p/91234567 e/johndoe@example.com` Edits the phone number and email address of the 1st person to be `91234567` and `johndoe@example.com` respectively.
-*  `edit 2 n/Betsy Crower t/` Edits the name of the 2nd person to be `Betsy Crower` and clears all existing tags.
+*  `edit 1 p/91234567 e/johndoe@example.com`
+    * Edits the phone number and email address of the 1st person to be `91234567` and `johndoe@example.com` respectively.
+*  `edit 2 n/Betsy Crower t/` 
+    * Edits the name of the 2nd person to be `Betsy Crower` and clears all existing tags.
 
 ### Locating persons by name: `find`
 
@@ -193,14 +204,16 @@ Finds persons whose names contain any of the given keywords.
 
 Format: `find KEYWORD [MORE_KEYWORDS]`
 
-* The search is case-insensitive. e.g `hans` will match `Hans`
-* The order of the keywords does not matter. e.g. `Hans Bo` will match `Bo Hans`
+Parameters Restrictions:
+* At least one keyword must be provided.
+* The keywords are case-insensitive.
+* The order of the keywords does not matter.
+
+Expected Behaviour:
 * Only the name is searched.
 * Only full words will be matched e.g. `Han` will not match `Hans`
 * Persons matching at least one keyword will be returned (i.e. `OR` search).
   e.g. `Hans Bo` will return `Hans Gruber`, `Bo Yang`
-
-Expected Behaviour:
 * A list of persons whose names contain the given keywords will be shown.
 * See the example below for more concrete details.
 
@@ -215,7 +228,7 @@ Deletes the specified person from the address book.
 
 Format: `delete INDEX`
 
-* Deletes the person at the specified `INDEX`.
+Parameters Restrictions:
 * The index refers to the index number shown in the displayed person list.
 * The index **must be a positive integer** 1, 2, 3, …​
 
@@ -269,95 +282,52 @@ Links a loan to a person in the address book.
 
 Format: `linkloan INDEX v/VALUE s/START_DATE r/RETURN_DATE`
 
+Parameters Restrictions:
+* Links a loan to the person at the specified `INDEX`. The index refers to the index number shown in the displayed person list. The index **must be a positive integer** 1, 2, 3, …​
+* The loan value must be a positive number.
+* The start date and return date must be in the format `YYYY-MM-DD`.
+* The return date must be after the start date.
+
 Expected Behaviour: 
 
 * A success message in the form of "New loan linked: [person name]" will be shown.
 * The loan can then be found in the loan list.
 
 Example: `linkloan 1 v/500.00 s/2024-02-15 r/2025-02-15`
-
-* Links a loan to the person at the specified `INDEX`. The index refers to the index number shown in the displayed person list. The index **must be a positive integer** 1, 2, 3, …​
-
-* The loan value must be a positive number.
-
-* The start date and return date must be in the format `YYYY-MM-DD`.
-
-* The return date must be after the start date.
+* Links a loan of $500.00 to the person at the 1st index with a start date of 15th Feb 2024 and return date of 15th Feb 2025.
 
 ### Viewing loans of a person: `viewloan`
 
-Shows all active loans of a person in the address book.
-
-Format: `viewloan OPTIONAL_FLAG INDEX`
-
-Expected Behaviour: 
-
-* A success message will in the form of "Listed all loans associated with: [person name]" will be shown. 
-
-* The list of all active loans of the person will be shown.
-
-Examples: `viewloan 1`, `viewloan -a 1`
-
-* Shows all active loans of the person at the specified `INDEX`. The index refers to the index number shown in the displayed person list. The index **must be a positive integer** 1, 2, 3, …​
-
-* The optional flag can be `-a` to show all loans including the inactive ones.
-
-<!-- TODO: add screenshot to show list of active and unactive loans -->
-
-### Viewing all loans: `viewloans`
-
-Shows all active loans in the address book.
-
-Format: `viewloans OPTIONAL_FLAG`
-
-Expected Behaviour:
-
-* A success message in the form of "Listed all loans" will be shown.
-
-* The list of all active loans will be shown.
-
-Examples: `viewloans`, `viewloans -a`
-
-* The optional flag can be `-a` to show all loans including the inactive ones.
+<!-- TODO: JunWu -->
 
 <!-- TODO: add screenshot to show list of active and unactive loans -->
 
 ### Mark/Unmark a loan as returned: `markloan/unmarkloan`
 
-Marks or unmarks a loan as returned.
-
-Format: `markloan INDEX`, `unmarkloan INDEX`
-
-Expected Behaviour:
-
-* A success message in the form of "Loan marked: [loan details]" or "Loan unmarked: [loan details]" will be shown.
-
-* The status of the loan will be updated accordingly and will be reflected in the loan list.
-
-Examples: `markloan 1`, `unmarkloan 1`
-
-* Marks or unmarks the loan at the specified `INDEX` as returned. The index refers to the index number shown in the displayed loan list. The index **must be a positive integer** 1, 2, 3, …​
+<!-- TODO: Xiaorui -->
 
 ### Editing a loan: `editloan`
 
 Edits an existing loan in the address book.
 
-<!-- TODO: update after implemented -->
-### Deleting a loan: `deleteloan`
+Format `editloan INDEX v/VALUE s/START_DATE r/RETURN_DATE`
 
-Deletes a loan permanently from the address book.
-
-Format: `deleteloan INDEX`
+Parameters Restrictions:
+* The index refers to the index number shown in the displayed loan list. The index **must be a positive integer** 1, 2, 3, …​
+* The loan value must be a positive number.
+* The start date and return date must be in the format `YYYY-MM-DD`.
+* The return date must be after the start date.
 
 Expected Behaviour:
+* A success message in the form of "Loan edited: [loan details]" will be shown.
+* The loan will be updated in the loan list.
 
-* A success message in the form of "Loan deleted: [loan details]" will be shown.
+Examples: `editloan 1 v/600.00 s/2024-02-15 r/2025-02-15`
+* Edits the loan at the 1st position in the loan list to have a value of $600.00, a start date of 15th Feb 2024, and a return date of 15th Feb 2025.
 
-* The loan will be removed from the loan list.
+### Deleting a loan: `deleteloan`
 
-Example: `deleteloan 1`
-
-* Deletes the loan at the specified `INDEX`. The index refers to the index number shown in the displayed loan list. The index **must be a positive integer** 1, 2, 3, …​
+<!-- TODO: JunWei -->
 
 <div style="text-align: right"><a href="#table-of-contents">Back to top</a></div>
 
@@ -365,10 +335,11 @@ Example: `deleteloan 1`
 
 ## Advanced Loan Management Features
 
-### Analysing a client's loaning history: `analyse`
+### Analysing a client's loan records: `analytics`
 
-<!-- TODO: update after implemented -->
+<!-- TODO: Marcus -->
 
+![result analytics](images/analytics.png)
 <div style="text-align: right"><a href="#table-of-contents">Back to top</a></div>
 
 --------------------------------------------------------------------------------------------------------------------
