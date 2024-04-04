@@ -25,6 +25,7 @@ import seedu.address.model.AddressBook;
 import seedu.address.model.Model;
 import seedu.address.model.ReadOnlyAddressBook;
 import seedu.address.model.ReadOnlyUserPrefs;
+import seedu.address.model.analytics.DashboardData;
 import seedu.address.model.person.Analytics;
 import seedu.address.model.person.Loan;
 import seedu.address.model.person.Person;
@@ -203,12 +204,7 @@ public class AddCommandTest {
         }
 
         @Override
-        public void setAnalytics(Analytics analytics) {
-            throw new AssertionError("This method should not be called.");
-        }
-
-        @Override
-        public ObjectProperty<Analytics> getAnalytics() {
+        public ObjectProperty<DashboardData> getDashboardData() {
             throw new AssertionError("This method should not be called.");
         }
 
@@ -239,6 +235,11 @@ public class AddCommandTest {
 
         @Override
         public void setToPersonTab() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void generateDashboardData(Analytics analytics) {
             throw new AssertionError("This method should not be called.");
         }
 

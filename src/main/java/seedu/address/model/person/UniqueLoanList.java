@@ -40,6 +40,7 @@ public class UniqueLoanList implements Iterable<Loan> {
 
     /**
      * Adds a loan to the list of loans.
+     *
      * @param loan A valid loan.
      */
     public void addLoan(Loan loan) {
@@ -50,6 +51,7 @@ public class UniqueLoanList implements Iterable<Loan> {
 
     /**
      * Adds a loan to the list of loans.
+     *
      * @param value A valid value.
      * @param startDate A valid start date.
      * @param returnDate A valid return date.
@@ -62,6 +64,7 @@ public class UniqueLoanList implements Iterable<Loan> {
 
     /**
      * Adds a loan to the list of loans.
+     *
      * @param loanDescription A valid LinkLoanDescriptor, which contains details about the loan to be added.
      */
     public Loan addLoan(LinkLoanDescriptor loanDescription, Person assignee) {
@@ -73,6 +76,7 @@ public class UniqueLoanList implements Iterable<Loan> {
 
     /**
      * Adds a loan to the list of loans.
+     *
      * @param value A valid value.
      * @param startDate A valid start date.
      * @param returnDate A valid return date.
@@ -91,6 +95,7 @@ public class UniqueLoanList implements Iterable<Loan> {
 
     /**
      * Removes a loan from the list of loans.
+     *
      * @param toRemove A valid loan.
      */
     public void removeLoan(Loan toRemove) {
@@ -147,6 +152,7 @@ public class UniqueLoanList implements Iterable<Loan> {
 
     /**
      * Marks a loan as returned.
+     *
      * @param idx A valid index.
      */
     public void markLoanAsReturned(int idx) {
@@ -155,6 +161,7 @@ public class UniqueLoanList implements Iterable<Loan> {
 
     /**
      * Marks a loan as returned.
+     *
      * @param id A valid id.
      */
     public void markLoanAsReturnedById(int id) {
@@ -166,6 +173,7 @@ public class UniqueLoanList implements Iterable<Loan> {
 
     /**
      * Marks a loan as not returned.
+     *
      * @param loanToMark A valid loan.
      */
     public void markLoan(Loan loanToMark) {
@@ -235,6 +243,7 @@ public class UniqueLoanList implements Iterable<Loan> {
     public int size() {
         return internalList.size();
     }
+
     @Override
     public String toString() {
         String output = "Loans:\n";
@@ -291,6 +300,7 @@ public class UniqueLoanList implements Iterable<Loan> {
 
     /**
      * Removes all loans attached to a person.
+     *
      * @param key A valid person.
      */
     public void removeLoansAttachedTo(Person key) {
@@ -300,6 +310,7 @@ public class UniqueLoanList implements Iterable<Loan> {
 
     /**
      * Modifies the assignee of all loans attached to a person.
+     *
      * @param target A valid person.
      * @param editedPerson A valid person.
      */
@@ -314,5 +325,37 @@ public class UniqueLoanList implements Iterable<Loan> {
         if (!internalList.isEmpty()) {
             internalList.set(0, internalList.get(0));
         }
+    }
+
+    /**
+     * Returns the maximum loan value of all loans.
+     *
+     * @return The maximum loan value of all loans.
+     */
+    public int getMaxLoanValue() {
+        int maxLoanValue = 0;
+        for (Loan loan : internalList) {
+            if (loan.getValue() > maxLoanValue) {
+                maxLoanValue = (int) loan.getValue();
+            }
+        }
+        return maxLoanValue;
+    }
+
+    /**
+     * Returns the earliest return date of all loans.
+     * The loan must not be overdue and must not have been returned.
+     *
+     * @return The earliest return date of all loans. Returns null if there are no loans that meet the criteria.
+     */
+    public Date getEarliestReturnDate() {
+        Date earliestReturnDate = null;
+        for (Loan loan : internalList) {
+            if ((earliestReturnDate == null || loan.getReturnDate().before(earliestReturnDate))
+                    && !loan.getReturnDate().before(new Date()) && !loan.isReturned()) {
+                earliestReturnDate = loan.getReturnDate();
+            }
+        }
+        return earliestReturnDate;
     }
 }
