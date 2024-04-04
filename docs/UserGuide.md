@@ -363,7 +363,20 @@ Examples: `viewloan 1`, `viewloan -a 1`
 
 ### Mark/Unmark a loan as returned: `markloan/unmarkloan`
 
-<!-- TODO: Xiaorui -->
+Marks or unmarks a loan as returned.
+
+Format: `markloan INDEX`, `unmarkloan INDEX`
+
+Parameters Restrictions:
+* The index refers to the index number shown in the displayed loan list. The index **must be a positive integer** 1, 2, 3, …​
+
+Expected Behaviour:
+* A success message in the form of "Loan marked: [loan details]" or "Loan unmarked: [loan details]" will be shown.
+* The status of the loan will be updated accordingly and will be reflected in the loan list.
+
+Examples: `markloan 1`, `unmarkloan 1`
+
+* Marks or unmarks the loan at that is in the 1st position in the loan list.
 
 ### Editing a loan: `editloan`
 
