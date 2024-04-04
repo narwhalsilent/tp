@@ -75,6 +75,8 @@ public class MainWindow extends UiPart<Stage> {
 
     private BooleanProperty isAnalyticsTab;
 
+    private BooleanProperty isPersonTab;
+
     /**
      * Creates a {@code MainWindow} with the given {@code Stage} and {@code Logic}.
      */
@@ -167,8 +169,13 @@ public class MainWindow extends UiPart<Stage> {
         this.isLoansTab = logic.getIsLoansTab();
         // Add listener to update the analytics panel when the tab is switched
         this.isAnalyticsTab = logic.getIsAnalyticsTab();
+        this.isPersonTab = logic.getIsPersonTab();
         logic.setIsAnalyticsTab(false);
         logic.setIsLoansTab(false);
+
+        this.isPersonTab.addListener((observable, oldValue, newValue) -> {
+            toggleTabs();
+        });
         this.isLoansTab.addListener((observable, oldValue, newValue) -> {
             toggleTabs();
         });
@@ -179,9 +186,19 @@ public class MainWindow extends UiPart<Stage> {
 
     private void toggleTabs() {
         // At most one can be active at a time
-        assert (!(this.isLoansTab.getValue() && this.isAnalyticsTab.getValue()));
+        // assert (!(this.isLoansTab.getValue() && this.isAnalyticsTab.getValue()));
 
-        if (!this.isLoansTab.getValue() && !this.isAnalyticsTab.getValue()) {
+        if (isPersonTab.getValue() && isLoansTab.getValue()) {
+            // Default to person list panel
+            clearAllPlaceholders();
+            VBox.setVgrow(personList, Priority.ALWAYS);
+            VBox.setVgrow(loanList, Priority.NEVER);
+            VBox.setVgrow(analytics, Priority.NEVER);
+            personListPanelPlaceholder.getChildren().add(personListPanel.getRoot());
+            VBox.setVgrow(loanList, Priority.ALWAYS);
+            loanListPanelPlaceholder.getChildren().add(loanListPanel.getRoot());
+            VBox.setVgrow(analytics, Priority.NEVER);
+        } else if (isPersonTab.getValue()) {
             // Default to person list panel
             clearAllPlaceholders();
             VBox.setVgrow(personList, Priority.ALWAYS);
