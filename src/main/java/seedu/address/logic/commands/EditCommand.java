@@ -84,7 +84,10 @@ public class EditCommand extends Command {
         }
 
         model.setPerson(personToEdit, editedPerson);
-        model.updateFilteredPersonList(PREDICATE_SHOW_ALL_PERSONS);
+        if (model.getIsLoansTab().get()) {
+            model.updateFilteredPersonList(person -> person.isSamePerson(editedPerson));
+            model.updateFilteredLoanList(loan -> loan.isAssignedTo(editedPerson));
+        }
         return new CommandResult(String.format(MESSAGE_EDIT_PERSON_SUCCESS, Messages.format(editedPerson)));
     }
 

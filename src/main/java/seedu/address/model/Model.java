@@ -142,6 +142,8 @@ public interface Model {
 
     void updateFilteredLoanList(Predicate<Loan> predicate);
 
+    void updateFilteredLoanList(Predicate<Loan> predicate, boolean isShowAllLoans);
+
     void setLoanList(List<Loan> loanList);
 
     BooleanProperty getIsLoansTab();

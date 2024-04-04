@@ -38,6 +38,7 @@ public class ModelManager implements Model {
     private final BooleanProperty isLoansTab = new SimpleBooleanProperty(false);
     private final BooleanProperty isAnalyticsTab = new SimpleBooleanProperty(false);
     private final BooleanProperty isPersonTab = new SimpleBooleanProperty(false);
+    private final BooleanProperty isShowAllLoans = new SimpleBooleanProperty(false);
     private final ObjectProperty<DashboardData> dashboardData = new SimpleObjectProperty<>();
 
     /**
@@ -187,7 +188,16 @@ public class ModelManager implements Model {
     @Override
     public void updateFilteredLoanList(Predicate<Loan> predicate) {
         requireNonNull(predicate);
-        filteredLoans.setPredicate(predicate);
+        Predicate<Loan> second_predicate =
+                isShowAllLoans.get() ? PREDICATE_SHOW_ALL_LOANS : PREDICATE_SHOW_ALL_ACTIVE_LOANS;
+        filteredLoans.setPredicate(predicate.and(second_predicate));
+    }
+
+    @Override
+    public void updateFilteredLoanList(Predicate<Loan> predicate, boolean isShowAllLoans) {
+        requireNonNull(predicate);
+        this.isShowAllLoans.setValue(isShowAllLoans);
+        updateFilteredLoanList(predicate);
     }
 
     @Override
