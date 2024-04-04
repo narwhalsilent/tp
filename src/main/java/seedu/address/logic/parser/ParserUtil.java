@@ -162,7 +162,7 @@ public class ParserUtil {
     }
 
     /**
-     * Parses {@code String value} into a {@code float}.
+     * Parses loan {@code String value} into a {@code float}.
      */
     public static float parseValue(String value) throws ParseException {
         requireNonNull(value);
@@ -172,6 +172,9 @@ public class ParserUtil {
             convertedValue = Float.parseFloat(trimmedValue);
         } catch (NumberFormatException n) {
             // Ths is caught when the formatter is unable to parse the value correctly
+            throw new ParseException(Loan.VALUE_CONSTRAINTS);
+        }
+        if (!Loan.isValidValue(convertedValue)) {
             throw new ParseException(Loan.VALUE_CONSTRAINTS);
         }
         return convertedValue;
