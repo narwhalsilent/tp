@@ -206,7 +206,10 @@ public class MainWindow extends UiPart<Stage> {
             VBox.setVgrow(loanList, Priority.ALWAYS);
             loanListPanelPlaceholder.getChildren().add(loanListPanel.getRoot());
             VBox.setVgrow(analytics, Priority.NEVER);
-            personListPanelPlaceholder.setMaxHeight(240);
+            personListPanelPlaceholder.setMaxHeight(105);
+            personListPanelPlaceholder.setMinHeight(105);
+            VBox.setVgrow(personList, Priority.NEVER);
+
             System.out.println("Both tabs are active");
         } else if (isPersonTab.getValue()) {
             // Default to person list panel
@@ -223,12 +226,14 @@ public class MainWindow extends UiPart<Stage> {
             VBox.setVgrow(personList, Priority.NEVER);
             VBox.setVgrow(analytics, Priority.NEVER);
             loanListPanelPlaceholder.getChildren().add(loanListPanel.getRoot());
+            personListPanelPlaceholder.setMinHeight(0);
             System.out.println("Only loans tab is active");
         } else {
             clearAllPlaceholders();
             VBox.setVgrow(analytics, Priority.ALWAYS);
             VBox.setVgrow(personList, Priority.NEVER);
             VBox.setVgrow(loanList, Priority.NEVER);
+            personListPanelPlaceholder.setMinHeight(0);
             analyticsPanelPlaceholder.getChildren().add(analyticsPanel.getRoot());
         }
     }
