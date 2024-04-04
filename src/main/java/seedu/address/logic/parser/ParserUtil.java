@@ -135,26 +135,9 @@ public class ParserUtil {
     public static LinkLoanDescriptor parseLoan(String value, String startDate, String returnDate)
             throws ParseException {
         requireAllNonNull(value, startDate, returnDate);
-        String trimmedValue = value.trim();
-        String trimmedStartDate = startDate.trim();
-        String trimmedReturnDate = returnDate.trim();
-        float convertedValue;
-        Date convertedStartDate;
-        Date convertedReturnDate;
-        try {
-            convertedValue = Float.parseFloat(trimmedValue);
-            convertedStartDate = DateUtil.parse(trimmedStartDate);
-            convertedReturnDate = DateUtil.parse(trimmedReturnDate);
-        } catch (IllegalValueException i) {
-            // This is caught when the formatter is unable to parse the date correctly
-            throw new ParseException(Loan.DATE_CONSTRAINTS);
-        } catch (NumberFormatException n) {
-            // Ths is caught when the formatter is unable to parse the value correctly
-            throw new ParseException(Loan.VALUE_CONSTRAINTS);
-        }
-        if (!Loan.isValidValue(convertedValue)) {
-            throw new ParseException(Loan.VALUE_CONSTRAINTS);
-        }
+        float convertedValue = parseValue(value);
+        Date convertedStartDate = parseDate(startDate);
+        Date convertedReturnDate = parseDate(returnDate);
         if (!Loan.isValidDates(convertedStartDate, convertedReturnDate)) {
             throw new ParseException(Loan.DATE_CONSTRAINTS);
         }
@@ -162,7 +145,7 @@ public class ParserUtil {
     }
 
     /**
-     * Parses {@code String value} into a {@code float}.
+     * Parses loan {@code String value} into a {@code float}.
      */
     public static float parseValue(String value) throws ParseException {
         requireNonNull(value);
@@ -172,6 +155,9 @@ public class ParserUtil {
             convertedValue = Float.parseFloat(trimmedValue);
         } catch (NumberFormatException n) {
             // Ths is caught when the formatter is unable to parse the value correctly
+            throw new ParseException(Loan.VALUE_CONSTRAINTS);
+        }
+        if (!Loan.isValidValue(convertedValue)) {
             throw new ParseException(Loan.VALUE_CONSTRAINTS);
         }
         return convertedValue;
