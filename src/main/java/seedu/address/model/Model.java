@@ -155,9 +155,5 @@ public interface Model {
 
     void unmarkLoan(Loan loanToUnmark);
 
-    void setAnalytics(Analytics analytics);
-
-    ObjectProperty<Analytics> getAnalytics();
-
     ObjectProperty<DashboardData> getDashboardData();
 }
