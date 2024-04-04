@@ -124,4 +124,9 @@ public class LogicManager implements Logic {
     public BooleanProperty getIsPersonTab() {
         return model.getIsPersonTab();
     }
+
+    @Override
+    public BooleanProperty getLoaneeInfoFlag() {
+        return model.getLoaneeInfoFlag();
+    }
 }

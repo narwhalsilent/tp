@@ -184,4 +184,8 @@ public interface Model {
     void setIsPersonTab(Boolean isPersonTab);
 
     void setDualPanel();
+
+    BooleanProperty getLoaneeInfoFlag();
+
+    void setLoaneeInfoFlag(Boolean loaneeInfoFlag);
 }
