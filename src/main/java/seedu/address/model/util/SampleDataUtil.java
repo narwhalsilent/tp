@@ -1,5 +1,6 @@
 package seedu.address.model.util;
 
+import java.math.BigDecimal;
 import java.util.Arrays;
 import java.util.Set;
 import java.util.stream.Collectors;
@@ -49,7 +50,8 @@ public class SampleDataUtil {
     public static LinkLoanCommand.LinkLoanDescriptor[] getSampleLoans() {
         LinkLoanCommand.LinkLoanDescriptor loanDescriptor;
         try {
-            loanDescriptor = new LinkLoanCommand.LinkLoanDescriptor(100, DateUtil.parse("2021-10-10"),
+            loanDescriptor = new LinkLoanCommand.LinkLoanDescriptor(BigDecimal.valueOf(100),
+                    DateUtil.parse("2021-10-10"),
                     DateUtil.parse("2021-12-10"));
             return new LinkLoanCommand.LinkLoanDescriptor[] {
                 loanDescriptor

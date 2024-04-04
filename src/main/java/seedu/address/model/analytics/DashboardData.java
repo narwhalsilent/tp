@@ -1,5 +1,7 @@
 package seedu.address.model.analytics;
 
+import java.math.BigDecimal;
+import java.math.RoundingMode;
 import java.time.LocalDate;
 import java.time.ZoneId;
 import java.util.Date;
@@ -15,7 +17,7 @@ import seedu.address.model.person.Analytics;
  */
 public class DashboardData {
     private Analytics analytics;
-    private float maxLoanValue;
+    private BigDecimal maxLoanValue;
     private Date earliestReturnDate;
 
     /**
@@ -25,7 +27,7 @@ public class DashboardData {
      * @param maxLoanValue maximum loan value of all loans
      * @param earliestReturnDate earliest return date of all loans (not returned and not overdue)
      */
-    public DashboardData(Analytics analytics, float maxLoanValue, Date earliestReturnDate) {
+    public DashboardData(Analytics analytics, BigDecimal maxLoanValue, Date earliestReturnDate) {
         this.analytics = analytics;
         this.maxLoanValue = maxLoanValue;
         this.earliestReturnDate = earliestReturnDate;
@@ -35,18 +37,19 @@ public class DashboardData {
         return analytics;
     }
 
-    public float getMaxLoanValue() {
+    public BigDecimal getMaxLoanValue() {
         return maxLoanValue;
     }
 
     /**
      * Calculates the impact index of the dashboard data
      * Impact index is calculated as the ratio of the average loan value to the maximum loan value
+     * to 2 decimal places.
      *
      * @return impact index between 0 and 1
      */
-    public float getImpactIndex() {
-        return analytics.getAverageLoanValue() / maxLoanValue;
+    public BigDecimal getImpactIndex() {
+        return analytics.getAverageLoanValue().divide(maxLoanValue, 2, RoundingMode.HALF_UP);
     }
 
     /**

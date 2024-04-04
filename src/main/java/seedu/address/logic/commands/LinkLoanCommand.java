@@ -6,6 +6,7 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_RETURN_DATE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_START_DATE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_VALUE;
 
+import java.math.BigDecimal;
 import java.util.Date;
 import java.util.List;
 import java.util.Objects;
@@ -102,7 +103,7 @@ public class LinkLoanCommand extends Command {
      * Stores the details of the loan to be linked.
      */
     public static class LinkLoanDescriptor {
-        private float value;
+        private BigDecimal value;
         private Date startDate;
         private Date returnDate;
 
@@ -112,7 +113,7 @@ public class LinkLoanCommand extends Command {
          * @param startDate The start date of the loan
          * @param returnDate The date which the loan must be returned by
          */
-        public LinkLoanDescriptor(float value, Date startDate, Date returnDate) {
+        public LinkLoanDescriptor(BigDecimal value, Date startDate, Date returnDate) {
             this.value = value;
             this.startDate = startDate;
             this.returnDate = returnDate;
@@ -127,11 +128,11 @@ public class LinkLoanCommand extends Command {
             setReturnDate(toCopy.returnDate);
         }
 
-        public void setValue(float value) {
+        public void setValue(BigDecimal value) {
             this.value = value;
         }
 
-        public float getValue() {
+        public BigDecimal getValue() {
             return value;
         }
 

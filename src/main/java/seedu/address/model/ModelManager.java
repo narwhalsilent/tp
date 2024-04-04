@@ -3,6 +3,7 @@ package seedu.address.model;
 import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
+import java.math.BigDecimal;
 import java.nio.file.Path;
 import java.util.Date;
 import java.util.List;
@@ -261,7 +262,7 @@ public class ModelManager implements Model {
 
     @Override
     public void generateDashboardData(Analytics analytics) {
-        float impactBenchmark = this.addressBook.getUniqueLoanList().getMaxLoanValue();
+        BigDecimal impactBenchmark = this.addressBook.getUniqueLoanList().getMaxLoanValue();
         Date urgencyBenchmark = this.addressBook.getUniqueLoanList().getEarliestReturnDate();
         dashboardData.setValue(new DashboardData(analytics, impactBenchmark, urgencyBenchmark));
     }

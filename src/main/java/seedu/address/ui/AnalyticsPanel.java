@@ -1,5 +1,7 @@
 package seedu.address.ui;
 
+import java.math.BigDecimal;
+
 import javafx.beans.property.ObjectProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -75,17 +77,17 @@ public class AnalyticsPanel extends UiPart<Region> {
         }
 
 
-        if (data.getMaxLoanValue() == 0) {
+        if (data.getMaxLoanValue().compareTo(BigDecimal.ZERO) == 0) {
             impactIndex.setText("No loans to analyze");
             impactChart.setVisible(false);
         } else {
             impactChart.setVisible(true);
             ObservableList<PieChart.Data> impactData = FXCollections.observableArrayList(
-                    new PieChart.Data("Impact Index", data.getImpactIndex()),
-                    new PieChart.Data("", 1 - data.getImpactIndex())
+                    new PieChart.Data("Impact Index", data.getImpactIndex().doubleValue()),
+                    new PieChart.Data("", 1 - data.getImpactIndex().doubleValue())
             );
             impactChart.setData(impactData);
-            impactIndex.setText(String.format("%.2f", data.getImpactIndex() * 100) + "%");
+            impactIndex.setText(String.format("%.2f", data.getImpactIndex().doubleValue() * 100) + "%");
         }
         if (data.getUrgencyIndex() == null) {
             urgencyIndex.setText("No due loans to analyze");
