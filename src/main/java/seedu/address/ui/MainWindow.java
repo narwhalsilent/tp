@@ -147,12 +147,19 @@ public class MainWindow extends UiPart<Stage> {
         personListPanelPlaceholder.getChildren().add(personListPanel.getRoot());
         resultDisplay = new ResultDisplay();
         resultDisplayPlaceholder.getChildren().add(resultDisplay.getRoot());
+        initializePlaceholderSettings();
 
         StatusBarFooter statusBarFooter = new StatusBarFooter(logic.getAddressBookFilePath());
         statusbarPlaceholder.getChildren().add(statusBarFooter.getRoot());
 
         CommandBox commandBox = new CommandBox(this::executeCommand);
         commandBoxPlaceholder.getChildren().add(commandBox.getRoot());
+    }
+
+    private void initializePlaceholderSettings() {
+        VBox.setVgrow(personList, Priority.ALWAYS);
+        VBox.setVgrow(loanList, Priority.NEVER);
+        VBox.setVgrow(analytics, Priority.NEVER);
     }
 
     private void initializeLocalListeners() {
@@ -178,14 +185,20 @@ public class MainWindow extends UiPart<Stage> {
             // Default to person list panel
             clearAllPlaceholders();
             VBox.setVgrow(personList, Priority.ALWAYS);
+            VBox.setVgrow(loanList, Priority.NEVER);
+            VBox.setVgrow(analytics, Priority.NEVER);
             personListPanelPlaceholder.getChildren().add(personListPanel.getRoot());
         } else if (this.isLoansTab.getValue()) {
             clearAllPlaceholders();
             VBox.setVgrow(loanList, Priority.ALWAYS);
+            VBox.setVgrow(personList, Priority.NEVER);
+            VBox.setVgrow(analytics, Priority.NEVER);
             loanListPanelPlaceholder.getChildren().add(loanListPanel.getRoot());
         } else {
             clearAllPlaceholders();
             VBox.setVgrow(analytics, Priority.ALWAYS);
+            VBox.setVgrow(personList, Priority.NEVER);
+            VBox.setVgrow(loanList, Priority.NEVER);
             analyticsPanelPlaceholder.getChildren().add(analyticsPanel.getRoot());
         }
     }
