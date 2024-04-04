@@ -11,6 +11,7 @@ import static seedu.address.logic.commands.CommandTestUtil.VALID_PHONE_BOB;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_TAG_FRIEND;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_TAG_HUSBAND;
 
+import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -68,11 +69,11 @@ public class TypicalPersonsWithLoans {
     public static UniqueLoanList loanRecords() {
         UniqueLoanList uniqueLoanList = new UniqueLoanList();
         try {
-            uniqueLoanList.addLoan(100F, DateUtil.parse("2020-01-01"),
+            uniqueLoanList.addLoan(BigDecimal.valueOf(100), DateUtil.parse("2020-01-01"),
                     DateUtil.parse("2020-01-13"), ALICE);
-            uniqueLoanList.addLoan(200F, DateUtil.parse("2020-02-01"),
+            uniqueLoanList.addLoan(BigDecimal.valueOf(200), DateUtil.parse("2020-02-01"),
                     DateUtil.parse("2020-02-13"), BENSON);
-            uniqueLoanList.addLoan(300F, DateUtil.parse("2020-02-13"),
+            uniqueLoanList.addLoan(BigDecimal.valueOf(300), DateUtil.parse("2020-02-13"),
                     DateUtil.parse("2020-02-14"), CARL);
         } catch (IllegalValueException e) {
             e.printStackTrace();

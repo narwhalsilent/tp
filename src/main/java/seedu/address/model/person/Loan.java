@@ -2,6 +2,7 @@ package seedu.address.model.person;
 
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
+import java.math.BigDecimal;
 import java.util.Date;
 
 import seedu.address.commons.util.DateUtil;
@@ -18,7 +19,7 @@ public class Loan implements Comparable<Loan> {
     public static final String VALUE_CONSTRAINTS = "Loan values must be a positive number.";
 
     private final int id;
-    private final float value;
+    private final BigDecimal value;
     private final Date startDate;
     private final Date returnDate;
     private boolean isReturned;
@@ -33,7 +34,7 @@ public class Loan implements Comparable<Loan> {
      * @param returnDate A valid return date.
      * @param assignee   A valid assignee.
      */
-    public Loan(int id, float value, Date startDate, Date returnDate, Person assignee) {
+    public Loan(int id, BigDecimal value, Date startDate, Date returnDate, Person assignee) {
         requireAllNonNull(id, value, startDate, returnDate, assignee);
         assert isValidValue(value);
         assert id >= 0;
@@ -55,7 +56,7 @@ public class Loan implements Comparable<Loan> {
      * @param isReturned A valid return status.
      * @param assignee   A valid assignee.
      */
-    public Loan(int id, float value, Date startDate, Date returnDate, boolean isReturned, Person assignee) {
+    public Loan(int id, BigDecimal value, Date startDate, Date returnDate, boolean isReturned, Person assignee) {
         requireAllNonNull(id, value, startDate, returnDate, isReturned, assignee);
         assert isValidValue(value);
         assert id >= 0;
@@ -68,10 +69,10 @@ public class Loan implements Comparable<Loan> {
     }
 
     /**
-     * Returns true if a given float is a valid value.
+     * Returns true if a given BigDecimal is a valid value.
      */
-    public static boolean isValidValue(float value) {
-        return value > 0;
+    public static boolean isValidValue(BigDecimal value) {
+        return value.compareTo(BigDecimal.ZERO) > 0;
     }
 
     /**
@@ -85,7 +86,7 @@ public class Loan implements Comparable<Loan> {
         return id;
     }
 
-    public float getValue() {
+    public BigDecimal getValue() {
         return value;
     }
 

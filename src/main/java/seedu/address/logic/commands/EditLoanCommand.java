@@ -6,6 +6,7 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_RETURN_DATE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_START_DATE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_VALUE;
 
+import java.math.BigDecimal;
 import java.util.Date;
 import java.util.List;
 import java.util.Objects;
@@ -93,7 +94,7 @@ public class EditLoanCommand extends Command {
 
     private LinkLoanDescriptor generateEditedLoanDetails(Loan loanToEdit, EditLoanDescriptor editedDetails)
             throws CommandException {
-        float newValue = editedDetails.getValue().orElse(loanToEdit.getValue());
+        BigDecimal newValue = editedDetails.getValue().orElse(loanToEdit.getValue());
         Date newStartDate = editedDetails.getStartDate().orElse(loanToEdit.getStartDate());
         Date newReturnDate = editedDetails.getReturnDate().orElse(loanToEdit.getReturnDate());
         requireAllNonNull(newValue, newStartDate, newReturnDate);
@@ -131,7 +132,7 @@ public class EditLoanCommand extends Command {
      * Stores the details of the loan that is edited.
      */
     public static class EditLoanDescriptor {
-        private Float value = null;
+        private BigDecimal value = null;
         private Date startDate = null;
         private Date returnDate = null;
 
@@ -147,11 +148,11 @@ public class EditLoanCommand extends Command {
             return CollectionUtil.isAnyNonNull(value, startDate, returnDate);
         }
 
-        public void setValue(float value) {
+        public void setValue(BigDecimal value) {
             this.value = value;
         }
 
-        public Optional<Float> getValue() {
+        public Optional<BigDecimal> getValue() {
             return Optional.ofNullable(value);
         }
 

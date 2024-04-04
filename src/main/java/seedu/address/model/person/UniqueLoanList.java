@@ -2,6 +2,7 @@ package seedu.address.model.person;
 
 import static java.util.Objects.requireNonNull;
 
+import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashSet;
@@ -56,7 +57,7 @@ public class UniqueLoanList implements Iterable<Loan> {
      * @param startDate A valid start date.
      * @param returnDate A valid return date.
      */
-    public Loan addLoan(float value, Date startDate, Date returnDate, Person assignee) {
+    public Loan addLoan(BigDecimal value, Date startDate, Date returnDate, Person assignee) {
         Loan loan = new Loan(nextLoanId, value, startDate, returnDate, assignee);
         addLoan(loan);
         return loan;
@@ -68,7 +69,7 @@ public class UniqueLoanList implements Iterable<Loan> {
      * @param loanDescription A valid LinkLoanDescriptor, which contains details about the loan to be added.
      */
     public Loan addLoan(LinkLoanDescriptor loanDescription, Person assignee) {
-        float value = loanDescription.getValue();
+        BigDecimal value = loanDescription.getValue();
         Date startDate = loanDescription.getStartDate();
         Date returnDate = loanDescription.getReturnDate();
         return addLoan(value, startDate, returnDate, assignee);
@@ -82,7 +83,7 @@ public class UniqueLoanList implements Iterable<Loan> {
      * @param returnDate A valid return date.
      * @throws IllegalValueException If the date string is not in the correct format.
      */
-    public void addLoan(float value, String startDate, String returnDate, Person assignee)
+    public void addLoan(BigDecimal value, String startDate, String returnDate, Person assignee)
             throws IllegalValueException {
         try {
             Date start = DateUtil.parse(startDate);
@@ -332,11 +333,11 @@ public class UniqueLoanList implements Iterable<Loan> {
      *
      * @return The maximum loan value of all loans.
      */
-    public int getMaxLoanValue() {
-        int maxLoanValue = 0;
+    public BigDecimal getMaxLoanValue() {
+        BigDecimal maxLoanValue = BigDecimal.ZERO;
         for (Loan loan : internalList) {
-            if (loan.getValue() > maxLoanValue) {
-                maxLoanValue = (int) loan.getValue();
+            if (loan.getValue().compareTo(maxLoanValue) > 0) {
+                maxLoanValue = loan.getValue();
             }
         }
         return maxLoanValue;

@@ -1,5 +1,7 @@
 package seedu.address.storage;
 
+import java.math.BigDecimal;
+
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
@@ -12,7 +14,7 @@ import seedu.address.model.person.Loan;
  */
 public class JsonAdaptedLoan {
 
-    private final float value;
+    private final BigDecimal value;
     private final String startDate;
     private final String returnDate;
     private final int id;
@@ -23,7 +25,7 @@ public class JsonAdaptedLoan {
      * Constructs a {@code JsonAdaptedLoan} with the given loan details.
      */
     @JsonCreator
-    public JsonAdaptedLoan(@JsonProperty("value") float value, @JsonProperty("startDate") String startDate,
+    public JsonAdaptedLoan(@JsonProperty("value") BigDecimal value, @JsonProperty("startDate") String startDate,
                            @JsonProperty("returnDate") String returnDate, @JsonProperty("id") int id,
                            @JsonProperty("isReturned") boolean isReturned,
                            @JsonProperty("assignee") JsonAdaptedPerson assignee) {

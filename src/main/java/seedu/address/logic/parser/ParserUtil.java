@@ -3,6 +3,7 @@ package seedu.address.logic.parser;
 import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
+import java.math.BigDecimal;
 import java.util.Collection;
 import java.util.Date;
 import java.util.HashSet;
@@ -135,7 +136,7 @@ public class ParserUtil {
     public static LinkLoanDescriptor parseLoan(String value, String startDate, String returnDate)
             throws ParseException {
         requireAllNonNull(value, startDate, returnDate);
-        float convertedValue = parseValue(value);
+        BigDecimal convertedValue = parseValue(value);
         Date convertedStartDate = parseDate(startDate);
         Date convertedReturnDate = parseDate(returnDate);
         if (!Loan.isValidDates(convertedStartDate, convertedReturnDate)) {
@@ -145,14 +146,14 @@ public class ParserUtil {
     }
 
     /**
-     * Parses loan {@code String value} into a {@code float}.
+     * Parses loan {@code String value} into a {@code BigDecimal}.
      */
-    public static float parseValue(String value) throws ParseException {
+    public static BigDecimal parseValue(String value) throws ParseException {
         requireNonNull(value);
         String trimmedValue = value.trim();
-        float convertedValue;
+        BigDecimal convertedValue;
         try {
-            convertedValue = Float.parseFloat(trimmedValue);
+            convertedValue = new BigDecimal(trimmedValue);
         } catch (NumberFormatException n) {
             // Ths is caught when the formatter is unable to parse the value correctly
             throw new ParseException(Loan.VALUE_CONSTRAINTS);

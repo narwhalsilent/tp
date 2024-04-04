@@ -1,5 +1,7 @@
 package seedu.address.model.person;
 
+import java.math.BigDecimal;
+import java.math.RoundingMode;
 import java.util.Date;
 
 import javafx.collections.ObservableList;
@@ -16,13 +18,13 @@ public class Analytics {
     private float propOverdueLoans; // proportion of loans that are overdue over active loans
     private float propActiveLoans; // proportion of loans that are active over total loans
 
-    private float totalValueLoaned; // total value of all loans
-    private float totalValueOverdue; // total value of all overdue loans
-    private float totalValueActive; // total value of all active loans
+    private BigDecimal totalValueLoaned; // total value of all loans
+    private BigDecimal totalValueOverdue; // total value of all overdue loans
+    private BigDecimal totalValueActive; // total value of all active loans
 
-    private float averageLoanValue; // average loan value of all loans
-    private float averageOverdueValue; // average loan value of all overdue loans
-    private float averageActiveValue; // average loan value of all active loans
+    private BigDecimal averageLoanValue; // average loan value of all loans
+    private BigDecimal averageOverdueValue; // average loan value of all overdue loans
+    private BigDecimal averageActiveValue; // average loan value of all active loans
 
     private Date earliestLoanDate; // earliest loan date of all loans
     private Date earliestReturnDate; // earliest return date of active loans
@@ -37,13 +39,13 @@ public class Analytics {
         this.propOverdueLoans = 0;
         this.propActiveLoans = 0;
 
-        this.totalValueLoaned = 0;
-        this.totalValueOverdue = 0;
-        this.totalValueActive = 0;
+        this.totalValueLoaned = BigDecimal.ZERO;
+        this.totalValueOverdue = BigDecimal.ZERO;
+        this.totalValueActive = BigDecimal.ZERO;
 
-        this.averageLoanValue = 0;
-        this.averageOverdueValue = 0;
-        this.averageActiveValue = 0;
+        this.averageLoanValue = BigDecimal.ZERO;
+        this.averageOverdueValue = BigDecimal.ZERO;
+        this.averageActiveValue = BigDecimal.ZERO;
 
         this.earliestLoanDate = null;
         this.earliestReturnDate = null;
@@ -83,12 +85,12 @@ public class Analytics {
      * @param loan The loan to update the fields with.
      */
     private void updateValueFields(Loan loan) {
-        this.totalValueLoaned += loan.getValue();
+        totalValueLoaned = totalValueLoaned.add(loan.getValue());
         if (loan.isOverdue()) {
-            this.totalValueOverdue += loan.getValue();
+            totalValueOverdue = totalValueOverdue.add(loan.getValue());
         }
         if (loan.isActive()) {
-            this.totalValueActive += loan.getValue();
+            totalValueActive = totalValueActive.add(loan.getValue());
         }
     }
 
@@ -97,14 +99,17 @@ public class Analytics {
      * This method should be called after the fields that calculate the total value of various loans have been updated.
      */
     private void updateAverageFields() {
-        if (this.numActiveLoans > 0) {
-            this.averageActiveValue = this.totalValueActive / this.numActiveLoans;
+        if (numActiveLoans > 0) {
+            averageActiveValue = totalValueActive.divide(BigDecimal.valueOf(numActiveLoans),
+                    2, RoundingMode.HALF_UP);
         }
-        if (this.numOverdueLoans > 0) {
-            this.averageOverdueValue = this.totalValueOverdue / this.numOverdueLoans;
+        if (numOverdueLoans > 0) {
+            averageOverdueValue = totalValueOverdue.divide(BigDecimal.valueOf(numOverdueLoans),
+                    2, RoundingMode.HALF_UP);
         }
-        if (this.numLoans > 0) {
-            this.averageLoanValue = this.totalValueLoaned / this.numLoans;
+        if (numLoans > 0) {
+            averageLoanValue = totalValueLoaned.divide(BigDecimal.valueOf(this.numLoans),
+                    2, RoundingMode.HALF_UP);
         }
     }
 
@@ -171,27 +176,27 @@ public class Analytics {
         return propActiveLoans;
     }
 
-    public float getTotalValueLoaned() {
+    public BigDecimal getTotalValueLoaned() {
         return totalValueLoaned;
     }
 
-    public float getTotalValueOverdue() {
+    public BigDecimal getTotalValueOverdue() {
         return totalValueOverdue;
     }
 
-    public float getTotalValueActive() {
+    public BigDecimal getTotalValueActive() {
         return totalValueActive;
     }
 
-    public float getAverageLoanValue() {
+    public BigDecimal getAverageLoanValue() {
         return averageLoanValue;
     }
 
-    public float getAverageOverdueValue() {
+    public BigDecimal getAverageOverdueValue() {
         return averageOverdueValue;
     }
 
-    public float getAverageActiveValue() {
+    public BigDecimal getAverageActiveValue() {
         return averageActiveValue;
     }
 
