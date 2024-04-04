@@ -22,6 +22,7 @@ import seedu.address.logic.commands.HelpCommand;
 import seedu.address.logic.commands.LinkLoanCommand;
 import seedu.address.logic.commands.ListCommand;
 import seedu.address.logic.commands.MarkLoanCommand;
+import seedu.address.logic.commands.UnmarkLoanCommand;
 import seedu.address.logic.commands.ViewLoanRelatedCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
 
@@ -93,6 +94,9 @@ public class AddressBookParser {
 
         case MarkLoanCommand.COMMAND_WORD:
             return new MarkLoanCommandParser().parse(arguments);
+
+        case UnmarkLoanCommand.COMMAND_WORD:
+            return new UnmarkLoanCommandParser().parse(arguments);
 
         case AnalyticsCommand.COMMAND_WORD:
             return new AnalyticsCommandParser().parse(arguments);

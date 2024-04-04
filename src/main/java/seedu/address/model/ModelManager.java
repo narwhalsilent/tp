@@ -156,6 +156,11 @@ public class ModelManager implements Model {
         addressBook.markLoan(loanToMark);
     }
 
+    @Override
+    public void unmarkLoan(Loan loanToUnmark) {
+        addressBook.unmarkLoan(loanToUnmark);
+    }
+
     //=========== Filtered Lists Accessors =============================================================
 
     /**

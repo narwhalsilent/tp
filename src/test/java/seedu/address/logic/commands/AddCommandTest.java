@@ -198,6 +198,10 @@ public class AddCommandTest {
         public void markLoan(Loan loanToMark) {
             throw new AssertionError("This method should not be called.");
         }
+        @Override
+        public void unmarkLoan(Loan loanToUnmark) {
+            throw new AssertionError("This method should not be called.");
+        }
 
         @Override
         public ObjectProperty<DashboardData> getDashboardData() {

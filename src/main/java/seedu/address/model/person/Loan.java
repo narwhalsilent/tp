@@ -136,7 +136,7 @@ public class Loan implements Comparable<Loan> {
     /**
      * Marks the loan as not returned.
      */
-    public void markAsNotReturned() {
+    public void unmarkAsReturned() {
         isReturned = false;
     }
 

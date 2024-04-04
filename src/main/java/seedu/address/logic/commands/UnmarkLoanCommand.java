@@ -9,29 +9,28 @@ import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 import seedu.address.model.person.Loan;
 
-
 /**
- * Marks a loan as paid.
+ * Reverts the status of a loan to unpaid.
  */
-public class MarkLoanCommand extends Command {
-    public static final String COMMAND_WORD = "markloan";
+public class UnmarkLoanCommand extends Command {
+    public static final String COMMAND_WORD = "unmarkloan";
     public static final String MESSAGE_USAGE = COMMAND_WORD
             + ": Marks the loan number of current person in view as paid.\n"
             + "Parameters: INDEX\n"
             + "INDEX must be a positive integer.\n"
             + "Example: " + COMMAND_WORD + " 1\n"
             + "This marks the loan of loan index 1 of the current person.";
-    public static final String MESSAGE_SUCCESS = "Loan marked.\n"
+    public static final String MESSAGE_SUCCESS = "Loan unmarked.\n"
             + "Loan: %1$s";
     public static final String MESSAGE_FAILURE_LOAN = "No loan has been found "
             + "for loan number: %1$d";
     private final Index loanIndex;
 
     /**
-     * Creates a MarkLoanCommand to delete the specified loan.
+     * Creates a UnmarkLoanCommand to delete the specified loan.
      * @param loanIndex
      */
-    public MarkLoanCommand(Index loanIndex) {
+    public UnmarkLoanCommand(Index loanIndex) {
         requireAllNonNull(loanIndex);
         this.loanIndex = loanIndex;
     }
@@ -44,9 +43,9 @@ public class MarkLoanCommand extends Command {
             throw new CommandException(String.format(MESSAGE_FAILURE_LOAN, loanIndex.getOneBased()));
         }
         // delete specified loan number
-        Loan loanToMark = lastShownList.get(loanIndex.getZeroBased());
-        model.markLoan(loanToMark);
-        return new CommandResult(generateSuccessMessage(loanToMark), false, false, true);
+        Loan loanToUnmark = lastShownList.get(loanIndex.getZeroBased());
+        model.unmarkLoan(loanToUnmark);
+        return new CommandResult(generateSuccessMessage(loanToUnmark), false, false, true);
     }
 
     /**
@@ -63,10 +62,10 @@ public class MarkLoanCommand extends Command {
             return true;
         }
         // instanceof handles nulls
-        if (!(other instanceof MarkLoanCommand)) {
+        if (!(other instanceof UnmarkLoanCommand)) {
             return false;
         }
-        MarkLoanCommand e = (MarkLoanCommand) other;
+        UnmarkLoanCommand e = (UnmarkLoanCommand) other;
         return loanIndex.equals(e.loanIndex);
     }
 }

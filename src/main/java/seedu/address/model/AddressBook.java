@@ -134,9 +134,19 @@ public class AddressBook implements ReadOnlyAddressBook {
     public Loan addLoan(LinkLoanCommand.LinkLoanDescriptor loanDescription, Person assignee) {
         return loans.addLoan(loanDescription, assignee);
     }
-
+    /**
+     * Marks a loan in the address book.
+     * The loan must exist in the address book.
+     */
     public void markLoan(Loan loanToMark) {
         loans.markLoan(loanToMark);
+    }
+    /**
+     * Unmarks a loan in the address book.
+     * The loan must exist in the address book.
+     */
+    public void unmarkLoan(Loan loanToUnmark) {
+        loans.unmarkLoan(loanToUnmark);
     }
 
     /**

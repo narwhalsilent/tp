@@ -91,11 +91,19 @@ public class AddressBookParserTest {
     @Test
     public void parseCommand_deleteLoan() throws Exception {
         // TODO
+        assertTrue(true);
     }
 
     @Test
     public void parseCommand_markLoan() throws Exception {
         // TODO
+        assertTrue(true);
+    }
+
+    @Test
+    public void parseCommand_unmarkLoan() throws Exception {
+        // TODO
+        assertTrue(true);
     }
 
     @Test

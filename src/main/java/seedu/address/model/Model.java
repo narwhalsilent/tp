@@ -153,5 +153,11 @@ public interface Model {
 
     void generateDashboardData(Analytics analytics);
 
+    void unmarkLoan(Loan loanToUnmark);
+
+    void setAnalytics(Analytics analytics);
+
+    ObjectProperty<Analytics> getAnalytics();
+
     ObjectProperty<DashboardData> getDashboardData();
 }
