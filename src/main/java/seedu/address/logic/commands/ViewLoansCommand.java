@@ -1,8 +1,6 @@
 package seedu.address.logic.commands;
 
 import static java.util.Objects.requireNonNull;
-import static seedu.address.model.Model.PREDICATE_SHOW_ALL_ACTIVE_LOANS;
-import static seedu.address.model.Model.PREDICATE_SHOW_ALL_LOANS;
 import static seedu.address.model.Model.PREDICATE_SHOW_NO_PERSONS;
 
 import seedu.address.model.Model;
@@ -23,11 +21,7 @@ public class ViewLoansCommand extends ViewLoanRelatedCommand {
     public CommandResult execute(Model model) {
         requireNonNull(model);
         model.updateFilteredPersonList(PREDICATE_SHOW_NO_PERSONS);
-        if (isShowAllLoans) {
-            model.updateFilteredLoanList(PREDICATE_SHOW_ALL_LOANS);
-        } else {
-            model.updateFilteredLoanList(PREDICATE_SHOW_ALL_ACTIVE_LOANS);
-        }
+        model.updateFilteredLoanList(unused -> true, isShowAllLoans);
         model.setIsLoansTab(true);
         return new CommandResult(MESSAGE_SUCCESS, false, false, true);
     }

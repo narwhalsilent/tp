@@ -45,11 +45,7 @@ public class ViewLoanCommand extends ViewLoanRelatedCommand {
 
         Person personToShowLoan = lastShownList.get(targetIndex.getZeroBased());
         model.updateFilteredPersonList(person -> person.equals(personToShowLoan));
-        if (isShowAllLoans) {
-            model.updateFilteredLoanList(loan -> loan.isAssignedTo(personToShowLoan));
-        } else {
-            model.updateFilteredLoanList(loan -> loan.isAssignedTo(personToShowLoan) && loan.isActive());
-        }
+        model.updateFilteredLoanList(loan -> loan.isAssignedTo(personToShowLoan), isShowAllLoans);
         model.setDualPanel();
         return new CommandResult(String.format(MESSAGE_SUCCESS, Messages.format(personToShowLoan)),
                 false, false, true);
