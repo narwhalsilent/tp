@@ -169,6 +169,8 @@ public class AddCommandTest {
             throw new AssertionError("This method should not be called.");
         }
 
+
+
         @Override
         public void setLoanList(List<Loan> loanList) {
             throw new AssertionError("This method should not be called.");
@@ -181,6 +183,11 @@ public class AddCommandTest {
 
         @Override
         public void updateFilteredLoanList(Predicate<Loan> predicate) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void updateFilteredLoanList(Predicate<Loan> predicate, boolean isShowAllLoans) {
             throw new AssertionError("This method should not be called.");
         }
 

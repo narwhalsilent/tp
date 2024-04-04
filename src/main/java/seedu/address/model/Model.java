@@ -138,10 +138,25 @@ public interface Model {
      */
     void updateFilteredPersonList(Predicate<Person> predicate);
 
+    /**
+     * Returns an unmodifiable view of the sorted loan list
+     */
     ObservableList<Loan> getSortedLoanList();
 
+    /**
+     * Updates the filter of the filtered loan list to filter by the given {@code predicate}.
+     *
+     * @param predicate
+     */
     void updateFilteredLoanList(Predicate<Loan> predicate);
 
+    /**
+     * Updates the filter of the filtered loan list to filter by the given {@code predicate}.
+     * Also updates the preference of whether to show all loans or only active loans.
+     *
+     * @param predicate
+     * @param isShowAllLoans
+     */
     void updateFilteredLoanList(Predicate<Loan> predicate, boolean isShowAllLoans);
 
     void setLoanList(List<Loan> loanList);
