@@ -324,7 +324,19 @@ Examples: `editloan 1 v/600.00 s/2024-02-15 r/2025-02-15`
 
 ### Deleting a loan: `deleteloan`
 
-<!-- TODO: JunWei -->
+Deletes a loan permanently from the address book.
+
+Format: `deleteloan INDEX`
+
+Parameters Restrictions:
+* The index refers to the index number shown in the displayed loan list. The index **must be a positive integer** 1, 2, 3, …​
+
+Expected Behaviour:
+* A success message in the form of "Loan deleted: [loan details]" will be shown.
+* The loan will be removed from the loan list.
+
+Example: `deleteloan 1`
+* Deletes the loan at the 1st position in the loan list.
 
 <div style="text-align: right"><a href="#table-of-contents">Back to top</a></div>
 
