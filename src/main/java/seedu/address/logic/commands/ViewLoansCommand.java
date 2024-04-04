@@ -28,6 +28,7 @@ public class ViewLoansCommand extends ViewLoanRelatedCommand {
         } else {
             model.updateFilteredLoanList(PREDICATE_SHOW_ALL_ACTIVE_LOANS);
         }
+        model.setIsLoansTab(true);
         return new CommandResult(MESSAGE_SUCCESS, false, false, true);
     }
 }
