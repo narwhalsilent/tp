@@ -295,7 +295,23 @@ Example: `linkloan 1 v/500.00 s/2024-02-15 r/2025-02-15`
 
 ### Viewing loans of a person: `viewloan`
 
-<!-- TODO: JunWu -->
+Shows loans in the address book.
+
+Format: `viewloan OPTIONAL_FLAG OPTIONAL_INDEX`
+
+Parameters Restrictions:
+* The optional index refers to the index number shown in the displayed person list. The index **must be a positive integer** 1, 2, 3, …​
+* The only optional flag is `-a` to show all loans including the inactive ones.
+
+Expected Behaviour:
+* A success message of the form "Listed all loans associated with [person details]." will be shown.
+* The list of all active loans will be shown by default.
+* If the index is not provided, all loans in the list will be shown.
+* If the index is provided, all active loans of the person at the specified `INDEX` will be shown.
+* If the flag `-a` is provided, all loans including the inactive ones will be shown.
+
+Examples: `viewloan 1`, `viewloan -a 1`
+* The figure below shows an example of `viewloan 1`(left) and `viewloan -a 1`(right) being executed.
 
 ![viewloan](images/viewloan.png)
 
