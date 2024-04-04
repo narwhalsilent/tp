@@ -112,8 +112,7 @@ Action | Format, Examples
 
 Action | Format, Examples
 --------|------------------
-**Analyse** | `analyse`
-<!-- TODO: update after implemented -->
+**Analytics** | `analytics INDEX`<br> e.g., `analytics 1`
 
 <div style="text-align: right"><a href="#table-of-contents">Back to top</a></div>
 
@@ -281,9 +280,10 @@ Format: `linkloan INDEX v/VALUE s/START_DATE r/RETURN_DATE`
 
 Parameters Restrictions:
 * Links a loan to the person at the specified `INDEX`. The index refers to the index number shown in the displayed person list. The index **must be a positive integer** 1, 2, 3, …​
-* The loan value must be a positive number.
+* The loan value must be a positive float value that is at most 2 decimal places.
 * The start date and return date must be in the format `YYYY-MM-DD`.
 * The return date must be after the start date.
+* Year value has to be below 9999.
 
 Expected Behaviour: 
 
