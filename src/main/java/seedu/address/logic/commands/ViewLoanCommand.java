@@ -50,6 +50,7 @@ public class ViewLoanCommand extends ViewLoanRelatedCommand {
         } else {
             model.updateFilteredLoanList(loan -> loan.isAssignedTo(personToShowLoan) && loan.isActive());
         }
+        model.setDualPanel();
         return new CommandResult(String.format(MESSAGE_SUCCESS, Messages.format(personToShowLoan)),
                 false, false, true);
     }

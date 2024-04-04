@@ -31,8 +31,6 @@ public class LoanListPanel extends UiPart<Region> {
         super(FXML);
         loanListView.setItems(loanList);
         loanListView.setCellFactory(listView -> new LoanListViewCell());
-        personListView.setItems(personList);
-        personListView.setCellFactory(listView -> new PersonListViewCell());
     }
 
     /**

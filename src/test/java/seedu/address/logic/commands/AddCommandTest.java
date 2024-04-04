@@ -198,6 +198,7 @@ public class AddCommandTest {
         public void markLoan(Loan loanToMark) {
             throw new AssertionError("This method should not be called.");
         }
+
         @Override
         public void unmarkLoan(Loan loanToUnmark) {
             throw new AssertionError("This method should not be called.");
@@ -205,6 +206,21 @@ public class AddCommandTest {
 
         @Override
         public ObjectProperty<DashboardData> getDashboardData() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public BooleanProperty getIsPersonTab() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void setIsPersonTab(Boolean isPersonTab) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void setDualPanel() {
             throw new AssertionError("This method should not be called.");
         }
 

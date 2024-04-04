@@ -37,6 +37,7 @@ public class ModelManager implements Model {
     private final SortedList<Loan> sortedLoans;
     private final BooleanProperty isLoansTab = new SimpleBooleanProperty(false);
     private final BooleanProperty isAnalyticsTab = new SimpleBooleanProperty(false);
+    private final BooleanProperty isPersonTab = new SimpleBooleanProperty(false);
     private final ObjectProperty<DashboardData> dashboardData = new SimpleObjectProperty<>();
 
     /**
@@ -220,8 +221,10 @@ public class ModelManager implements Model {
 
     @Override
     public void setIsLoansTab(Boolean isLoansTab) {
+        System.out.println("Method setIsLoansTab called inside ModelManager");
         if (isLoansTab) {
             this.isAnalyticsTab.setValue(false);
+            this.isPersonTab.setValue(false);
         }
         this.isLoansTab.setValue(isLoansTab);
     }
@@ -233,14 +236,17 @@ public class ModelManager implements Model {
 
     @Override
     public void setToPersonTab() {
+        System.out.println("Method setToPersonTab called inside ModelManager");
         this.isLoansTab.setValue(false);
         this.isAnalyticsTab.setValue(false);
+        this.setIsPersonTab(true);
     }
 
     @Override
     public void setIsAnalyticsTab(Boolean isAnalyticsTab) {
         if (isAnalyticsTab) {
             this.isLoansTab.setValue(false);
+            this.isPersonTab.setValue(false);
         }
         this.isAnalyticsTab.setValue(isAnalyticsTab);
     }
@@ -255,5 +261,28 @@ public class ModelManager implements Model {
         float impactBenchmark = this.addressBook.getUniqueLoanList().getMaxLoanValue();
         Date urgencyBenchmark = this.addressBook.getUniqueLoanList().getEarliestReturnDate();
         dashboardData.setValue(new DashboardData(analytics, impactBenchmark, urgencyBenchmark));
+    }
+
+    @Override
+    public BooleanProperty getIsPersonTab() {
+        return this.isPersonTab;
+    }
+
+    @Override
+    public void setIsPersonTab(Boolean isPersonTab) {
+        System.out.println("Method setIsPersonTab called inside ModelManager");
+        if (isPersonTab) {
+            this.isLoansTab.setValue(false);
+            this.isAnalyticsTab.setValue(false);
+        }
+        this.isPersonTab.setValue(isPersonTab);
+    }
+
+    @Override
+    public void setDualPanel() {
+        System.out.println("Method setDualPanel called inside ModelManager");
+        this.isLoansTab.setValue(true);
+        this.isPersonTab.setValue(true);
+        this.isAnalyticsTab.setValue(false);
     }
 }
