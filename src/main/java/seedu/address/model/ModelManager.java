@@ -37,6 +37,7 @@ public class ModelManager implements Model {
     private final SortedList<Loan> sortedLoans;
     private final BooleanProperty isLoansTab = new SimpleBooleanProperty(false);
     private final BooleanProperty isAnalyticsTab = new SimpleBooleanProperty(false);
+    private final BooleanProperty isPersonTab = new SimpleBooleanProperty(false);
     private final ObjectProperty<DashboardData> dashboardData = new SimpleObjectProperty<>();
 
     /**
@@ -255,5 +256,26 @@ public class ModelManager implements Model {
         float impactBenchmark = this.addressBook.getUniqueLoanList().getMaxLoanValue();
         Date urgencyBenchmark = this.addressBook.getUniqueLoanList().getEarliestReturnDate();
         dashboardData.setValue(new DashboardData(analytics, impactBenchmark, urgencyBenchmark));
+    }
+
+    @Override
+    public BooleanProperty getIsPersonTab() {
+        return this.isPersonTab;
+    }
+
+    @Override
+    public void setIsPersonTab(Boolean isPersonTab) {
+        if (isPersonTab) {
+            this.isLoansTab.setValue(false);
+            this.isAnalyticsTab.setValue(false);
+        }
+        this.isPersonTab.setValue(isPersonTab);
+    }
+
+    @Override
+    public void setDualPanel() {
+        this.isLoansTab.setValue(true);
+        this.isPersonTab.setValue(true);
+        this.isAnalyticsTab.setValue(false);
     }
 }

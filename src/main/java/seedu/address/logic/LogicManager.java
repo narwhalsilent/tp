@@ -121,7 +121,7 @@ public class LogicManager implements Logic {
     }
 
     @Override
-    public void setToPersonTab() {
-        model.setToPersonTab();
+    public BooleanProperty getIsPersonTab() {
+        return model.getIsPersonTab();
     }
 }

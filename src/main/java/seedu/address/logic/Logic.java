@@ -65,7 +65,7 @@ public interface Logic {
 
     BooleanProperty getIsAnalyticsTab();
 
-    void setToPersonTab();
-
     ObjectProperty<DashboardData> getAnalytics();
+
+    BooleanProperty getIsPersonTab();
 }

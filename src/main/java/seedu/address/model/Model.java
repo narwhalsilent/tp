@@ -156,4 +156,10 @@ public interface Model {
     void unmarkLoan(Loan loanToUnmark);
 
     ObjectProperty<DashboardData> getDashboardData();
+
+    BooleanProperty getIsPersonTab();
+
+    void setIsPersonTab(Boolean isPersonTab);
+
+    void setDualPanel();
 }
