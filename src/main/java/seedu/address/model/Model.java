@@ -9,6 +9,7 @@ import javafx.beans.property.ObjectProperty;
 import javafx.collections.ObservableList;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.logic.commands.LinkLoanCommand;
+import seedu.address.model.analytics.DashboardData;
 import seedu.address.model.person.Analytics;
 import seedu.address.model.person.Loan;
 import seedu.address.model.person.Person;
@@ -150,11 +151,9 @@ public interface Model {
 
     void markLoan(Loan loanToMark);
 
+    void generateDashboardData(Analytics analytics);
+
     void unmarkLoan(Loan loanToUnmark);
 
-    void setAnalytics(Analytics analytics);
-
-    ObjectProperty<Analytics> getAnalytics();
-
-
+    ObjectProperty<DashboardData> getDashboardData();
 }
