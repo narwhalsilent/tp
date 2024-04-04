@@ -146,9 +146,10 @@ public class MainWindow extends UiPart<Stage> {
         // Initial value of isAnalyticsTab is false by default
         assert (!this.isAnalyticsTab.getValue());
         personListPanel = new PersonListPanel(logic.getFilteredPersonList());
-        loanListPanel = new LoanListPanel(logic.getSortedLoanList(), loaneeInfoFlag);
-        loaneeInfoFlag.addListener((observable, oldValue, newValue) -> {
-            loanListPanel = new LoanListPanel(logic.getSortedLoanList(), loaneeInfoFlag);
+        this.loanListPanel = new LoanListPanel(logic.getSortedLoanList(), logic.getLoaneeInfoFlag());
+        logic.getLoaneeInfoFlag().addListener((observable, oldValue, newValue) -> {
+            this.loanListPanel = new LoanListPanel(logic.getSortedLoanList(), logic.getLoaneeInfoFlag());
+            System.out.println("Loanee info flag changed to: " + newValue);
         });
         analyticsPanel = new AnalyticsPanel(logic.getAnalytics());
         personListPanelPlaceholder.getChildren().add(personListPanel.getRoot());

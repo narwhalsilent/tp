@@ -40,7 +40,8 @@ public class ModelManager implements Model {
     private final BooleanProperty isAnalyticsTab = new SimpleBooleanProperty(false);
     private final BooleanProperty isPersonTab = new SimpleBooleanProperty(false);
     private final BooleanProperty isShowAllLoans = new SimpleBooleanProperty(false);
-    private final BooleanProperty loaneeInfoFlag = new SimpleBooleanProperty(false);
+    private final BooleanProperty loaneeInfoFlag = new SimpleBooleanProperty(true);
+
     private final ObjectProperty<DashboardData> dashboardData = new SimpleObjectProperty<>();
 
     /**
