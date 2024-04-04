@@ -61,6 +61,7 @@ public class MainApp extends Application {
         storage = new StorageManager(addressBookStorage, userPrefsStorage);
 
         model = initModelManager(storage, userPrefs);
+        model.updateFilteredLoanList(Model.PREDICATE_SHOW_NO_LOANS);
 
         logic = new LogicManager(model, storage);
 

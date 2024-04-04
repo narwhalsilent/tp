@@ -3,7 +3,7 @@ package seedu.address.logic.commands;
 import static java.util.Objects.requireNonNull;
 import static seedu.address.model.Model.PREDICATE_SHOW_ALL_ACTIVE_LOANS;
 import static seedu.address.model.Model.PREDICATE_SHOW_ALL_LOANS;
-import static seedu.address.model.Model.PREDICATE_SHOW_NO_PERSON;
+import static seedu.address.model.Model.PREDICATE_SHOW_NO_PERSONS;
 
 import seedu.address.model.Model;
 
@@ -22,7 +22,7 @@ public class ViewLoansCommand extends ViewLoanRelatedCommand {
     @Override
     public CommandResult execute(Model model) {
         requireNonNull(model);
-        model.updateFilteredPersonList(PREDICATE_SHOW_NO_PERSON);
+        model.updateFilteredPersonList(PREDICATE_SHOW_NO_PERSONS);
         if (isShowAllLoans) {
             model.updateFilteredLoanList(PREDICATE_SHOW_ALL_LOANS);
         } else {

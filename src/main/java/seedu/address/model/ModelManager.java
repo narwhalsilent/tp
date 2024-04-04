@@ -239,6 +239,7 @@ public class ModelManager implements Model {
         System.out.println("Method setToPersonTab called inside ModelManager");
         this.isLoansTab.setValue(false);
         this.isAnalyticsTab.setValue(false);
+        this.updateFilteredLoanList(PREDICATE_SHOW_NO_LOANS);
         this.setIsPersonTab(true);
     }
 
@@ -247,6 +248,8 @@ public class ModelManager implements Model {
         if (isAnalyticsTab) {
             this.isLoansTab.setValue(false);
             this.isPersonTab.setValue(false);
+            this.updateFilteredPersonList(PREDICATE_SHOW_NO_PERSONS);
+            this.updateFilteredLoanList(PREDICATE_SHOW_NO_LOANS);
         }
         this.isAnalyticsTab.setValue(isAnalyticsTab);
     }

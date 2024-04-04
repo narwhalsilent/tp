@@ -26,7 +26,7 @@ public interface Model {
     /**
      * {@code Predicate} that always evaluates to false
      */
-    Predicate<Person> PREDICATE_SHOW_NO_PERSON = unused -> false;
+    Predicate<Person> PREDICATE_SHOW_NO_PERSONS = unused -> false;
 
     /**
      * {@code Predicate} that always evaluate to true
@@ -37,6 +37,11 @@ public interface Model {
      * {@code Predicate} that evaluates to true if the loan is active
      */
     Predicate<Loan> PREDICATE_SHOW_ALL_ACTIVE_LOANS = loan -> loan.isActive();
+
+    /**
+     * {@code Predicate} that always evaluates to false
+     */
+    Predicate<Loan> PREDICATE_SHOW_NO_LOANS = unused -> false;
 
     /**
      * Replaces user prefs data with the data in {@code userPrefs}.
