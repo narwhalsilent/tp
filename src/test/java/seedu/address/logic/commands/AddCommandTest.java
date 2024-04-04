@@ -170,7 +170,6 @@ public class AddCommandTest {
         }
 
 
-
         @Override
         public void setLoanList(List<Loan> loanList) {
             throw new AssertionError("This method should not be called.");
@@ -228,6 +227,16 @@ public class AddCommandTest {
 
         @Override
         public void setDualPanel() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public BooleanProperty getLoaneeInfoFlag() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void setLoaneeInfoFlag(Boolean loaneeInfoFlag) {
             throw new AssertionError("This method should not be called.");
         }
 

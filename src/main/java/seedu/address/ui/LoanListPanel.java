@@ -2,6 +2,7 @@ package seedu.address.ui;
 
 import java.util.logging.Logger;
 
+import javafx.beans.property.BooleanProperty;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.control.ListCell;
@@ -24,13 +25,16 @@ public class LoanListPanel extends UiPart<Region> {
     @FXML
     private ListView<Person> personListView;
 
+    private BooleanProperty loaneeInfoFlag;
+
     /**
      * Creates a {@code PersonListPanel} with the given {@code ObservableList}.
      */
-    public LoanListPanel(ObservableList<Loan> loanList, ObservableList<Person> personList) {
+    public LoanListPanel(ObservableList<Loan> loanList, BooleanProperty loaneeInfoFlag) {
         super(FXML);
         loanListView.setItems(loanList);
         loanListView.setCellFactory(listView -> new LoanListViewCell());
+        this.loaneeInfoFlag = loaneeInfoFlag;
     }
 
     /**
@@ -46,21 +50,7 @@ public class LoanListPanel extends UiPart<Region> {
                 setGraphic(null);
                 setText(null);
             } else {
-                setGraphic(new LoanCard(loan, getIndex() + 1).getRoot());
-            }
-        }
-    }
-
-    class PersonListViewCell extends ListCell<Person> {
-        @Override
-        protected void updateItem(Person person, boolean empty) {
-            super.updateItem(person, empty);
-
-            if (empty || person == null) {
-                setGraphic(null);
-                setText(null);
-            } else {
-                setGraphic(new PersonCard(person, getIndex() + 1).getRoot());
+                setGraphic(new LoanCard(loan, getIndex() + 1, loaneeInfoFlag.getValue()).getRoot());
             }
         }
     }
