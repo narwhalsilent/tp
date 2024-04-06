@@ -66,7 +66,7 @@ class JsonSerializableAddressBook {
             if (addressBook.hasLoan(loan)) {
                 throw new IllegalValueException(MESSAGE_DUPLICATE_LOAN);
             }
-            if (!addressBook.hasPerson(loan.getAssignee())) {
+            if (!addressBook.hasExactPerson(loan.getAssignee())) {
                 throw new IllegalValueException(MESSAGE_ORPHAN_LOAN);
             }
             addressBook.addLoan(loan);
