@@ -11,6 +11,7 @@ import com.fasterxml.jackson.annotation.JsonRootName;
 import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.model.AddressBook;
 import seedu.address.model.ReadOnlyAddressBook;
+import seedu.address.model.person.Loan;
 import seedu.address.model.person.Person;
 
 /**
@@ -20,6 +21,8 @@ import seedu.address.model.person.Person;
 class JsonSerializableAddressBook {
 
     public static final String MESSAGE_DUPLICATE_PERSON = "Persons list contains duplicate person(s).";
+    public static final String MESSAGE_DUPLICATE_LOAN = "Loans list contains duplicate loan id(s).";
+    public static final String MESSAGE_ORPHAN_LOAN = "Loans list contains loan(s) with no associated person.";
 
     private final List<JsonAdaptedPerson> persons = new ArrayList<>();
     private final List<JsonAdaptedLoan> loans = new ArrayList<>();
@@ -59,7 +62,14 @@ class JsonSerializableAddressBook {
             addressBook.addPerson(person);
         }
         for (JsonAdaptedLoan jsonAdaptedLoan : loans) {
-            addressBook.addLoan(jsonAdaptedLoan.toModelType());
+            Loan loan = jsonAdaptedLoan.toModelType();
+            if (addressBook.hasLoan(loan)) {
+                throw new IllegalValueException(MESSAGE_DUPLICATE_LOAN);
+            }
+            if (!addressBook.hasPerson(loan.getAssignee())) {
+                throw new IllegalValueException(MESSAGE_ORPHAN_LOAN);
+            }
+            addressBook.addLoan(loan);
         }
         return addressBook;
     }
