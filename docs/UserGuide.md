@@ -11,8 +11,25 @@ title: User Guide
 [4. Features Description](#features-description)<br>
 
 - [4.1 Contact Management Features](#contact-management-features)<br>
+  - [Adding a person: `add`](#adding-a-person-add)<br>
+  - [Listing all persons: `list`](#listing-all-persons--list)<br>
+  - [Editing a person: `edit`](#editing-a-person--edit)<br>
+  - [Locating persons by name: `find`](#locating-persons-by-name-find)<br>
+  - [Deleting a person: `delete`](#deleting-a-person--delete)<br>
+  - [Clearing all entries: `clear`](#clearing-all-entries--clear)<br>
 - [4.2 Basic Loan Management Features](#basic-loan-management-features)<br>
+  - [Adding a loan: `linkloan`](#adding-a-loan-linkloan)<br>
+  - [Viewing loans of a person: `viewloan`](#viewing-loans-of-a-person-viewloan)<br>
+  - [Mark/Unmark a loan as returned: `markloan/unmarkloan`](#markunmark-a-loan-as-returned-markloanunmarkloan)<br>
+  - [Editing a loan: `editloan`](#editing-a-loan-editloan)<br>
+  - [Deleting a loan: `deleteloan`](#deleting-a-loan-deleteloan)<br>
 - [4.3 Advanced Loan Management Features](#advanced-loan-management-features)<br>
+  - [Analysing a client's loan records: `analytics`](#analysing-a-clients-loan-records-analytics)<br>
+- [4.4 Miscellaneous Features](#miscellaneous-features)<br>
+  - [Viewing help: `help`](#viewing-help--help)<br>
+  - [Exiting the program: `exit`](#exiting-the-program--exit)<br>
+  - [Saving the data](#saving-the-data)<br>
+  - [Editing the data file](#editing-the-data-file)<br>
 
 [5. FAQ](#faq)<br>
 [6. Known Issues](#known-issues)<br>
@@ -21,9 +38,9 @@ title: User Guide
 
 ## Introduction
 
-LoanGuardPro is a **desktop app for managing contacts, optimized for use via a Command Line Interface (CLI) while still
-having the benefits of a Graphical User Interface (GUI)**. If you can type fast, LoanGuardPro can get your contact
-management tasks done faster than traditional GUI apps.
+LoanGuardPro is a desktop app for managing contacts, optimized for use via a Command Line Interface (CLI) while still
+having the benefits of a Graphical User Interface (GUI). 
+If you are money lender looking to **keep track of your clients' contacts and loans**, LoanGuardPro is the right tool for you.
 
 It supports basic contact and loan handling features like adding, editing, deleting, and viewing contacts and loans.
 More advanced features like analysing a client's loaning history are also available.
@@ -64,7 +81,7 @@ More advanced features like analysing a client's loaning history are also availa
     * `linkloan 2 v/500.00 s/2024-02-15 r/2025-02-15` : Link a loan of $500.00 to the 2nd person shown in the current
       list with a start date of 15th Feb 2024 and repayment date of 15th Feb 2025.
 
-    * `viewloans` : View all active loans.
+    * `viewloan` : View all active loans.
 
 1. Refer to the [Command Summary](#command-summary) section for details of the commands available.
 
@@ -110,19 +127,17 @@ There are three main categories of commands: Contact Management, Basic Loan Mana
  **Delete** | `delete INDEX`<br> e.g., `delete 3`                                                                                                                                   
  **Edit**   | `edit INDEX [n/NAME] [p/PHONE_NUMBER] [e/EMAIL] [a/ADDRESS] [t/TAG]…​`<br> e.g.,`edit 2 n/James Lee e/jameslee@example.com`                                           
  **Find**   | `find KEYWORD [MORE_KEYWORDS]`<br> e.g., `find James Jake`                                                                                                            
- **List**   | `list`                                                                                                                                                                
- **Help**   | `help`                                                                                                                                                                
+ **List**   | `list`          
 
 ### Basic Loan Management
 
  Action          | Format, Examples                                                                                              
 -----------------|---------------------------------------------------------------------------------------------------------------
  **Link Loan**   | `linkloan INDEX v/VALUE s/START_DATE r/RETURN_DATE`<br> e.g., `linkloan 1 v/500.00 s/2024-02-15 r/2025-02-15` 
- **View Loan**   | `viewloan OPTIONAL_FLAG INDEX`<br> e.g., `viewloan 1`, `viewloan -a 1`                                        
- **View Loans**  | `viewloans OPTIONAL_FLAG`<br> e.g., `viewloans`, `viewloans -a`                                               
- **Mark Loan**   | `markloan INDEX`<br> e.g., `markloan 1`                                                                       
- **Unmark Loan** | `unmarkloan INDEX`<br> e.g., `unmarkloan 1`                                                                   
- **Edit Loan**   | `editloan INDEX`<br> e.g., `editloan 1`                                                                       
+ **View Loan**   | `viewloan OPTIONAL_FLAG INDEX`<br> e.g., `viewloan 1`, `viewloan -a 1`
+ **Mark Loan**   | `markloan INDEX`<br> e.g., `markloan 1`
+ **Unmark Loan** | `unmarkloan INDEX`<br> e.g., `unmarkloan 1`            
+ **Edit Loan**   | `editloan INDEX v/VALUE s/START_DATE r/RETURN_DATE`<br> e.g., `editloan 1 v/600.00 s/2024-02-15 r/2025-02-15`                                                         
  **Delete Loan** | `deleteloan INDEX`<br> e.g., `deleteloan 1`                                                                   
 
 ### Advanced Loan Management
@@ -132,6 +147,13 @@ There are three main categories of commands: Contact Management, Basic Loan Mana
  **Analytics** | `analytics INDEX`<br> e.g., `analytics 1` 
 
 <div style="text-align: right"><a href="#table-of-contents">Back to top</a></div>
+
+### Miscellaneous
+
+ Action | Format
+--------|-----------------
+ **Exit** | `exit`
+ **Help** | `help`
 
 --------------------------------------------------------------------------------------------------------------------
 
@@ -146,14 +168,6 @@ of features:
 
 ## Contact Management Features
 
-### Viewing help : `help`
-
-Shows a message explaning how to access the help page.
-
-![help message](images/helpMessage.png)
-
-Format: `help`
-
 ### Adding a person: `add`
 
 Adds a person to the address book.
@@ -165,7 +179,7 @@ A person can have any number of tags (including 0)
 
 Parameters Restrictions:
 
-* The name must be at least 1 character long and is case-sensitive.
+* The name must only contain alphanumeric characters and spaces, and it should not be blank. The name is case-sensitive.
 * The phone number must only contain numbers.
 * The email must be in the format `local-part@domain`.
 
@@ -198,8 +212,8 @@ Format: `edit INDEX [n/NAME] [p/PHONE] [e/EMAIL] [a/ADDRESS] [t/TAG]…​`
 Parameters Restrictions:
 
 * At least one of the optional fields must be provided.
-* The index must be a positive integer 1, 2, 3, …​
-* The name must be at least 1 character long and is case-sensitive.
+* The index **must be a positive integer** 1, 2, 3, …​, and it must not exceed the number of persons shown in the list.
+* The name must only contain alphanumeric characters and spaces, and it should not be blank. The name is case-sensitive.
 * The phone number must only contain numbers.
 * The email must be in the format `local-part@domain`.
 
@@ -279,28 +293,6 @@ Expected Behaviour:
 * A success message in the form of "Address book has been cleared!" will be shown.
 * The address book will be empty.
 
-### Exiting the program : `exit`
-
-Exits the program.
-
-Format: `exit`
-
-### Saving the data
-
-LoanGuardPro data are saved in the hard disk automatically after any command that changes the data. There is no need to
-save manually.
-
-### Editing the data file
-
-LoanGuardPro data are saved automatically as a JSON file `[JAR file location]/data/addressbook.json`. Advanced users are
-welcome to update data directly by editing that data file.
-
-:exclamation: **Caution:**
-If your changes to the data file makes its format invalid, LoanGuardPro will discard all data and start with an empty
-data file at the next run. Hence, it is recommended to take a backup of the file before editing it.<br>
-Furthermore, certain edits can cause the LoanGuardPro to behave in unexpected ways (e.g., if a value entered is outside
-of the acceptable range). Therefore, edit the data file only if you are confident that you can update it correctly.
-
 <div style="text-align: right"><a href="#table-of-contents">Back to top</a></div>
 
 --------------------------------------------------------------------------------------------------------------------
@@ -319,11 +311,14 @@ Format: `linkloan INDEX v/VALUE s/START_DATE r/RETURN_DATE`
 Parameters Restrictions:
 
 * Links a loan to the person at the specified `INDEX`. The index refers to the index number shown in the displayed
-  person list. The index **must be a positive integer** 1, 2, 3, …​
+  person list. The index **must be a positive integer** 1, 2, 3, …​, and it must not exceed the number of persons shown in the list.
 * The loan value must be a positive float value that is at most 2 decimal places.
 * The start date and return date must be in the format `YYYY-MM-DD`.
 * The return date must be after the start date.
 * Year value has to be below 9999.
+
+:bulb: **Tip:**
+If you are on a view page with no person contacts, such as the view all loans page and the analytics page, you can use the `list` command to go back to the person list. That will allow you to use the `linkloan` command.
 
 Expected Behaviour:
 
@@ -345,7 +340,10 @@ Parameters Restrictions:
 
 * The optional index refers to the index number shown in the displayed person list. The index **must be a positive
   integer** 1, 2, 3, …​
+* If the optional index is not provided, all loans, across all clients in the list will be shown.
 * The only optional flag is `-a` to show all loans including the inactive ones.
+
+:bulb: **Tip:** A loan is considered active if the loan has not been marked as returned. Otherwise, it is considered inactive.
 
 Expected Behaviour:
 
@@ -368,7 +366,7 @@ Marks or unmarks a loan as returned.
 Format: `markloan INDEX`, `unmarkloan INDEX`
 
 Parameters Restrictions:
-* The index refers to the index number shown in the displayed loan list. The index **must be a positive integer** 1, 2, 3, …​
+* The index refers to the index number shown in the displayed loan list. The index **must be a positive integer** 1, 2, 3, …​, and it must not exceed the number of loans shown in the list.
 
 Expected Behaviour:
 * A success message in the form of "Loan marked: [loan details]" or "Loan unmarked: [loan details]" will be shown.
@@ -386,8 +384,7 @@ Format `editloan INDEX v/VALUE s/START_DATE r/RETURN_DATE`
 
 Parameters Restrictions:
 
-* The index refers to the index number shown in the displayed loan list. The index **must be a positive integer** 1, 2,
-  3, …​
+* The index refers to the index number shown in the displayed loan list. The index **must be a positive integer** 1, 2, 3, …​, and it must not exceed the number of loans shown in the list.
 * The loan value must be a positive number.
 * The start date and return date must be in the format `YYYY-MM-DD`.
 * The return date must be after the start date.
@@ -410,8 +407,8 @@ Format: `deleteloan INDEX`
 
 Parameters Restrictions:
 
-* The index refers to the index number shown in the displayed loan list. The index **must be a positive integer** 1, 2,
-  3, …​
+* The index refers to the index number shown in the displayed loan list. 
+The index **must be a positive integer** 1, 2, 3, …​, and it must not exceed the number of loans shown in the list.
 
 Expected Behaviour:
 
@@ -430,14 +427,17 @@ Example: `deleteloan 1`
 
 ### Analysing a client's loan records: `analytics`
 
-Provides visual analytics of a client's loan records.
+Provides visual analytics of a client's loan records based on three indices: Reliability, Impact, and Urgency.
+* Reliability index is calculated based on the ratio of overdue loans to the total number of loans.
+* Impact index is calculated as the ratio of the average loan value to the maximum loan value.
+* Urgency index is calculated as the ratio of the number of days between the earliest return date and the current date to the
+  number of days between the earliest return date and the benchmark date.
 
 Format: `analytics INDEX`
 
 Parameters Restrictions:
 
-* The index refers to the index number shown in the displayed person list. The index **must be a positive integer** 1,
-  2, 3, …​
+* The index refers to the index number shown in the displayed person list. The index **must be a positive integer** 1, 2, 3, …​, and it must not exceed the number of persons shown in the list.
 
 Expected Behaviour:
 
@@ -447,6 +447,41 @@ Expected Behaviour:
 Example: `analytics 1`
 
 ![result analytics](images/analytics.png)
+
+--------------------------------------------------------------------------------------------------------------------
+
+## Miscellaneous Features
+
+### Viewing help : `help`
+
+Shows a message explaining how to access the help page.
+
+![help message](images/helpMessage.png)
+
+Format: `help`
+
+### Exiting the program : `exit`
+
+Exits the program.
+
+Format: `exit`
+
+### Saving the data
+
+LoanGuardPro data are saved in the hard disk automatically after any command that changes the data. There is no need to
+save manually.
+
+### Editing the data file
+
+LoanGuardPro data are saved automatically as a JSON file `[JAR file location]/data/addressbook.json`. Advanced users are
+welcome to update data directly by editing that data file.
+
+:exclamation: **Caution:**
+If your changes to the data file makes its format invalid, LoanGuardPro will discard all data and start with an empty
+data file at the next run. Hence, it is recommended to take a backup of the file before editing it.<br>
+Furthermore, certain edits can cause the LoanGuardPro to behave in unexpected ways (e.g., if a value entered is outside
+of the acceptable range). Therefore, edit the data file only if you are confident that you can update it correctly.
+
 <div style="text-align: right"><a href="#table-of-contents">Back to top</a></div>
 
 --------------------------------------------------------------------------------------------------------------------
