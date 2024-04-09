@@ -68,4 +68,6 @@ public interface Logic {
     ObjectProperty<DashboardData> getAnalytics();
 
     BooleanProperty getIsPersonTab();
+
+    BooleanProperty getLoaneeInfoFlag();
 }

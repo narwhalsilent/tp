@@ -77,6 +77,8 @@ public class MainWindow extends UiPart<Stage> {
 
     private BooleanProperty isPersonTab;
 
+    private BooleanProperty loaneeInfoFlag;
+
     /**
      * Creates a {@code MainWindow} with the given {@code Stage} and {@code Logic}.
      */
@@ -144,7 +146,11 @@ public class MainWindow extends UiPart<Stage> {
         // Initial value of isAnalyticsTab is false by default
         assert (!this.isAnalyticsTab.getValue());
         personListPanel = new PersonListPanel(logic.getFilteredPersonList());
-        loanListPanel = new LoanListPanel(logic.getSortedLoanList(), logic.getFilteredPersonList());
+        this.loanListPanel = new LoanListPanel(logic.getSortedLoanList(), logic.getLoaneeInfoFlag());
+        logic.getLoaneeInfoFlag().addListener((observable, oldValue, newValue) -> {
+            this.loanListPanel = new LoanListPanel(logic.getSortedLoanList(), logic.getLoaneeInfoFlag());
+            System.out.println("Loanee info flag changed to: " + newValue);
+        });
         analyticsPanel = new AnalyticsPanel(logic.getAnalytics());
         personListPanelPlaceholder.getChildren().add(personListPanel.getRoot());
         resultDisplay = new ResultDisplay();
@@ -165,11 +171,14 @@ public class MainWindow extends UiPart<Stage> {
     }
 
     private void initializeLocalListeners() {
-        // Add listener to update the loans panel when the tab is switched
+        // Add listener to tab flags
         this.isLoansTab = logic.getIsLoansTab();
-        // Add listener to update the analytics panel when the tab is switched
         this.isAnalyticsTab = logic.getIsAnalyticsTab();
         this.isPersonTab = logic.getIsPersonTab();
+
+        // Add listener to loaneeInfoFlag
+        this.loaneeInfoFlag = logic.getLoaneeInfoFlag();
+
         logic.setIsAnalyticsTab(false);
         logic.setIsLoansTab(false);
 
@@ -197,7 +206,10 @@ public class MainWindow extends UiPart<Stage> {
             VBox.setVgrow(loanList, Priority.ALWAYS);
             loanListPanelPlaceholder.getChildren().add(loanListPanel.getRoot());
             VBox.setVgrow(analytics, Priority.NEVER);
-            personListPanelPlaceholder.setMaxHeight(240);
+            personListPanelPlaceholder.setMaxHeight(105);
+            personListPanelPlaceholder.setMinHeight(105);
+            VBox.setVgrow(personList, Priority.NEVER);
+
             System.out.println("Both tabs are active");
         } else if (isPersonTab.getValue()) {
             // Default to person list panel
@@ -214,12 +226,14 @@ public class MainWindow extends UiPart<Stage> {
             VBox.setVgrow(personList, Priority.NEVER);
             VBox.setVgrow(analytics, Priority.NEVER);
             loanListPanelPlaceholder.getChildren().add(loanListPanel.getRoot());
+            personListPanelPlaceholder.setMinHeight(0);
             System.out.println("Only loans tab is active");
         } else {
             clearAllPlaceholders();
             VBox.setVgrow(analytics, Priority.ALWAYS);
             VBox.setVgrow(personList, Priority.NEVER);
             VBox.setVgrow(loanList, Priority.NEVER);
+            personListPanelPlaceholder.setMinHeight(0);
             analyticsPanelPlaceholder.getChildren().add(analyticsPanel.getRoot());
         }
     }

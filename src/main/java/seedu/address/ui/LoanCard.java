@@ -4,6 +4,8 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Region;
+import javafx.scene.layout.VBox;
+import seedu.address.commons.util.DateUtil;
 import seedu.address.model.person.Loan;
 
 /**
@@ -42,16 +44,30 @@ public class LoanCard extends UiPart<Region> {
     @FXML
     private Label returned;
 
+    @FXML
+    private Label loanee;
+
+    @FXML
+    private VBox loanCard;
+
     /**
      * Creates a {@code LoanCard} with the given {@code Loan} and index to display.
      */
-    public LoanCard(Loan loan, int displayedIndex) {
+    public LoanCard(Loan loan, int displayedIndex, boolean showLoanee) {
         super(FXML);
         this.loan = loan;
         name.setText(DEFAULT_LOAN_PREFIX + displayedIndex);
         amount.setText(DEFAULT_AMOUNT_PREFIX + String.valueOf(loan.getValue()));
-        startDate.setText(DEFAULT_START_DATE_PREFIX + loan.getStartDate().toString());
-        endDate.setText(DEFAULT_END_DATE_PREFIX + loan.getReturnDate().toString());
+        startDate.setText(DEFAULT_START_DATE_PREFIX + DateUtil.format(loan.getStartDate()));
+        endDate.setText(DEFAULT_END_DATE_PREFIX + DateUtil.format(loan.getReturnDate()));
         returned.setText(DEFAULT_RETURNED_STATUS_PREFIX + (loan.isReturned() ? "Yes" : "No"));
+        if (showLoanee) {
+            loanee.setText("Loanee: " + loan.getAssignee().getName());
+            loanee.setVisible(true);
+            loanee.setManaged(true);
+        } else {
+            loanee.setVisible(false);
+            loanee.setManaged(false);
+        }
     }
 }
