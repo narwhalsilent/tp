@@ -5,6 +5,7 @@ import javafx.scene.control.Label;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Region;
 import javafx.scene.layout.VBox;
+import seedu.address.commons.util.DateUtil;
 import seedu.address.model.person.Loan;
 
 /**
@@ -57,8 +58,8 @@ public class LoanCard extends UiPart<Region> {
         this.loan = loan;
         name.setText(DEFAULT_LOAN_PREFIX + displayedIndex);
         amount.setText(DEFAULT_AMOUNT_PREFIX + String.valueOf(loan.getValue()));
-        startDate.setText(DEFAULT_START_DATE_PREFIX + loan.getStartDate().toString());
-        endDate.setText(DEFAULT_END_DATE_PREFIX + loan.getReturnDate().toString());
+        startDate.setText(DEFAULT_START_DATE_PREFIX + DateUtil.format(loan.getStartDate()));
+        endDate.setText(DEFAULT_END_DATE_PREFIX + DateUtil.format(loan.getReturnDate()));
         returned.setText(DEFAULT_RETURNED_STATUS_PREFIX + (loan.isReturned() ? "Yes" : "No"));
         if (showLoanee) {
             loanee.setText("Loanee: " + loan.getAssignee().getName());
