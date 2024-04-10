@@ -37,6 +37,7 @@ public class EditLoanCommand extends Command {
             + "[" + PREFIX_VALUE + "VALUE] "
             + "[" + PREFIX_START_DATE + "START_DATE] "
             + "[" + PREFIX_RETURN_DATE + "RETURN_DATE]\n"
+            + "INDEX must be a positive integer.\n"
             + "Example: " + COMMAND_WORD + " "
             + "5 "
             + PREFIX_VALUE + "500.00 "

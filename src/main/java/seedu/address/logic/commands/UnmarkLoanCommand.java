@@ -15,11 +15,9 @@ import seedu.address.model.person.Loan;
 public class UnmarkLoanCommand extends Command {
     public static final String COMMAND_WORD = "unmarkloan";
     public static final String MESSAGE_USAGE = COMMAND_WORD
-            + ": Marks the loan number of current person in view as paid.\n"
-            + "Parameters: INDEX\n"
-            + "INDEX must be a positive integer.\n"
-            + "Example: " + COMMAND_WORD + " 1\n"
-            + "This marks the loan of loan index 1 of the current person.";
+            + ": Marks the current person in view's loan(of loan number) as not paid.\n"
+            + "Parameters: INDEX (must be a positive integer)\n"
+            + "Example: " + COMMAND_WORD + " 1\n";
     public static final String MESSAGE_SUCCESS = "Loan unmarked.\n"
             + "Loan: %1$s";
     public static final String MESSAGE_FAILURE_LOAN = "No loan has been found "
