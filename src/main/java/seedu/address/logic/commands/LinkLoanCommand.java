@@ -33,11 +33,15 @@ public class LinkLoanCommand extends Command {
             + PREFIX_VALUE + "VALUE "
             + PREFIX_START_DATE + "START_DATE "
             + PREFIX_RETURN_DATE + "RETURN_DATE\n"
+            + "INDEX must be a positive integer.\n"
             + "Example: " + COMMAND_WORD + " "
             + "5 "
             + PREFIX_VALUE + "500.00 "
             + PREFIX_START_DATE + "2024-02-15 "
-            + PREFIX_RETURN_DATE + "2024-04-21";
+            + PREFIX_RETURN_DATE + "2024-04-21\n"
+            + "This links a loan to the 5th person in view with a value of $500, "
+            + "a start date of 15 Feb 2024 "
+            + "and an end date of 21 April 2024.";
 
     public static final String MESSAGE_SUCCESS = "New loan linked to: %1$s\n"
             + "%2$s";
