@@ -428,10 +428,11 @@ Example: `deleteloan 1`
 ### Analysing a client's loan records: `analytics`
 
 Provides visual analytics of a client's loan records based on three indices: Reliability, Impact, and Urgency.
-* Reliability index is calculated based on the ratio of overdue loans to the total number of loans.
-* Impact index is calculated as the ratio of the average loan value to the maximum loan value.
-* Urgency index is calculated as the ratio of the number of days between the earliest return date and the current date to the
-  number of days between the earliest return date and the benchmark date.
+* The Reliability index is defined as the ratio of overdue loans to the total number of loans.
+* The Impact index is defined as the ratio of the average loan value to the maximum loan value.
+* The Urgency index is defined as the ratio of the number of days between the latest return date among all active loans and the latest return date among this particular client's active loans to the number of days between the latest return date among all active loans and the current date.
+  * If the latest return date among all active loans or the latest return date among this particular client's active loans is earlier than the current date, the Urgency index will be 1.
+* These indexes are then converted in percentage form and visualized in a pie chart.
 
 Format: `analytics INDEX`
 
