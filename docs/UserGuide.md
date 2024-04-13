@@ -348,10 +348,10 @@ Parameters Restrictions:
 Expected Behaviour:
 
 * A success message of the form "Listed all loans associated with [person details]." will be shown.
-* The list of all active loans will be shown by default.
-* If the index is not provided, all loans in the list will be shown.
-* If the index is provided, all active loans of the person at the specified `INDEX` will be shown.
-* If the flag `-a` is provided, all loans including the inactive ones will be shown.
+* The list is ordered by the end date of the loan.
+* If the index is not provided, all loans across all clients in the list will be shown. Only the active loans will be shown if the flag `-a` is not provided.
+* If the index is provided, all loans of the person at the specified `INDEX` will be shown. Only the active loans will be shown if the flag `-a` is not provided.
+* If the flag `-a` is provided, the inactive loans will be shown alongside the active loans.
 
 Examples: `viewloan 1`, `viewloan -a 1`
 
@@ -430,8 +430,9 @@ Example: `deleteloan 1`
 Provides visual analytics of a client's loan records based on three indices: Reliability, Impact, and Urgency.
 * The Reliability index is defined as the ratio of overdue loans to the total number of loans.
 * The Impact index is defined as the ratio of the average loan value to the maximum loan value.
-* The Urgency index is defined as the ratio of the number of days between the latest return date among all active loans and the latest return date among this particular client's active loans to the number of days between the latest return date among all active loans and the current date.
-  * If the latest return date among all active loans or the latest return date among this particular client's active loans is earlier than the current date, the Urgency index will be 1.
+* The Urgency index is defined as the ratio of the number of days between the earliest return date among this particular client's active loans and the current date to the number of days between the earliest return date among all active loans and the current date.
+  * The computation will only consider loans that are not overdue.
+  * If a client has an overdue loan, the Urgency index will be set to 1.
 * These indexes are then converted in percentage form and visualized in a pie chart.
 
 Format: `analytics INDEX`
