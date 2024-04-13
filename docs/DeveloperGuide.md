@@ -226,7 +226,9 @@ It contains the following fields that can prove to be useful for the user:
 * `latestLoanDate`: latest loan date of all loans
 * `latestReturnDate`: latest return date of active loans
 
-The analytics is useful when The following is the sequence diagram for the analytics command:
+The sequence diagram of executing an analytics command is very similar to that of the Delete Loan section below,
+and hence not included.
+The following shows how the analytics class is used in the execution of the Analytics command:
 ![AnalyticsSequenceDiagram](images/AnalyticsSequenceDiagram.png)
 
 #### Design considerations:
@@ -255,20 +257,18 @@ The analytics is useful when The following is the sequence diagram for the analy
 
 #### Implementation
 
-The `DeleteLoanCommand` class handles the deletion of a loan from a contact, and executes the command after the input is
-parsed and transformed into an appropriate format.
+The `DeleteLoanCommand` class handles the deletion of a loan from the current contact in view, and executes the command 
+after the input is parsed and transformed into an appropriate format.
 The parsing of the command is done by the `DeleteLoanCommandParser` class, which is responsible for parsing the user
 input.
 
 The `DeleteLoanCommand` class is instantiated in the `DeleteLoanCommandParser` class, while the
 `DeleteLoanCommandParser` is instantiated in the `AddressBookParser` class. Both classes are instantiated when the user
-enters a `deleteloan` command, which needs to be of the format `deleteloan INDEX l/LOAN_INDEX`
-where INDEX is the index of the person and LOAN_INDEX is the index of the loan to be deleted, both of
-which are positive whole numbers.
+enters a `deleteloan` command, which needs to be of the format `deleteloan INDEX`
+where INDEX is the index of the loan to be deleted (which is a positive whole number).
 
 The `DeleteLoanCommand` class contains the following fields which can prove to be useful for the user:
 
-* `personIndex`: the index of the person whose loan is to be deleted
 * `loanIndex`: the index of the loan to be deleted
 * Several string fields that are displayed to the user under different scenarios.
 
@@ -276,7 +276,7 @@ The `DeleteLoanCommandParser` class does not contain any fields.
 
 Sequence diagram for the deletion of a loan:
 
-![DeleteLoanSequenceDiagram](analimages/DeleteLoanSequenceDiagram.png)
+![DeleteLoanSequenceDiagram](images/DeleteLoanSequenceDiagram.png)
 
 #### Design considerations:
 
@@ -298,8 +298,7 @@ Sequence diagram for the deletion of a loan:
 * **Alternative 2:** The `AddressBookParser` class is responsible for parsing the command.
     * Pros: More centralized command parsing.
     * Cons: May result in the `AddressBookParser` class becoming too large. This also goes against various SWE
-      principles
-      ,and makes the code harder to maintain.
+      principles, and makes the code harder to maintain.
 
 ### Loan view command - Wang Junwu
 
@@ -390,7 +389,7 @@ and the execution of the command.
 
 The `LinkLoanCommand` class is instantiated in the `LinkLoanCommandParser` class, while the
 `LinkLoanCommandParser` is instantiated in the `AddressBookParser` class. Both classes are instantiated when the user
-enters a `linkloan` command, which needs to be of the format `linkloan INDEX v/ VALUE s/ START_DATE r/ RETURN_DATE`
+enters a `linkloan` command, which needs to be of the format `linkloan INDEX v/VALUE s/START_DATE r/RETURN_DATE`
 where INDEX (a positive whole number) is the index of the person, VALUE (a positive decimal number) is the value of the loan,
 and START_DATE and RETURN_DATE (both dates in the format yyyy-mm-dd) are the start and return dates of the loan respectively. 
 

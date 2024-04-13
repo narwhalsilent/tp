@@ -40,13 +40,13 @@ activate ViewLoanCommand
 ViewLoanCommand --> ViewLoanCommandParser :
 deactivate ViewLoanCommand
 
-ViewLoanCommandParser --> AddressBookParser : d
+ViewLoanCommandParser --> AddressBookParser :
 deactivate ViewLoanCommandParser
 'Hidden arrow to position the destroy marker below the end of the activation bar.
 ViewLoanCommandParser -[hidden]-> AddressBookParser
 destroy ViewLoanCommandParser
 
-AddressBookParser --> LogicManager : d
+AddressBookParser --> LogicManager :
 deactivate AddressBookParser
 
 LogicManager -> ViewLoanCommand : execute(m)
@@ -55,25 +55,25 @@ activate ViewLoanCommand
 ViewLoanCommand -> Model : getFilteredPersonList()
 activate Model
 
-Model --> ViewLoanCommand : l
+Model --> ViewLoanCommand :
 deactivate Model
 
 ViewLoanCommand -> FilteredList : get(0)
 activate FilteredList
 
-FilteredList --> ViewLoanCommand : p
+FilteredList --> ViewLoanCommand :
 deactivate FilteredList
 
 ViewLoanCommand -> Person : getLoanRecords()
 activate Person
 
-Person --> ViewLoanCommand : lr
+Person --> ViewLoanCommand :
 deactivate Person
 
 ViewLoanCommand -> LoanRecords : getLoanList()
 activate LoanRecords
 
-LoanRecords --> ViewLoanCommand : ll
+LoanRecords --> ViewLoanCommand :
 deactivate LoanRecords
 
 ViewLoanCommand -> Model : setLoanList(ll)
@@ -89,7 +89,7 @@ activate CommandResult
 CommandResult --> ViewLoanCommand
 deactivate CommandResult
 
-ViewLoanCommand --> LogicManager : r
+ViewLoanCommand --> LogicManager :
 deactivate ViewLoanCommand
 
 [<--LogicManager
