@@ -18,7 +18,6 @@ import static seedu.address.testutil.TypicalPersons.getTypicalAddressBook;
 import org.junit.jupiter.api.Test;
 
 import seedu.address.commons.core.index.Index;
-import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.logic.Messages;
 import seedu.address.logic.commands.LinkLoanCommand.LinkLoanDescriptor;
 import seedu.address.logic.commands.exceptions.CommandException;
