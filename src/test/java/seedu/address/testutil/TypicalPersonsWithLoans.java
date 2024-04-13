@@ -26,7 +26,6 @@ import seedu.address.model.person.UniqueLoanList;
  * A utility class containing a list of {@code Person} objects to be used in tests.
  */
 public class TypicalPersonsWithLoans {
-    public static final UniqueLoanList LOAN_RECORDS = loanRecords();
     public static final Person ALICE = new PersonBuilder().withName("Alice Pauline")
             .withAddress("123, Jurong West Ave 6, #08-111").withEmail("alice@example.com")
             .withPhone("94351253")

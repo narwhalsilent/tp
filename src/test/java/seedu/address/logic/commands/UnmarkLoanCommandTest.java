@@ -15,12 +15,7 @@ import seedu.address.model.ModelManager;
 import seedu.address.model.UserPrefs;
 import seedu.address.model.person.Loan;
 
-
-/**
- * Contains integration tests (interaction with the Model) and unit tests for MarkLoanCommand.
- */
-public class MarkLoanCommandTest {
-
+public class UnmarkLoanCommandTest {
     private final Model model = new ModelManager(getTypicalAddressBook(), new UserPrefs());
 
     private final int loanListSize = model.getSortedLoanList().size();
@@ -28,43 +23,46 @@ public class MarkLoanCommandTest {
     private final Loan firstLoan = model.getSortedLoanList().get(0);
 
     @Test
-    public void execute_markLoanAsReturned_success() throws CommandException {
-        assertTrue(firstLoan.isActive());
-
+    public void execute_unmarkLoanAsReturned_success() throws CommandException {
         MarkLoanCommand markLoanCommand = new MarkLoanCommand(Index.fromOneBased(1));
-        CommandResult commandResult = markLoanCommand.execute(model);
+        markLoanCommand.execute(model);
 
         assertTrue(firstLoan.isReturned());
-        assertEquals(String.format(MarkLoanCommand.MESSAGE_SUCCESS, firstLoan),
+
+        UnmarkLoanCommand unmarkLoanCommand = new UnmarkLoanCommand(Index.fromOneBased(1));
+        CommandResult commandResult = unmarkLoanCommand.execute(model);
+
+        assertTrue(firstLoan.isActive());
+        assertEquals(String.format(unmarkLoanCommand.MESSAGE_SUCCESS, firstLoan),
                 commandResult.getFeedbackToUser());
     }
 
     @Test
     public void execute_invalidLoanIndex_failure() {
-        MarkLoanCommand markLoanCommand = new MarkLoanCommand(Index.fromOneBased(loanListSize + 1));
-        assertCommandFailure(markLoanCommand, model, String.format(MarkLoanCommand.MESSAGE_FAILURE_LOAN,
+        UnmarkLoanCommand unmarkLoanCommand = new UnmarkLoanCommand(Index.fromOneBased(loanListSize + 1));
+        assertCommandFailure(unmarkLoanCommand, model, String.format(unmarkLoanCommand.MESSAGE_FAILURE_LOAN,
                 loanListSize + 1));
     }
 
     @Test
     public void equals() {
-        MarkLoanCommand markLoanFirstCommand = new MarkLoanCommand(Index.fromOneBased(1));
-        MarkLoanCommand markLoanSecondCommand = new MarkLoanCommand(Index.fromOneBased(2));
+        UnmarkLoanCommand unmarkLoanFirstCommand = new UnmarkLoanCommand(Index.fromOneBased(1));
+        UnmarkLoanCommand unmarkLoanSecondCommand = new UnmarkLoanCommand(Index.fromOneBased(2));
 
         // same object -> returns true
-        assertTrue(markLoanFirstCommand.equals(markLoanFirstCommand));
+        assertTrue(unmarkLoanFirstCommand.equals(unmarkLoanFirstCommand));
 
         // same values -> returns true
-        MarkLoanCommand markLoanFirstCommandCopy = new MarkLoanCommand(Index.fromOneBased(1));
-        assertTrue(markLoanFirstCommand.equals(markLoanFirstCommandCopy));
+        UnmarkLoanCommand unmarkLoanFirstCommandCopy = new UnmarkLoanCommand(Index.fromOneBased(1));
+        assertTrue(unmarkLoanFirstCommand.equals(unmarkLoanFirstCommandCopy));
 
         // different types -> returns false
-        assertFalse(markLoanFirstCommand.equals(1));
+        assertFalse(unmarkLoanFirstCommand.equals(1));
 
         // null -> returns false
-        assertFalse(markLoanFirstCommand.equals(null));
+        assertFalse(unmarkLoanFirstCommand.equals(null));
 
         // different person -> returns false
-        assertFalse(markLoanFirstCommand.equals(markLoanSecondCommand));
+        assertFalse(unmarkLoanFirstCommand.equals(unmarkLoanSecondCommand));
     }
 }
