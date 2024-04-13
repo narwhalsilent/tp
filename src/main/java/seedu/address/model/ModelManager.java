@@ -191,9 +191,9 @@ public class ModelManager implements Model {
     @Override
     public void updateFilteredLoanList(Predicate<Loan> predicate) {
         requireNonNull(predicate);
-        Predicate<Loan> second_predicate =
+        Predicate<Loan> secondPredicate =
                 isShowAllLoans.get() ? PREDICATE_SHOW_ALL_LOANS : PREDICATE_SHOW_ALL_ACTIVE_LOANS;
-        filteredLoans.setPredicate(predicate.and(second_predicate));
+        filteredLoans.setPredicate(predicate.and(secondPredicate));
     }
 
     @Override
