@@ -23,7 +23,7 @@ public class AnalyticsCommandParser implements Parser<AnalyticsCommand> {
             return new AnalyticsCommand(index);
         } catch (ParseException pe) {
             throw new ParseException(
-                    MESSAGE_INVALID_COMMAND_FORMAT, pe);
+                    String.format(MESSAGE_INVALID_COMMAND_FORMAT, AnalyticsCommand.MESSAGE_USAGE), pe);
         }
     }
 
