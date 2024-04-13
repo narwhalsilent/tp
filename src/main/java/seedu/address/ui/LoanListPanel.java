@@ -22,10 +22,7 @@ public class LoanListPanel extends UiPart<Region> {
     @FXML
     private ListView<Loan> loanListView;
 
-    @FXML
-    private ListView<Person> personListView;
-
-    private BooleanProperty loaneeInfoFlag;
+    private final BooleanProperty loaneeInfoFlag;
 
     /**
      * Creates a {@code PersonListPanel} with the given {@code ObservableList}.
@@ -41,7 +38,6 @@ public class LoanListPanel extends UiPart<Region> {
      * Custom {@code ListCell} that displays the graphics of a {@code Person} using a {@code PersonCard}.
      */
     class LoanListViewCell extends ListCell<Loan> {
-
         @Override
         protected void updateItem(Loan loan, boolean empty) {
             super.updateItem(loan, empty);
