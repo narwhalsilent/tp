@@ -61,7 +61,7 @@ public class AnalyticsPanel extends UiPart<Region> {
         urgencyChart.setLegendVisible(false);
     }
 
-    private void updateChart(DashboardData data) {
+    private void updateReliability(DashboardData data) {
         Analytics analytics = data.getAnalytics();
         if (analytics.getNumActiveLoans() == 0) {
             reliabilityIndex.setText("No active loans to analyze");
@@ -75,8 +75,9 @@ public class AnalyticsPanel extends UiPart<Region> {
             reliabilityChart.setData(reliabilityData);
             reliabilityIndex.setText(String.format("%.2f", (1 - analytics.getPropOverdueLoans()) * 100) + "%");
         }
+    }
 
-
+    private void updateImpact(DashboardData data) {
         if (data.getMaxLoanValue().compareTo(BigDecimal.ZERO) == 0) {
             impactIndex.setText("No loans to analyze");
             impactChart.setVisible(false);
@@ -89,6 +90,9 @@ public class AnalyticsPanel extends UiPart<Region> {
             impactChart.setData(impactData);
             impactIndex.setText(String.format("%.2f", data.getImpactIndex().doubleValue() * 100) + "%");
         }
+    }
+
+    private void updateUrgency(DashboardData data) {
         if (data.getUrgencyIndex() == null) {
             urgencyIndex.setText("No due loans to analyze");
             urgencyChart.setVisible(false);
@@ -101,5 +105,11 @@ public class AnalyticsPanel extends UiPart<Region> {
             urgencyChart.setData(urgencyData);
             urgencyIndex.setText(String.format("%.2f", data.getUrgencyIndex() * 100) + "%");
         }
+    }
+
+    private void updateChart(DashboardData data) {
+        updateReliability(data);
+        updateImpact(data);
+        updateUrgency(data);
     }
 }
