@@ -16,6 +16,7 @@ Class PersonCard
 Class StatusBarFooter
 Class CommandBox
 Class LoanListPanel
+Class AnalyticsPanel
 Class LoanCard
 }
 
@@ -36,6 +37,7 @@ MainWindow *-down->  "1" CommandBox
 MainWindow *-down-> "1" ResultDisplay
 MainWindow *-down-> "1" PersonListPanel
 MainWindow *-down-> "1" LoanListPanel
+MainWindow *-down-> "1" AnalyticsPanel
 MainWindow *-down-> "1" StatusBarFooter
 MainWindow --> "0..1" HelpWindow
 
@@ -51,10 +53,12 @@ PersonListPanel --|> UiPart
 PersonCard --|> UiPart
 StatusBarFooter --|> UiPart
 LoanListPanel --|> UiPart
+AnalyticsPanel --|> UiPart
 HelpWindow --|> UiPart
 
 PersonCard ..> Model
 LoanCard ..> Model
+AnalyticsPanel ..> Model
 UiManager -right-> Logic
 MainWindow -left-> Logic
 

@@ -14,24 +14,24 @@ import seedu.address.model.person.UniqueLoanList;
 /**
  * Jackson-friendly version of {@link UniqueLoanList}.
  */
-public class JsonAdaptedLoanRecords {
+public class JsonAdaptedUniqueLoanList {
 
-    public static final String MISSING_MESSAGE = "LoanRecords' loans field is missing!";
+    public static final String MISSING_MESSAGE = "UniqueLoanList's loans field is missing!";
 
     private final List<JsonAdaptedLoan> loans;
 
     /**
-     * Constructs a {@code JsonAdaptedLoanRecords} with the given loan details.
+     * Constructs a {@code JsonAdaptedUniqueLoanList} with the given loan details.
      */
     @JsonCreator
-    public JsonAdaptedLoanRecords(@JsonProperty("loans") List<JsonAdaptedLoan> loans) {
+    public JsonAdaptedUniqueLoanList(@JsonProperty("loans") List<JsonAdaptedLoan> loans) {
         this.loans = loans;
     }
 
     /**
-     * Converts a given {@code LoanRecords} into this class for Jackson use.
+     * Converts a given {@code UniqueLoanList} into this class for Jackson use.
      */
-    public JsonAdaptedLoanRecords(UniqueLoanList source) {
+    public JsonAdaptedUniqueLoanList(UniqueLoanList source) {
         if (source != null) {
             loans = source.getLoanList().stream()
                 .map(JsonAdaptedLoan::new)
@@ -42,15 +42,15 @@ public class JsonAdaptedLoanRecords {
     }
 
     /**
-     * Factory method to create a new instance of JsonAdaptedLoanRecords
+     * Factory method to create a new instance of JsonAdaptedUniqueLoanList
      * to disambiguate the constructor for null values.
      */
-    public static JsonAdaptedLoanRecords factory(UniqueLoanList source) {
-        return new JsonAdaptedLoanRecords(source);
+    public static JsonAdaptedUniqueLoanList factory(UniqueLoanList source) {
+        return new JsonAdaptedUniqueLoanList(source);
     }
 
     /**
-     * Converts this Jackson-friendly adapted loan object into the model's {@code LoanRecords} object.
+     * Converts this Jackson-friendly adapted loan object into the model's {@code UniqueLoanList} object.
      *
      * @throws IllegalValueException if there were any data constraints violated in the adapted loan.
      */
