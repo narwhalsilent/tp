@@ -355,7 +355,6 @@ public class UniqueLoanList implements Iterable<Loan> {
         for (Loan loan : internalList) {
             if ((earliestReturnDate == null || loan.getReturnDate().before(earliestReturnDate))
                     && !loan.isOverdue() && !loan.isReturned()) {
-                System.out.println(loan.getReturnDate() + " " + loan.isOverdue() + " " + loan.isReturned());
                 earliestReturnDate = loan.getReturnDate();
             }
         }
