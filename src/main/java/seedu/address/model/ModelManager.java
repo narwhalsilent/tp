@@ -234,7 +234,6 @@ public class ModelManager implements Model {
 
     @Override
     public void setIsLoansTab(Boolean isLoansTab) {
-        System.out.println("Method setIsLoansTab called inside ModelManager");
         if (isLoansTab) {
             this.isAnalyticsTab.setValue(false);
             this.isPersonTab.setValue(false);
@@ -249,7 +248,6 @@ public class ModelManager implements Model {
 
     @Override
     public void setToPersonTab() {
-        System.out.println("Method setToPersonTab called inside ModelManager");
         this.isLoansTab.setValue(false);
         this.isAnalyticsTab.setValue(false);
         this.updateFilteredLoanList(PREDICATE_SHOW_NO_LOANS);
@@ -286,7 +284,6 @@ public class ModelManager implements Model {
 
     @Override
     public void setIsPersonTab(Boolean isPersonTab) {
-        System.out.println("Method setIsPersonTab called inside ModelManager");
         if (isPersonTab) {
             this.isLoansTab.setValue(false);
             this.isAnalyticsTab.setValue(false);
@@ -296,7 +293,6 @@ public class ModelManager implements Model {
 
     @Override
     public void setDualPanel() {
-        System.out.println("Method setDualPanel called inside ModelManager");
         this.isLoansTab.setValue(true);
         this.isPersonTab.setValue(true);
         this.isAnalyticsTab.setValue(false);
