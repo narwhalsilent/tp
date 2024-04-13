@@ -312,7 +312,7 @@ Parameters Restrictions:
 
 * Links a loan to the person at the specified `INDEX`. The index refers to the index number shown in the displayed
   person list. The index **must be a positive integer** 1, 2, 3, …​, and it must not exceed the number of persons shown in the list.
-* The loan value must be a positive float value that is at most 2 decimal places.
+* The loan value must be a positive float value that is **at most 2 decimal places**, as the app behavior may not optimal for any higher precision.
 * The start date and return date must be in the format `YYYY-MM-DD`.
 * The return date must be after the start date.
 * Year value has to be below 9999.
@@ -380,24 +380,29 @@ Examples: `markloan 1`, `unmarkloan 1`
 
 Edits an existing loan in the address book.
 
-Format `editloan INDEX v/VALUE s/START_DATE r/RETURN_DATE`
+Format `editloan INDEX [v/VALUE] [s/START_DATE] [r/RETURN_DATE]`
 
 Parameters Restrictions:
 
 * The index refers to the index number shown in the displayed loan list. The index **must be a positive integer** 1, 2, 3, …​, and it must not exceed the number of loans shown in the list.
-* The loan value must be a positive number.
+* The loan value must be a positive float value that is **at most 2 decimal places**, as the app behavior may not optimal for any higher precision.
 * The start date and return date must be in the format `YYYY-MM-DD`.
 * The return date must be after the start date.
+* Year value has to be below 9999.
+* The loan value, start date and return date are all optional parameters, but at least one of them must be provided.
 
 Expected Behaviour:
 
 * A success message in the form of "Loan edited: [loan details]" will be shown.
 * The loan will be updated in the loan list.
 
-Examples: `editloan 1 v/600.00 s/2024-02-15 r/2025-02-15`
+Examples: 
 
-* Edits the loan at the 1st position in the loan list to have a value of $600.00, a start date of 15th Feb 2024, and a
+* `editloan 1 v/600.00 s/2024-02-15 r/2025-02-15`
+    * Edits the loan at the 1st position in the loan list to have a value of $600.00, a start date of 15th Feb 2024, and a
   return date of 15th Feb 2025.
+* `editloan 3 s/2021-01-01`
+  * Edits the loan at the 3rd position in the loan list to have a start date of 1st Jan 2021.
 
 ### Deleting a loan: `deleteloan`
 
