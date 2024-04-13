@@ -64,11 +64,15 @@ public class DashboardData {
         if (analytics.getEarliestReturnDate() == null || earliestReturnDate == null) {
             return null;
         }
+
         LocalDate target = analytics.getEarliestReturnDate().toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
         LocalDate benchmark = this.earliestReturnDate.toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
         LocalDate now = LocalDate.now();
         long dayDiffBenchmark = benchmark.toEpochDay() - now.toEpochDay();
         long dayDiffTarget = target.toEpochDay() - now.toEpochDay();
+        if (dayDiffTarget == 0) {
+            return 1.0f;
+        }
         return (float) dayDiffBenchmark / dayDiffTarget;
     }
 

@@ -27,7 +27,7 @@ public class Analytics {
     private BigDecimal averageActiveValue; // average loan value of all active loans
 
     private Date earliestLoanDate; // earliest loan date of all loans
-    private Date earliestReturnDate; // earliest return date of active loans
+    private Date earliestReturnDate; // earliest return date of active loans (not overdue)
     private Date latestLoanDate; // latest loan date of all loans
     private Date latestReturnDate; // latest return date of active loans
 
@@ -125,7 +125,7 @@ public class Analytics {
         if (this.latestLoanDate == null || loan.getStartDate().after(this.latestLoanDate)) {
             this.latestLoanDate = loan.getStartDate();
         }
-        if (!loan.isReturned()) {
+        if (!loan.isReturned() && !loan.isOverdue()) {
             if (this.earliestReturnDate == null || loan.getReturnDate().before(this.earliestReturnDate)) {
                 this.earliestReturnDate = loan.getReturnDate();
             }
@@ -133,6 +133,7 @@ public class Analytics {
                 this.latestReturnDate = loan.getReturnDate();
             }
         }
+
     }
 
     /**
