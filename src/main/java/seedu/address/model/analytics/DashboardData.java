@@ -1,5 +1,7 @@
 package seedu.address.model.analytics;
 
+import static java.util.Objects.requireNonNull;
+
 import java.math.BigDecimal;
 import java.math.RoundingMode;
 import java.time.LocalDate;
@@ -28,8 +30,14 @@ public class DashboardData {
      * @param earliestReturnDate earliest return date of all loans (not returned and not overdue)
      */
     public DashboardData(Analytics analytics, BigDecimal maxLoanValue, Date earliestReturnDate) {
+        requireNonNull(analytics);
+        requireNonNull(maxLoanValue);
         this.analytics = analytics;
         this.maxLoanValue = maxLoanValue;
+        // Should never be over the current date since overdue loans are not included
+        if (earliestReturnDate.before(new Date())) {
+            throw new IllegalArgumentException("Earliest return date should be in the future");
+        }
         this.earliestReturnDate = earliestReturnDate;
     }
 
