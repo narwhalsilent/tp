@@ -137,7 +137,7 @@ There are three main categories of commands: Contact Management, Basic Loan Mana
  **View Loan**   | `viewloan OPTIONAL_FLAG INDEX`<br> e.g., `viewloan 1`, `viewloan -a 1`
  **Mark Loan**   | `markloan INDEX`<br> e.g., `markloan 1`
  **Unmark Loan** | `unmarkloan INDEX`<br> e.g., `unmarkloan 1`            
- **Edit Loan**   | `editloan INDEX v/VALUE s/START_DATE r/RETURN_DATE`<br> e.g., `editloan 1 v/600.00 s/2024-02-15 r/2025-02-15`                                                         
+ **Edit Loan**   | `editloan INDEX [v/VALUE] [s/START_DATE] [r/RETURN_DATE]`<br> e.g., `editloan 1 v/600.00 s/2024-02-15 r/2025-02-15`                                                         
  **Delete Loan** | `deleteloan INDEX`<br> e.g., `deleteloan 1`                                                                   
 
 ### Advanced Loan Management
