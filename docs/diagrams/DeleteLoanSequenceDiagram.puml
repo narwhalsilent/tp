@@ -56,7 +56,7 @@ deactivate DeleteLoanCommandParser
 DeleteLoanCommandParser -[hidden]-> AddressBookParser
 destroy DeleteLoanCommandParser
 
-AddressBookParser --> LogicManager : d
+AddressBookParser --> LogicManager
 deactivate AddressBookParser
 
 LogicManager -> DeleteLoanCommand : execute(m)
