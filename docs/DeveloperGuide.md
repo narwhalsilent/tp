@@ -226,9 +226,8 @@ It contains the following fields that can prove to be useful for the user:
 * `latestLoanDate`: latest loan date of all loans
 * `latestReturnDate`: latest return date of active loans
 
-The sequence diagram of executing an analytics command is very similar to that of the Delete Loan section below,
-and hence not included.
-The following shows how the analytics class is used in the execution of the Analytics command:
+The `AnalyticsCommand` class handles the viewing of analytics of any one person within the current contact list in view. 
+The following shows how the analytics class is used in the execution of a command to view the analytics of a person:
 ![AnalyticsSequenceDiagram](images/AnalyticsSequenceDiagram.png)
 
 #### Design considerations:
