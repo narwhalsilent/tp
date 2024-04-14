@@ -625,8 +625,8 @@ Use case ends.
 
 1. User <u>views all loans linked to the contact (UC4)</u>.
 2. User issues `deleteloan` command with the index of loan to be cleared.
-3. System clears the loan from the contact.
-4. System shows the contact and the loan that was cleared successfully in the status message.
+3. System deletes the loan from the contact.
+4. System shows the contact and the loan that was deleted successfully in the status message.
    Use case ends.
 
 #### Extensions
