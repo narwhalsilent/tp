@@ -489,16 +489,16 @@ separately in the `LinkLoanCommand`.
 
 **Target user profile**:
 
-The target user is businessman who satisfies the following criteria
+The target user is a business person who satisfies the following criteria:
 
-* has a need to manage a significant number of contacts
-* prefer desktop apps over other types
-* can type fast
-* prefers typing to mouse interactions
-* is reasonably comfortable using CLI apps
+* has a need to manage a significant number of contacts;
+* prefers desktop apps over other types of apps;
+* can type fast;
+* prefers typing to mouse interactions;
+* is reasonably comfortable using CLI apps;
+* wants to manage contacts faster than a typical mouse/GUI driven app. 
 
-and wants to manage contacts faster than a typical mouse/GUI driven app. Typically,
-they want to answer the following questions quickly:
+Typically, they want to answer the following questions quickly:
 
 * How much cash was loaned?
 * To whom it was loaned to?
