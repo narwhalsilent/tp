@@ -157,14 +157,6 @@ public class Analytics {
         return analytics;
     }
 
-    public int getNumLoans() {
-        return numLoans;
-    }
-
-    public int getNumOverdueLoans() {
-        return numOverdueLoans;
-    }
-
     public int getNumActiveLoans() {
         return numActiveLoans;
     }
@@ -177,44 +169,12 @@ public class Analytics {
         return propActiveLoans;
     }
 
-    public BigDecimal getTotalValueLoaned() {
-        return totalValueLoaned;
-    }
-
-    public BigDecimal getTotalValueOverdue() {
-        return totalValueOverdue;
-    }
-
-    public BigDecimal getTotalValueActive() {
-        return totalValueActive;
-    }
-
     public BigDecimal getAverageLoanValue() {
         return averageLoanValue;
     }
 
-    public BigDecimal getAverageOverdueValue() {
-        return averageOverdueValue;
-    }
-
-    public BigDecimal getAverageActiveValue() {
-        return averageActiveValue;
-    }
-
-    public Date getEarliestLoanDate() {
-        return earliestLoanDate;
-    }
-
     public Date getEarliestReturnDate() {
         return earliestReturnDate;
-    }
-
-    public Date getLatestLoanDate() {
-        return latestLoanDate;
-    }
-
-    public Date getLatestReturnDate() {
-        return latestReturnDate;
     }
 
     @Override
