@@ -66,45 +66,46 @@ public class AnalyticsPanel extends UiPart<Region> {
         if (analytics.getNumActiveLoans() == 0) {
             reliabilityIndex.setText("No active loans to analyze");
             reliabilityChart.setVisible(false);
-        } else {
-            reliabilityChart.setVisible(true);
-            ObservableList<PieChart.Data> reliabilityData = FXCollections.observableArrayList(
-                    new PieChart.Data("Reliability Index", analytics.getPropOverdueLoans()),
-                    new PieChart.Data("", 1 - analytics.getPropOverdueLoans())
-            );
-            reliabilityChart.setData(reliabilityData);
-            reliabilityIndex.setText(String.format("%.2f", (1 - analytics.getPropOverdueLoans()) * 100) + "%");
+            return;
         }
+        reliabilityChart.setVisible(true);
+        ObservableList<PieChart.Data> reliabilityData = FXCollections.observableArrayList(
+                new PieChart.Data("Reliability Index", analytics.getPropOverdueLoans()),
+                new PieChart.Data("", 1 - analytics.getPropOverdueLoans())
+        );
+        reliabilityChart.setData(reliabilityData);
+        reliabilityIndex.setText(String.format("%.2f", (1 - analytics.getPropOverdueLoans()) * 100) + "%");
+
     }
 
     private void updateImpact(DashboardData data) {
         if (data.getMaxLoanValue().compareTo(BigDecimal.ZERO) == 0) {
             impactIndex.setText("No loans to analyze");
             impactChart.setVisible(false);
-        } else {
-            impactChart.setVisible(true);
-            ObservableList<PieChart.Data> impactData = FXCollections.observableArrayList(
-                    new PieChart.Data("Impact Index", data.getImpactIndex().doubleValue()),
-                    new PieChart.Data("", 1 - data.getImpactIndex().doubleValue())
-            );
-            impactChart.setData(impactData);
-            impactIndex.setText(String.format("%.2f", data.getImpactIndex().doubleValue() * 100) + "%");
+            return;
         }
+        impactChart.setVisible(true);
+        ObservableList<PieChart.Data> impactData = FXCollections.observableArrayList(
+                new PieChart.Data("Impact Index", data.getImpactIndex().doubleValue()),
+                new PieChart.Data("", 1 - data.getImpactIndex().doubleValue())
+        );
+        impactChart.setData(impactData);
+        impactIndex.setText(String.format("%.2f", data.getImpactIndex().doubleValue() * 100) + "%");
     }
 
     private void updateUrgency(DashboardData data) {
         if (data.getUrgencyIndex() == null) {
             urgencyIndex.setText("No due loans to analyze");
             urgencyChart.setVisible(false);
-        } else {
-            urgencyChart.setVisible(true);
-            ObservableList<PieChart.Data> urgencyData = FXCollections.observableArrayList(
-                    new PieChart.Data("Urgency Index", data.getUrgencyIndex()),
-                    new PieChart.Data("", 1 - data.getUrgencyIndex())
-            );
-            urgencyChart.setData(urgencyData);
-            urgencyIndex.setText(String.format("%.2f", data.getUrgencyIndex() * 100) + "%");
+            return;
         }
+        urgencyChart.setVisible(true);
+        ObservableList<PieChart.Data> urgencyData = FXCollections.observableArrayList(
+                new PieChart.Data("Urgency Index", data.getUrgencyIndex()),
+                new PieChart.Data("", 1 - data.getUrgencyIndex())
+        );
+        urgencyChart.setData(urgencyData);
+        urgencyIndex.setText(String.format("%.2f", data.getUrgencyIndex() * 100) + "%");
     }
 
     private void updateChart(DashboardData data) {

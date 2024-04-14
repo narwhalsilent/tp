@@ -231,12 +231,12 @@ public class AddCommandTest {
         }
 
         @Override
-        public BooleanProperty getLoaneeInfoFlag() {
+        public BooleanProperty getIsShowLoaneeInfo() {
             throw new AssertionError("This method should not be called.");
         }
 
         @Override
-        public void setLoaneeInfoFlag(Boolean loaneeInfoFlag) {
+        public void setIsShowLoaneeInfo(Boolean isShowLoaneeInfo) {
             throw new AssertionError("This method should not be called.");
         }
 

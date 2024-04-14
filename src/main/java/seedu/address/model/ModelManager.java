@@ -40,7 +40,7 @@ public class ModelManager implements Model {
     private final BooleanProperty isAnalyticsTab = new SimpleBooleanProperty(false);
     private final BooleanProperty isPersonTab = new SimpleBooleanProperty(false);
     private final BooleanProperty isShowAllLoans = new SimpleBooleanProperty(false);
-    private final BooleanProperty loaneeInfoFlag = new SimpleBooleanProperty(true);
+    private final BooleanProperty isShowLoaneeInfo = new SimpleBooleanProperty(true);
 
     private final ObjectProperty<DashboardData> dashboardData = new SimpleObjectProperty<>();
 
@@ -299,12 +299,12 @@ public class ModelManager implements Model {
     }
 
     @Override
-    public BooleanProperty getLoaneeInfoFlag() {
-        return this.loaneeInfoFlag;
+    public BooleanProperty getIsShowLoaneeInfo() {
+        return this.isShowLoaneeInfo;
     }
 
     @Override
-    public void setLoaneeInfoFlag(Boolean loaneeInfoFlag) {
-        this.loaneeInfoFlag.setValue(loaneeInfoFlag);
+    public void setIsShowLoaneeInfo(Boolean isShowLoaneeInfo) {
+        this.isShowLoaneeInfo.setValue(isShowLoaneeInfo);
     }
 }

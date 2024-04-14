@@ -126,7 +126,7 @@ public class LogicManager implements Logic {
     }
 
     @Override
-    public BooleanProperty getLoaneeInfoFlag() {
-        return model.getLoaneeInfoFlag();
+    public BooleanProperty getIsShowLoaneeInfo() {
+        return model.getIsShowLoaneeInfo();
     }
 }

@@ -185,7 +185,7 @@ public interface Model {
 
     void setDualPanel();
 
-    BooleanProperty getLoaneeInfoFlag();
+    BooleanProperty getIsShowLoaneeInfo();
 
-    void setLoaneeInfoFlag(Boolean loaneeInfoFlag);
+    void setIsShowLoaneeInfo(Boolean isShowLoaneeInfo);
 }

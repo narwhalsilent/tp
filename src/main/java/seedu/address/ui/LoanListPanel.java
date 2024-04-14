@@ -21,16 +21,16 @@ public class LoanListPanel extends UiPart<Region> {
     @FXML
     private ListView<Loan> loanListView;
 
-    private final BooleanProperty loaneeInfoFlag;
+    private final BooleanProperty isShowLoaneeInfo;
 
     /**
      * Creates a {@code PersonListPanel} with the given {@code ObservableList}.
      */
-    public LoanListPanel(ObservableList<Loan> loanList, BooleanProperty loaneeInfoFlag) {
+    public LoanListPanel(ObservableList<Loan> loanList, BooleanProperty isShowLoaneeInfo) {
         super(FXML);
         loanListView.setItems(loanList);
         loanListView.setCellFactory(listView -> new LoanListViewCell());
-        this.loaneeInfoFlag = loaneeInfoFlag;
+        this.isShowLoaneeInfo = isShowLoaneeInfo;
     }
 
     /**
@@ -45,7 +45,7 @@ public class LoanListPanel extends UiPart<Region> {
                 setGraphic(null);
                 setText(null);
             } else {
-                setGraphic(new LoanCard(loan, getIndex() + 1, loaneeInfoFlag.getValue()).getRoot());
+                setGraphic(new LoanCard(loan, getIndex() + 1, isShowLoaneeInfo.getValue()).getRoot());
             }
         }
     }

@@ -69,5 +69,5 @@ public interface Logic {
 
     BooleanProperty getIsPersonTab();
 
-    BooleanProperty getLoaneeInfoFlag();
+    BooleanProperty getIsShowLoaneeInfo();
 }

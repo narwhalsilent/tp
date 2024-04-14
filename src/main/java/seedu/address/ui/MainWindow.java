@@ -77,7 +77,7 @@ public class MainWindow extends UiPart<Stage> {
 
     private BooleanProperty isPersonTab;
 
-    private BooleanProperty loaneeInfoFlag;
+    private BooleanProperty isShowLoaneeInfo;
 
     /**
      * Creates a {@code MainWindow} with the given {@code Stage} and {@code Logic}.
@@ -146,7 +146,7 @@ public class MainWindow extends UiPart<Stage> {
         // Initial value of isAnalyticsTab is false by default
         assert (!this.isAnalyticsTab.getValue());
         personListPanel = new PersonListPanel(logic.getFilteredPersonList());
-        loanListPanel = new LoanListPanel(logic.getSortedLoanList(), logic.getLoaneeInfoFlag());
+        loanListPanel = new LoanListPanel(logic.getSortedLoanList(), logic.getIsShowLoaneeInfo());
         analyticsPanel = new AnalyticsPanel(logic.getAnalytics());
         personListPanelPlaceholder.getChildren().add(personListPanel.getRoot());
         resultDisplay = new ResultDisplay();
@@ -170,7 +170,6 @@ public class MainWindow extends UiPart<Stage> {
         this.isLoansTab = logic.getIsLoansTab();
         this.isAnalyticsTab = logic.getIsAnalyticsTab();
         this.isPersonTab = logic.getIsPersonTab();
-        this.loaneeInfoFlag = logic.getLoaneeInfoFlag();
 
         logic.setIsAnalyticsTab(false);
         logic.setIsLoansTab(false);
@@ -185,8 +184,8 @@ public class MainWindow extends UiPart<Stage> {
             toggleTabs();
         });
 
-        logic.getLoaneeInfoFlag().addListener((observable, oldValue, newValue) -> {
-            this.loanListPanel = new LoanListPanel(logic.getSortedLoanList(), logic.getLoaneeInfoFlag());
+        logic.getIsShowLoaneeInfo().addListener((observable, oldValue, newValue) -> {
+            this.loanListPanel = new LoanListPanel(logic.getSortedLoanList(), logic.getIsShowLoaneeInfo());
         });
     }
 
