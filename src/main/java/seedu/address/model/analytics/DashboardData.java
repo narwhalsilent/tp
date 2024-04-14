@@ -18,9 +18,9 @@ import seedu.address.model.person.Analytics;
  * - Earliest return date
  */
 public class DashboardData {
-    private Analytics analytics;
-    private BigDecimal maxLoanValue;
-    private Date earliestReturnDate;
+    private final Analytics analytics;
+    private final BigDecimal maxLoanValue;
+    private final Date earliestReturnDate;
 
     /**
      * Creates a DashboardData object with the given analytics, max loan value and earliest return date
@@ -31,13 +31,8 @@ public class DashboardData {
      */
     public DashboardData(Analytics analytics, BigDecimal maxLoanValue, Date earliestReturnDate) {
         requireNonNull(analytics);
-        requireNonNull(maxLoanValue);
         this.analytics = analytics;
         this.maxLoanValue = maxLoanValue;
-        // Should never be over the current date since overdue loans are not included
-        if (earliestReturnDate.before(new Date())) {
-            throw new IllegalArgumentException("Earliest return date should be in the future");
-        }
         this.earliestReturnDate = earliestReturnDate;
     }
 
