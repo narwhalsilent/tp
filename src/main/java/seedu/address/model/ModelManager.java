@@ -6,13 +6,10 @@ import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 import java.math.BigDecimal;
 import java.nio.file.Path;
 import java.util.Date;
-import java.util.List;
 import java.util.function.Predicate;
 import java.util.logging.Logger;
 
-import javafx.beans.property.BooleanProperty;
 import javafx.beans.property.ObjectProperty;
-import javafx.beans.property.SimpleBooleanProperty;
 import javafx.beans.property.SimpleObjectProperty;
 import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
@@ -24,6 +21,7 @@ import seedu.address.model.analytics.DashboardData;
 import seedu.address.model.person.Analytics;
 import seedu.address.model.person.Loan;
 import seedu.address.model.person.Person;
+import seedu.address.model.tabindicator.TabIndicator;
 
 /**
  * Represents the in-memory model of the address book data.
@@ -36,11 +34,8 @@ public class ModelManager implements Model {
     private final FilteredList<Person> filteredPersons;
     private final FilteredList<Loan> filteredLoans;
     private final SortedList<Loan> sortedLoans;
-    private final BooleanProperty isLoansTab = new SimpleBooleanProperty(false);
-    private final BooleanProperty isAnalyticsTab = new SimpleBooleanProperty(false);
-    private final BooleanProperty isPersonTab = new SimpleBooleanProperty(false);
-    private final BooleanProperty isShowAllLoans = new SimpleBooleanProperty(false);
-    private final BooleanProperty isShowLoaneeInfo = new SimpleBooleanProperty(true);
+    private final ObjectProperty<TabIndicator> tabIndicator = new SimpleObjectProperty<>(new TabIndicator(false,
+            false, true, false, false));
 
     private final ObjectProperty<DashboardData> dashboardData = new SimpleObjectProperty<>();
 
@@ -192,14 +187,15 @@ public class ModelManager implements Model {
     public void updateFilteredLoanList(Predicate<Loan> predicate) {
         requireNonNull(predicate);
         Predicate<Loan> secondPredicate =
-                isShowAllLoans.get() ? PREDICATE_SHOW_ALL_LOANS : PREDICATE_SHOW_ALL_ACTIVE_LOANS;
+                this.tabIndicator.getValue().getIsShowAllLoans() ? PREDICATE_SHOW_ALL_LOANS
+                        : PREDICATE_SHOW_ALL_ACTIVE_LOANS;
         filteredLoans.setPredicate(predicate.and(secondPredicate));
     }
 
     @Override
     public void updateFilteredLoanList(Predicate<Loan> predicate, boolean isShowAllLoans) {
         requireNonNull(predicate);
-        this.isShowAllLoans.setValue(isShowAllLoans);
+        this.tabIndicator.setValue(this.tabIndicator.getValue().setIsShowAllLoans(isShowAllLoans));
         updateFilteredLoanList(predicate);
     }
 
@@ -222,47 +218,24 @@ public class ModelManager implements Model {
     }
 
     @Override
-    public void setLoanList(List<Loan> loanList) {
-        filteredLoans.clear();
-        filteredLoans.setAll(loanList);
-    }
-
-    @Override
-    public BooleanProperty getIsLoansTab() {
-        return this.isLoansTab;
-    }
-
-    @Override
     public void setIsLoansTab(Boolean isLoansTab) {
-        if (isLoansTab) {
-            this.isAnalyticsTab.setValue(false);
-            this.isPersonTab.setValue(false);
-        }
-        this.isLoansTab.setValue(isLoansTab);
+        this.tabIndicator.setValue(this.tabIndicator.getValue().setIsLoansTab(isLoansTab));
     }
 
-    @Override
-    public BooleanProperty getIsAnalyticsTab() {
-        return this.isAnalyticsTab;
-    }
 
     @Override
     public void setToPersonTab() {
-        this.isLoansTab.setValue(false);
-        this.isAnalyticsTab.setValue(false);
         this.updateFilteredLoanList(PREDICATE_SHOW_NO_LOANS);
-        this.setIsPersonTab(true);
+        this.tabIndicator.setValue(this.tabIndicator.getValue().setIsPersonTab(true));
     }
 
     @Override
     public void setIsAnalyticsTab(Boolean isAnalyticsTab) {
         if (isAnalyticsTab) {
-            this.isLoansTab.setValue(false);
-            this.isPersonTab.setValue(false);
             this.updateFilteredPersonList(PREDICATE_SHOW_NO_PERSONS);
             this.updateFilteredLoanList(PREDICATE_SHOW_NO_LOANS);
         }
-        this.isAnalyticsTab.setValue(isAnalyticsTab);
+        this.tabIndicator.setValue(this.tabIndicator.getValue().setIsAnalyticsTab(isAnalyticsTab));
     }
 
     @Override
@@ -278,33 +251,17 @@ public class ModelManager implements Model {
     }
 
     @Override
-    public BooleanProperty getIsPersonTab() {
-        return this.isPersonTab;
-    }
-
-    @Override
-    public void setIsPersonTab(Boolean isPersonTab) {
-        if (isPersonTab) {
-            this.isLoansTab.setValue(false);
-            this.isAnalyticsTab.setValue(false);
-        }
-        this.isPersonTab.setValue(isPersonTab);
-    }
-
-    @Override
     public void setDualPanel() {
-        this.isLoansTab.setValue(true);
-        this.isPersonTab.setValue(true);
-        this.isAnalyticsTab.setValue(false);
-    }
-
-    @Override
-    public BooleanProperty getIsShowLoaneeInfo() {
-        return this.isShowLoaneeInfo;
+        this.tabIndicator.setValue(this.tabIndicator.getValue().setDualPanelView());
     }
 
     @Override
     public void setIsShowLoaneeInfo(Boolean isShowLoaneeInfo) {
-        this.isShowLoaneeInfo.setValue(isShowLoaneeInfo);
+        this.tabIndicator.setValue(this.tabIndicator.getValue().setIsShowLoaneeInfo(isShowLoaneeInfo));
+    }
+
+    @Override
+    public ObjectProperty<TabIndicator> getTabIndicator() {
+        return this.tabIndicator;
     }
 }

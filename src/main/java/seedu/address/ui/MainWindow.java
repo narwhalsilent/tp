@@ -2,7 +2,7 @@ package seedu.address.ui;
 
 import java.util.logging.Logger;
 
-import javafx.beans.property.BooleanProperty;
+import javafx.beans.property.ObjectProperty;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.MenuItem;
@@ -19,6 +19,7 @@ import seedu.address.logic.Logic;
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.logic.parser.exceptions.ParseException;
+import seedu.address.model.tabindicator.TabIndicator;
 
 /**
  * The Main Window. Provides the basic application layout containing
@@ -70,14 +71,7 @@ public class MainWindow extends UiPart<Stage> {
     private VBox analytics;
     @FXML
     private VBox personList;
-
-    private BooleanProperty isLoansTab;
-
-    private BooleanProperty isAnalyticsTab;
-
-    private BooleanProperty isPersonTab;
-
-    private BooleanProperty isShowLoaneeInfo;
+    private ObjectProperty<TabIndicator> tabIndicator;
 
     /**
      * Creates a {@code MainWindow} with the given {@code Stage} and {@code Logic}.
@@ -142,11 +136,12 @@ public class MainWindow extends UiPart<Stage> {
     void fillInnerParts() {
         initializeLocalListeners();
         // Initial value of isLoansTab is false by default
-        assert (!this.isLoansTab.getValue());
+        assert (!this.tabIndicator.getValue().getIsLoansTab());
         // Initial value of isAnalyticsTab is false by default
-        assert (!this.isAnalyticsTab.getValue());
+        assert (!this.tabIndicator.getValue().getIsAnalyticsTab());
         personListPanel = new PersonListPanel(logic.getFilteredPersonList());
-        loanListPanel = new LoanListPanel(logic.getSortedLoanList(), logic.getIsShowLoaneeInfo());
+
+        loanListPanel = new LoanListPanel(logic.getSortedLoanList(), this.tabIndicator);
         analyticsPanel = new AnalyticsPanel(logic.getAnalytics());
         personListPanelPlaceholder.getChildren().add(personListPanel.getRoot());
         resultDisplay = new ResultDisplay();
@@ -167,26 +162,14 @@ public class MainWindow extends UiPart<Stage> {
     }
 
     private void initializeLocalListeners() {
-        this.isLoansTab = logic.getIsLoansTab();
-        this.isAnalyticsTab = logic.getIsAnalyticsTab();
-        this.isPersonTab = logic.getIsPersonTab();
+        this.tabIndicator = logic.getTabIndicator();
 
-        logic.setIsAnalyticsTab(false);
-        logic.setIsLoansTab(false);
-
-        this.isPersonTab.addListener((observable, oldValue, newValue) -> {
-            toggleTabs();
-        });
-        this.isLoansTab.addListener((observable, oldValue, newValue) -> {
-            toggleTabs();
-        });
-        this.isAnalyticsTab.addListener((observable, oldValue, newValue) -> {
+        this.tabIndicator.addListener((observable, oldValue, newValue) -> {
+            System.out.println("Value changed!" + newValue);
             toggleTabs();
         });
 
-        logic.getIsShowLoaneeInfo().addListener((observable, oldValue, newValue) -> {
-            this.loanListPanel = new LoanListPanel(logic.getSortedLoanList(), logic.getIsShowLoaneeInfo());
-        });
+
     }
 
     private void activateDualPanelView() {
@@ -232,13 +215,13 @@ public class MainWindow extends UiPart<Stage> {
 
     private void toggleTabs() {
         // At most one of these can be active at a time
-        assert (!(this.isLoansTab.getValue() && this.isAnalyticsTab.getValue()));
+        assert (!(this.tabIndicator.getValue().getIsLoansTab() && this.tabIndicator.getValue().getIsAnalyticsTab()));
 
-        if (isPersonTab.getValue() && isLoansTab.getValue()) { // Dual panel view
+        if (this.tabIndicator.getValue().getIsPersonTab() && this.tabIndicator.getValue().getIsLoansTab()) {
             activateDualPanelView();
-        } else if (isPersonTab.getValue()) {
+        } else if (this.tabIndicator.getValue().getIsPersonTab()) {
             activatePersonListOnlyView();
-        } else if (this.isLoansTab.getValue()) {
+        } else if (this.tabIndicator.getValue().getIsLoansTab()) {
             activateLoanListOnlyView();
         } else {
             activateAnalyticsView();

@@ -83,7 +83,7 @@ public class EditCommand extends Command {
         }
 
         model.setPerson(personToEdit, editedPerson);
-        if (model.getIsLoansTab().get()) {
+        if (model.getTabIndicator().getValue().getIsLoansTab()) {
             model.updateFilteredPersonList(person -> person.isSamePerson(editedPerson));
             model.updateFilteredLoanList(loan -> loan.isAssignedTo(editedPerson));
         }
@@ -141,7 +141,8 @@ public class EditCommand extends Command {
         private Address address;
         private Set<Tag> tags;
 
-        public EditPersonDescriptor() {}
+        public EditPersonDescriptor() {
+        }
 
         /**
          * Copy constructor.

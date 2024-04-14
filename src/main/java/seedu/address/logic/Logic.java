@@ -2,7 +2,6 @@ package seedu.address.logic;
 
 import java.nio.file.Path;
 
-import javafx.beans.property.BooleanProperty;
 import javafx.beans.property.ObjectProperty;
 import javafx.collections.ObservableList;
 import seedu.address.commons.core.GuiSettings;
@@ -13,6 +12,7 @@ import seedu.address.model.ReadOnlyAddressBook;
 import seedu.address.model.analytics.DashboardData;
 import seedu.address.model.person.Loan;
 import seedu.address.model.person.Person;
+import seedu.address.model.tabindicator.TabIndicator;
 
 /**
  * API of the Logic component
@@ -57,17 +57,7 @@ public interface Logic {
 
     ObservableList<Loan> getSortedLoanList();
 
-    void setIsLoansTab(boolean isLoansTab);
-
-    BooleanProperty getIsLoansTab();
-
-    void setIsAnalyticsTab(boolean isAnalyticsTab);
-
-    BooleanProperty getIsAnalyticsTab();
-
     ObjectProperty<DashboardData> getAnalytics();
 
-    BooleanProperty getIsPersonTab();
-
-    BooleanProperty getIsShowLoaneeInfo();
+    ObjectProperty<TabIndicator> getTabIndicator();
 }
