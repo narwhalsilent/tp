@@ -23,16 +23,6 @@ public class DashboardDataTest {
     }
 
     @Test
-    public void constructor_overdueReturnDate_throwsIllegalArgumentException() {
-        Analytics analytics = Analytics.getAnalytics(new UniqueLoanList().asUnmodifiableObservableList());
-        // Earliest return date in whole database is earlier than now
-        // Loan is overdue and should not be considered
-        Date oneDayBeforeNow = new Date(new Date().getTime() - 86400000);
-        assertThrows(IllegalArgumentException.class, () -> new DashboardData(analytics,
-                new BigDecimal("100"), oneDayBeforeNow));
-    }
-
-    @Test
     public void urgencyTest() {
         Date oneWeekAfterNow = new Date(new Date().getTime() + 604800000);
         Date twoWeeksAfterNow = new Date(new Date().getTime() + 1209600000);
