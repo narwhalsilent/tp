@@ -18,6 +18,12 @@ import seedu.address.model.person.Person;
 public class AnalyticsCommand extends Command {
     public static final String COMMAND_WORD = "analytics";
 
+    public static final String MESSAGE_USAGE = COMMAND_WORD
+            + ": Displays the analytics of the person "
+            + "identified by the index number used in the displayed person list.\n"
+            + "Parameters: INDEX (must be a positive integer)\n"
+            + "Example: " + COMMAND_WORD + " 1";
+
     public static final String MESSAGE_SUCCESS = "Analytics generated";
     private final Index targetIndex;
 

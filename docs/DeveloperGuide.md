@@ -3,8 +3,57 @@ layout: page
 title: Developer Guide
 ---
 
-* Table of Contents
-  {:toc}
+[//]: <> (comment, To-do, make working links)
+[//]: <> (more To-dos: Instructions for Manual Testing, Appendix: Effort, Planned Enhancements)
+
+## Table of Contents
+[1. Acknowledgements](#acknowledgements)<br>
+[2. Setting up, getting started](#setting-up-getting-started)<br>
+[3. Design](#design)<br>
+- [3.1 Architecture](#architecture)<br>
+- [3.2 UI component](#ui-component)<br>
+- [3.3 Logic component](#logic-component)<br>
+- [3.4 Model component](#model-component)<br>
+- [3.5 Storage component](#storage-component)<br>
+- [3.6 Common classes](#common-classes)<br>
+
+[4. Enhancements Added](#enhancements-added)<br>
+- [4.1 Loan Analytics - Joseph](#loan-analytics---joseph)<br>
+- [4.2 Delete Loan - Xiaorui](#delete-loan---xiaorui)<br>
+- [4.3 Loan view command - Wang Junwu](#loan-view-command---wang-junwu)<br>
+- [4.4 Loan view GUI - Kyal Sin Min Thet](#loan-view-gui---kyal-sin-min-thet)<br>
+- [4.5 Linking a loan - Khor Jun Wei](#linking-a-loan---khor-jun-wei)<br>
+
+[5. Documentation, logging, testing, configuration, dev-ops](#documentation-logging-testing-configuration-dev-ops)<br>
+[6. Appendix: Requirements](#appendix-requirements)<br>
+
+- [6.1 Product scope](#product-scope)<br>
+- [6.2 User stories](#user-stories)<br>
+- [6.3 Use cases](#use-cases)<br>
+- [6.4 Non-Functional Requirements](#non-functional-requirements)<br>
+
+[7. Appendix: Instructions for manual testing](#appendix-instructions-for-manual-testing)<br>
+- [7.1 Launch and shutdown](#launch-and-shutdown)<br>
+- [7.2 Deleting a person](#deleting-a-person)<br>
+- [7.3 Linking a loan](#linking-a-loan)<br>
+- [7.4 Viewing loans](#viewing-loans)<br>
+- [7.5 Marking and unmarking a loan](#marking-and-unmarking-a-loan)<br>
+- [7.6 Editing a loan](#editing-a-loan)<br>
+- [7.7 Deleting a loan](#deleting-a-loan)<br>
+- [7.8 Analytics Command](#analytics-command)<br>
+- [7.9 Saving data](#saving-data)<br>
+- [7.10 Exiting the app](#exiting-the-app)<br>
+
+[8. Appendix: Effort](#appendix-effort)<br>
+[9. Glossary](#glossary)<br>
+
+
+--------------------------------------------------------------------------------------------------------------------
+
+## **Acknowledgements**
+
+This project is modified upon the [AddressBook-Level3 project](https://github.com/se-edu/addressbook-level3) project created by the SE-EDU initiative, 
+as well as the [tutorials](https://nus-cs2103-ay2021s1.github.io/tp/tutorials/AddRemark.html) and guides provided.
 
 --------------------------------------------------------------------------------------------------------------------
 
@@ -194,114 +243,9 @@ The `Storage` component,
 
 Classes used by multiple components are in the `seedu.addressbook.commons` package.
 
---------------------------------------------------------------------------------------------------------------------
-
-## **Implementation**
-
-This section describes some noteworthy details on how certain features are implemented.
-
-### \[Proposed\] Undo/redo feature
-
-#### Proposed Implementation
-
-The proposed undo/redo mechanism is facilitated by `VersionedAddressBook`. It extends `AddressBook` with an undo/redo
-history, stored internally as an `addressBookStateList` and `currentStatePointer`. Additionally, it implements the
-following operations:
-
-* `VersionedAddressBook#commit()`— Saves the current address book state in its history.
-* `VersionedAddressBook#undo()`— Restores the previous address book state from its history.
-* `VersionedAddressBook#redo()`— Restores a previously undone address book state from its history.
-
-These operations are exposed in the `Model` interface as `Model#commitAddressBook()`, `Model#undoAddressBook()`
-and `Model#redoAddressBook()` respectively.
-
-Given below is an example usage scenario and how the undo/redo mechanism behaves at each step.
-
-Step 1. The user launches the application for the first time. The `VersionedAddressBook` will be initialized with the
-initial address book state, and the `currentStatePointer` pointing to that single address book state.
-
-![UndoRedoState0](images/UndoRedoState0.png)
-
-Step 2. The user executes `delete 5` command to delete the 5th person in the address book. The `delete` command
-calls `Model#commitAddressBook()`, causing the modified state of the address book after the `delete 5` command executes
-to be saved in the `addressBookStateList`, and the `currentStatePointer` is shifted to the newly inserted address book
-state.
-
-![UndoRedoState1](images/UndoRedoState1.png)
-
-Step 3. The user executes `add n/David …​` to add a new person. The `add` command also
-calls `Model#commitAddressBook()`, causing another modified address book state to be saved into
-the `addressBookStateList`.
-
-![UndoRedoState2](images/UndoRedoState2.png)
-
-<div markdown="span" class="alert alert-info">:information_source: **Note:** If a command fails its execution, it will not call `Model#commitAddressBook()`, so the address book state will not be saved into the `addressBookStateList`.
-
-</div>
-
-Step 4. The user now decides that adding the person was a mistake, and decides to undo that action by executing
-the `undo` command. The `undo` command will call `Model#undoAddressBook()`, which will shift the `currentStatePointer`
-once to the left, pointing it to the previous address book state, and restores the address book to that state.
-
-![UndoRedoState3](images/UndoRedoState3.png)
-
-<div markdown="span" class="alert alert-info">:information_source: **Note:** If the `currentStatePointer` is at index 0, pointing to the initial AddressBook state, then there are no previous AddressBook states to restore. The `undo` command uses `Model#canUndoAddressBook()` to check if this is the case. If so, it will return an error to the user rather
-than attempting to perform the undo.
-
-</div>
-
-The following sequence diagram shows how an undo operation goes through the `Logic` component:
-
-![UndoSequenceDiagram](images/UndoSequenceDiagram-Logic.png)
-
-<div markdown="span" class="alert alert-info">:information_source: **Note:** The lifeline for `UndoCommand` should end at the destroy marker (X) but due to a limitation of PlantUML, the lifeline reaches the end of diagram.
-
-</div>
-
-Similarly, how an undo operation goes through the `Model` component is shown below:
-
-![UndoSequenceDiagram](images/UndoSequenceDiagram-Model.png)
-
-The `redo` command does the opposite — it calls `Model#redoAddressBook()`, which shifts the `currentStatePointer` once
-to the right, pointing to the previously undone state, and restores the address book to that state.
-
-<div markdown="span" class="alert alert-info">:information_source: **Note:** If the `currentStatePointer` is at index `addressBookStateList.size() - 1`, pointing to the latest address book state, then there are no undone AddressBook states to restore. The `redo` command uses `Model#canRedoAddressBook()` to check if this is the case. If so, it will return an error to the user rather than attempting to perform the redo.
-
-</div>
-
-Step 5. The user then decides to execute the command `list`. Commands that do not modify the address book, such
-as `list`, will usually not call `Model#commitAddressBook()`, `Model#undoAddressBook()` or `Model#redoAddressBook()`.
-Thus, the `addressBookStateList` remains unchanged.
-
-![UndoRedoState4](images/UndoRedoState4.png)
-
-Step 6. The user executes `clear`, which calls `Model#commitAddressBook()`. Since the `currentStatePointer` is not
-pointing at the end of the `addressBookStateList`, all address book states after the `currentStatePointer` will be
-purged. Reason: It no longer makes sense to redo the `add n/David …​` command. This is the behavior that most modern
-desktop applications follow.
-
-![UndoRedoState5](images/UndoRedoState5.png)
-
-The following activity diagram summarizes what happens when a user executes a new command:
-
-<img src="images/CommitActivityDiagram.png" width="250" />
-
-#### Design considerations:
-
-**Aspect: How undo & redo executes:**
-
-* **Alternative 1 (current choice):** Saves the entire address book.
-    * Pros: Easy to implement.
-    * Cons: May have performance issues in terms of memory usage.
-
-* **Alternative 2:** Individual command knows how to undo/redo by
-  itself.
-    * Pros: Will use less memory (e.g. for `delete`, just save the person being deleted).
-    * Cons: We must ensure that the implementation of each individual command are correct.
-
-_{more aspects and alternatives to be added}
-
 ## Enhancements Added
+
+[//]: <> (change it to the analytics function)
 
 ### Loan Analytics - Joseph
 
@@ -312,8 +256,14 @@ static method `getAnalytics(UniqueLoanList uniqueLoanList)`.
 
 It contains the following fields that can prove to be useful for the user:
 
+* `numLoans`: total number of loans
+* `numOverdueLoans`: total number of overdue loans
+* `numActiveLoans`: total number of active loans
 * `propOverdueLoans`: proportion of loans that are overdue over active loans
 * `propActiveLoans`: proportion of loans that are active over total loans
+* `totalValueLoaned`: total value of all loans
+* `totalValueOverdue`: total value of all overdue loans
+* `totalValueActive`: total value of all active loans
 * `averageLoanValue`: average loan value of all loans
 * `averageOverdueValue`: average loan value of all overdue loans
 * `averageActiveValue`: average loan value of all active loans
@@ -322,6 +272,8 @@ It contains the following fields that can prove to be useful for the user:
 * `latestLoanDate`: latest loan date of all loans
 * `latestReturnDate`: latest return date of active loans
 
+The `AnalyticsCommand` class handles the viewing of analytics of any one person within the current contact list in view. 
+The following shows how the analytics class is used in the execution of a command to view the analytics of a person:
 ![AnalyticsSequenceDiagram](images/AnalyticsSequenceDiagram.png)
 
 #### Design considerations:
@@ -350,20 +302,18 @@ It contains the following fields that can prove to be useful for the user:
 
 #### Implementation
 
-The `DeleteLoanCommand` class handles the deletion of a loan from a contact, and executes the command after the input is
-parsed and transformed into an appropriate format.
+The `DeleteLoanCommand` class handles the deletion of a loan from the current contact in view, and executes the command 
+after the input is parsed and transformed into an appropriate format.
 The parsing of the command is done by the `DeleteLoanCommandParser` class, which is responsible for parsing the user
 input.
 
 The `DeleteLoanCommand` class is instantiated in the `DeleteLoanCommandParser` class, while the
 `DeleteLoanCommandParser` is instantiated in the `AddressBookParser` class. Both classes are instantiated when the user
-enters a `deleteloan` command, which needs to be of the format `deleteloan INDEX l/LOAN_INDEX`
-where INDEX is the index of the person and LOAN_INDEX is the index of the loan to be deleted, both of
-which are positive whole numbers.
+enters a `deleteloan` command, which needs to be of the format `deleteloan INDEX`
+where INDEX is the index of the loan to be deleted (which is a positive whole number).
 
 The `DeleteLoanCommand` class contains the following fields which can prove to be useful for the user:
 
-* `personIndex`: the index of the person whose loan is to be deleted
 * `loanIndex`: the index of the loan to be deleted
 * Several string fields that are displayed to the user under different scenarios.
 
@@ -393,8 +343,7 @@ Sequence diagram for the deletion of a loan:
 * **Alternative 2:** The `AddressBookParser` class is responsible for parsing the command.
     * Pros: More centralized command parsing.
     * Cons: May result in the `AddressBookParser` class becoming too large. This also goes against various SWE
-      principles
-      ,and makes the code harder to maintain.
+      principles, and makes the code harder to maintain.
 
 ### Loan view command - Wang Junwu
 
@@ -485,7 +434,7 @@ and the execution of the command.
 
 The `LinkLoanCommand` class is instantiated in the `LinkLoanCommandParser` class, while the
 `LinkLoanCommandParser` is instantiated in the `AddressBookParser` class. Both classes are instantiated when the user
-enters a `linkloan` command, which needs to be of the format `linkloan INDEX v/ VALUE s/ START_DATE r/ RETURN_DATE`
+enters a `linkloan` command, which needs to be of the format `linkloan INDEX v/VALUE s/START_DATE r/RETURN_DATE`
 where INDEX (a positive whole number) is the index of the person, VALUE (a positive decimal number) is the value of the loan,
 and START_DATE and RETURN_DATE (both dates in the format yyyy-mm-dd) are the start and return dates of the loan respectively. 
 
@@ -741,9 +690,203 @@ Use case ends.
    standards.
 10. Loan deadlines should not be more than 100 years from the date of loan creation.
 
-### Glossary
+--------------------------------------------------------------------------------------------------------------------
 
-Order is roughly according to the order in which they first appear in the guide.
+## **Appendix: Instructions for manual testing**
+
+Given below are instructions to test the app manually.
+
+<div markdown="span" class="alert alert-info">:information_source: **Note:** These instructions only provide a starting point for testers to work on;
+testers are expected to do more *exploratory* testing.
+
+</div>
+
+### Launch and shutdown
+
+1. Initial launch
+
+    1. Download the jar file and copy into an empty folder
+
+    1. Double-click the jar file Expected: Shows the GUI with a set of sample contacts. The window size may not be
+       optimum.
+
+1. Saving window preferences
+
+    1. Resize the window to an optimum size. Move the window to a different location. Close the window.
+
+    1. Re-launch the app by double-clicking the jar file.<br>
+       Expected: The most recent window size and location is retained.
+
+
+### Deleting a person
+
+1. Deleting a person while all persons are being shown
+
+    1. Prerequisites: List all persons using the `list` command. Multiple persons in the list.
+
+    1. Test case: `delete 1`<br>
+       Expected: First contact is deleted from the list. Details of the deleted contact shown in the status message.
+       Timestamp in the status bar is updated.
+
+    1. Test case: `delete 0`<br>
+       Expected: No person is deleted. Error details shown in the status message. Status bar remains the same.
+
+    1. Other incorrect delete commands to try: `delete`, `delete x`, `...` (where x is larger than the list size)<br>
+       Expected: Similar to previous.
+
+### Linking a loan
+
+1. Linking a loan to a contact
+
+    1. Prerequisites: At least one contact in the list.
+
+    1. Test case: `linkloan 1 v/100 s/2021-10-10 r/2021-10-20`<br>
+       Expected: A loan of value 100 is linked to the first contact in current view. Details of the linked loan shown in the status
+       message. Timestamp in the status bar is updated. Note that if there are no contacts in view this command will not work.
+       Perform `list` command if necessary.
+
+### Viewing loans
+1. Viewing loans of a contact
+
+    1. Prerequisites: At least one contact in the list. 
+
+    1. Test case: `viewloan 1`<br>
+       Expected: All unreturned loans linked to the first contact in the current view are shown. 
+       Note that if there are no contacts in view this command will not work. Perform `list` command if necessary.
+    1. Test case: `viewloan -a 1`<br>
+      Expected: All loans linked to the first contact in the current view are shown.
+      Here, the `-a` flag means all.
+      Note that if there are no contacts in view this command will not work. Perform `list` command if necessary.
+
+### Marking and unmarking a loan
+
+1. Marking a loan as returned
+
+    1. Prerequisites: At least one loan linked.
+
+    1. Test case: `viewloan -a`, followed by `markloan 1`<br>
+       Expected: The first loan is marked as returned. Details of the marked loan shown in the status message.
+
+2. Unmarking a loan (i.e. marking it as not returned)
+    1. Prerequisites: At least one loan linked.
+
+    1. Test case: `viewloan -a`, followed by `unmarkloan 1`<br>
+       Expected: The first loan is marked as not returned. Details of the unmarked loan shown in the status message.
+
+### Editing a loan
+
+1. Editing a loan
+
+    1. Prerequisites: At least one loan linked.
+
+    1. Test case: `viewloan -a`, followed by `editloan 1 v/200`<br>
+         Expected: The value of the first loan is updated to 200. Details of the edited loan shown in the status message.
+
+### Deleting a loan
+
+1. Deleting a loan
+
+    1. Prerequisites: At least one loan linked.
+
+    1. Test case: `viewloan -a`, followed by `deleteloan 1`<br>
+       Expected: The first loan is deleted. Details of the deleted loan shown in the status message.
+
+### Analytics Command
+1. Viewing analytics of a contact
+
+    1. Prerequisites: At least one contact in the list.
+
+    1. Test case: `analytics 1`<br>
+       Expected: The analytics of the first contact in the current view are shown. 
+       Note that if there are no contacts in view this command will not work. Perform `list` command if necessary.
+
+### Saving data
+
+1. Dealing with missing/corrupted data files
+   1. Close the app. Choose either to simulate a missing data file or corrupted data file, but not both.
+
+   1. _To simulate a missing file, go to ./data and delete the JSON file inside, where . refers to 
+   th directory containing the jar file._
+   2. _To simulate a corrupted file, open the JSON file and delete a few characters from the middle of the file._
+
+   1. Launch the app.<br>
+      Expected: The app should launch successfully. A new JSON file should be created in the
+      ./data folder. For a missing file, the address book should show the sample data. 
+      For a corrupted file, a blank address book should be shown.
+   2. After populating the address book with some data, repeat steps i to iv for the other of missing/corrupted.
+
+2. After performing several operations that changes the data (e.g. linkloan, add a person, etc.),
+   ensure that closing and re-opening the app retains the changed data.
+
+### Exiting the app
+
+You can exit the app in the following ways:
+1. Click the close button on the window title bar.<br>
+
+2. Enter `exit` into the GUI.
+
+In either case, the app should close.
+
+--------------------------------------------------------------------------------------------------------------------
+
+## **Appendix: Effort**
+
+The main effort for this project was spent on creating the loan management features, which were not present in AB3. 
+These include:
+* linking a loan
+* viewing loans
+* marking and unmarking a loan 
+* deleting loans
+* editing loans
+* viewing analytics of a contact
+
+Much inspiration was drawn from the existing commands in AB3, as well as the tutorial to add a new command.
+
+While the first five features looked similar, some required more effort than the others. 
+The main difficulty we faced include how to implement the deletion and editing of loans.
+We had to ensure deletion can only happen if that loan is currently within view, else there could 
+easily be mistakes. Likewise for editing a loan. The solution we came up with was to alter the 
+person and loan lists in view, based on the commands given. Based on the lists in view, we decide 
+if each operation can be done. 
+
+The analytics feature was the most challenging feature to implement. This is because we needed to define
+the analytics that we wanted to show, and then implement the logic to calculate these analytics. The GUI, 
+in particular the pie chart, was also challenging to implement.
+
+Nonetheless, we managed to implement all the features we set out to do, and we are proud of the final product. 
+In particular, we are proud of the analytics feature, which we believe is a unique feature that sets our app apart.
+
+--------------------------------------------------------------------------------------------------------------------
+
+## **Appendix: Planned Enhancements**
+
+Team size: 5
+
+1. After executing viewloan, if we call `viewloan 1`, the error message provided states "The person index is invalid". 
+    A better error message would be something like "Please run the list command before running this command again".
+2. When entering an email for a new person in the form of  `name@domain`(e.g. `jameshoexample@com`), an error message should be displayed and 
+    the new person shouldn't be added, as opposed to the current behaviour. This is because emails are typically 
+    in the form of `local-part@mail-server.domain`(`jameshoexample@gmail.com`)
+3. Detect duplicate names, including case insensitive ones. For example, if we have a person named "John Doe", 
+    we should not be able to add another person named "john doe". 
+4. Do not allow the `/` character inside any field when adding a new person, since it is a special character for prefixes.
+5. Error message for the `linkloan` command should be more specific to the error, e.g. different error messages for 
+incorrect date format and a start date before end date.
+6. All fields should have a minimum length of 1 character and maximum length of 100 characters. 
+Otherwise, an error message should be displayed, e.g. for name, "Name cannot be empty" or 
+"Name is cannot exceed 100 characters". Similar for other fields.
+7. Error messages related to indices should be more specific to the error. 
+For example, if the user enters `viewloan 0`, the error message should be something like "INDEX must be a positive integer".
+If the user enters `viewloan 8` when there are only 7 contacts, the error message should be something like "INDEX must be between 1 and 7".
+8. Reject loans that are > 2 decimal places as invalid. 
+For those loans that are < 2 decimal places, change them to 2 decimal places
+format when displaying them instead of showing their exact value.
+
+--------------------------------------------------------------------------------------------------------------------
+
+## Glossary
+
+Order is roughly according to when they first appear in the guide.
 
 * **Architecture Diagram**: A diagram that shows how the different components interact with each
   other at a high level.
@@ -774,58 +917,4 @@ Order is roughly according to the order in which they first appear in the guide.
 * **Non-Functional Requirements**: A requirement that specifies criteria that can be used to judge the operation of
   a system, rather than specific behaviours.
 * **Mainstream OS**: Windows, Linux, Unix, or MacOS
-
---------------------------------------------------------------------------------------------------------------------
-
-## **Appendix: Instructions for manual testing**
-
-Given below are instructions to test the app manually.
-
-<div markdown="span" class="alert alert-info">:information_source: **Note:** These instructions only provide a starting point for testers to work on;
-testers are expected to do more *exploratory* testing.
-
-</div>
-
-### Launch and shutdown
-
-1. Initial launch
-
-    1. Download the jar file and copy into an empty folder
-
-    1. Double-click the jar file Expected: Shows the GUI with a set of sample contacts. The window size may not be
-       optimum.
-
-1. Saving window preferences
-
-    1. Resize the window to an optimum size. Move the window to a different location. Close the window.
-
-    1. Re-launch the app by double-clicking the jar file.<br>
-       Expected: The most recent window size and location is retained.
-
-1. _{ more test cases …​ }_
-
-### Deleting a person
-
-1. Deleting a person while all persons are being shown
-
-    1. Prerequisites: List all persons using the `list` command. Multiple persons in the list.
-
-    1. Test case: `delete 1`<br>
-       Expected: First contact is deleted from the list. Details of the deleted contact shown in the status message.
-       Timestamp in the status bar is updated.
-
-    1. Test case: `delete 0`<br>
-       Expected: No person is deleted. Error details shown in the status message. Status bar remains the same.
-
-    1. Other incorrect delete commands to try: `delete`, `delete x`, `...` (where x is larger than the list size)<br>
-       Expected: Similar to previous.
-
-1. _{ more test cases …​ }_
-
-### Saving data
-
-1. Dealing with missing/corrupted data files
-
-    1. _{explain how to simulate a missing/corrupted file, and the expected behavior}_
-
-1. _{ more test cases …​ }_
+* **Jar file**: A Java Archive file, used to distribute a set of Java classes or applications as a single file.

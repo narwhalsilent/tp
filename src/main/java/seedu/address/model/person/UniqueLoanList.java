@@ -218,6 +218,7 @@ public class UniqueLoanList implements Iterable<Loan> {
 
     /**
      * Unmarks a loan.
+     *
      * @param loanToUnmark A valid loan.
      */
     public void unmarkLoan(Loan loanToUnmark) {
@@ -353,7 +354,7 @@ public class UniqueLoanList implements Iterable<Loan> {
         Date earliestReturnDate = null;
         for (Loan loan : internalList) {
             if ((earliestReturnDate == null || loan.getReturnDate().before(earliestReturnDate))
-                    && !loan.getReturnDate().before(new Date()) && !loan.isReturned()) {
+                    && !loan.isOverdue() && !loan.isReturned()) {
                 earliestReturnDate = loan.getReturnDate();
             }
         }

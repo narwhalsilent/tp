@@ -1,5 +1,7 @@
 package seedu.address.model.analytics;
 
+import static java.util.Objects.requireNonNull;
+
 import java.math.BigDecimal;
 import java.math.RoundingMode;
 import java.time.LocalDate;
@@ -28,8 +30,14 @@ public class DashboardData {
      * @param earliestReturnDate earliest return date of all loans (not returned and not overdue)
      */
     public DashboardData(Analytics analytics, BigDecimal maxLoanValue, Date earliestReturnDate) {
+        requireNonNull(analytics);
+        requireNonNull(maxLoanValue);
         this.analytics = analytics;
         this.maxLoanValue = maxLoanValue;
+        // Should never be over the current date since overdue loans are not included
+        if (earliestReturnDate.before(new Date())) {
+            throw new IllegalArgumentException("Earliest return date should be in the future");
+        }
         this.earliestReturnDate = earliestReturnDate;
     }
 
@@ -64,11 +72,15 @@ public class DashboardData {
         if (analytics.getEarliestReturnDate() == null || earliestReturnDate == null) {
             return null;
         }
+
         LocalDate target = analytics.getEarliestReturnDate().toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
         LocalDate benchmark = this.earliestReturnDate.toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
         LocalDate now = LocalDate.now();
         long dayDiffBenchmark = benchmark.toEpochDay() - now.toEpochDay();
         long dayDiffTarget = target.toEpochDay() - now.toEpochDay();
+        if (dayDiffTarget == 0) {
+            return 1.0f;
+        }
         return (float) dayDiffBenchmark / dayDiffTarget;
     }
 

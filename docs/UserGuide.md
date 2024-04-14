@@ -137,7 +137,7 @@ There are three main categories of commands: Contact Management, Basic Loan Mana
  **View Loan**   | `viewloan OPTIONAL_FLAG INDEX`<br> e.g., `viewloan 1`, `viewloan -a 1`
  **Mark Loan**   | `markloan INDEX`<br> e.g., `markloan 1`
  **Unmark Loan** | `unmarkloan INDEX`<br> e.g., `unmarkloan 1`            
- **Edit Loan**   | `editloan INDEX v/VALUE s/START_DATE r/RETURN_DATE`<br> e.g., `editloan 1 v/600.00 s/2024-02-15 r/2025-02-15`                                                         
+ **Edit Loan**   | `editloan INDEX [v/VALUE] [s/START_DATE] [r/RETURN_DATE]`<br> e.g., `editloan 1 v/600.00 s/2024-02-15 r/2025-02-15`                                                         
  **Delete Loan** | `deleteloan INDEX`<br> e.g., `deleteloan 1`                                                                   
 
 ### Advanced Loan Management
@@ -312,7 +312,7 @@ Parameters Restrictions:
 
 * Links a loan to the person at the specified `INDEX`. The index refers to the index number shown in the displayed
   person list. The index **must be a positive integer** 1, 2, 3, …​, and it must not exceed the number of persons shown in the list.
-* The loan value must be a positive float value that is at most 2 decimal places.
+* The loan value must be a positive float value that is **at most 2 decimal places**, as the app behavior may not optimal for any higher precision.
 * The start date and return date must be in the format `YYYY-MM-DD`.
 * The return date must be after the start date.
 * Year value has to be below 9999.
@@ -348,10 +348,10 @@ Parameters Restrictions:
 Expected Behaviour:
 
 * A success message of the form "Listed all loans associated with [person details]." will be shown.
-* The list of all active loans will be shown by default.
-* If the index is not provided, all loans in the list will be shown.
-* If the index is provided, all active loans of the person at the specified `INDEX` will be shown.
-* If the flag `-a` is provided, all loans including the inactive ones will be shown.
+* The list is ordered by the end date of the loan.
+* If the index is not provided, all loans across all clients in the list will be shown. Only the active loans will be shown if the flag `-a` is not provided.
+* If the index is provided, all loans of the person at the specified `INDEX` will be shown. Only the active loans will be shown if the flag `-a` is not provided.
+* If the flag `-a` is provided, the inactive loans will be shown alongside the active loans.
 
 Examples: `viewloan 1`, `viewloan -a 1`
 
@@ -380,24 +380,29 @@ Examples: `markloan 1`, `unmarkloan 1`
 
 Edits an existing loan in the address book.
 
-Format `editloan INDEX v/VALUE s/START_DATE r/RETURN_DATE`
+Format `editloan INDEX [v/VALUE] [s/START_DATE] [r/RETURN_DATE]`
 
 Parameters Restrictions:
 
 * The index refers to the index number shown in the displayed loan list. The index **must be a positive integer** 1, 2, 3, …​, and it must not exceed the number of loans shown in the list.
-* The loan value must be a positive number.
+* The loan value must be a positive float value that is **at most 2 decimal places**, as the app behavior may not optimal for any higher precision.
 * The start date and return date must be in the format `YYYY-MM-DD`.
 * The return date must be after the start date.
+* Year value has to be below 9999.
+* The loan value, start date and return date are all optional parameters, but at least one of them must be provided.
 
 Expected Behaviour:
 
 * A success message in the form of "Loan edited: [loan details]" will be shown.
 * The loan will be updated in the loan list.
 
-Examples: `editloan 1 v/600.00 s/2024-02-15 r/2025-02-15`
+Examples: 
 
-* Edits the loan at the 1st position in the loan list to have a value of $600.00, a start date of 15th Feb 2024, and a
+* `editloan 1 v/600.00 s/2024-02-15 r/2025-02-15`
+    * Edits the loan at the 1st position in the loan list to have a value of $600.00, a start date of 15th Feb 2024, and a
   return date of 15th Feb 2025.
+* `editloan 3 s/2021-01-01`
+  * Edits the loan at the 3rd position in the loan list to have a start date of 1st Jan 2021.
 
 ### Deleting a loan: `deleteloan`
 
@@ -430,8 +435,9 @@ Example: `deleteloan 1`
 Provides visual analytics of a client's loan records based on three indices: Reliability, Impact, and Urgency.
 * The Reliability index is defined as the ratio of overdue loans to the total number of loans.
 * The Impact index is defined as the ratio of the average loan value to the maximum loan value.
-* The Urgency index is defined as the ratio of the number of days between the latest return date among all active loans and the latest return date among this particular client's active loans to the number of days between the latest return date among all active loans and the current date.
-  * If the latest return date among all active loans or the latest return date among this particular client's active loans is earlier than the current date, the Urgency index will be 1.
+* The Urgency index is defined as the ratio of the number of days between the earliest return date among this particular client's active loans and the current date to the number of days between the earliest return date among all active loans and the current date.
+  * The computation will only consider loans that are not overdue.
+  * If a client has an overdue loan, the Urgency index will be set to 1.
 * These indexes are then converted in percentage form and visualized in a pie chart.
 
 Format: `analytics INDEX`
