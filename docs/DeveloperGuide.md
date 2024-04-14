@@ -154,8 +154,7 @@ as it displays `Person`, `Loan` and `Analytics` object residing in the `Model`.
 
 ### Logic component
 
-**API
-** : [`Logic.java`](https://github.com/AY2324S2-CS2103T-W13-1/tp/tree/master/src/main/java/seedu/address/logic/Logic.java)
+**API** : [`Logic.java`](https://github.com/AY2324S2-CS2103T-W13-1/tp/tree/master/src/main/java/seedu/address/logic/Logic.java)
 
 Here's a (partial) class diagram of the `Logic` component:
 
@@ -195,8 +194,7 @@ How the parsing works:
 
 ### Model component
 
-**API
-** : [`Model.java`](https://github.com/AY2324S2-CS2103T-W13-1/tp/tree/master/src/main/java/seedu/address/model/Model.java)
+**API** : [`Model.java`](https://github.com/AY2324S2-CS2103T-W13-1/tp/tree/master/src/main/java/seedu/address/model/Model.java)
 
 <img src="images/ModelClassDiagram.png" width="450" />
 
@@ -225,8 +223,7 @@ The `Model` component,
 
 ### Storage component
 
-**API
-** : [`Storage.java`](https://github.com/AY2324S2-CS2103T-W13-1/tp/tree/master/src/main/java/seedu/address/storage/Storage.java)
+**API** : [`Storage.java`](https://github.com/AY2324S2-CS2103T-W13-1/tp/tree/master/src/main/java/seedu/address/storage/Storage.java)
 
 <img src="images/StorageClassDiagram.png" width="550" />
 
@@ -251,8 +248,8 @@ Classes used by multiple components are in the `seedu.addressbook.commons` packa
 
 #### Implementation
 
-The `Analytics` class handles the analysis of a `UniqueLoanList` object. This class can only be instantiated by calling the
-static method `getAnalytics(UniqueLoanList uniqueLoanList)`.
+The `Analytics` class handles the analysis of a `ObservableList<Loan>` object.
+This class can only be instantiated by calling the static method `getAnalytics(ObservableList<Loan> loanList)`.
 
 It contains the following fields that can prove to be useful for the user:
 
