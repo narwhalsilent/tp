@@ -9,11 +9,15 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_PHONE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
 import static seedu.address.testutil.Assert.assertThrows;
 
+import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Date;
 import java.util.List;
 
 import seedu.address.commons.core.index.Index;
+import seedu.address.commons.exceptions.IllegalValueException;
+import seedu.address.commons.util.DateUtil;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.AddressBook;
 import seedu.address.model.Model;
@@ -26,6 +30,30 @@ import seedu.address.testutil.EditPersonDescriptorBuilder;
  */
 public class CommandTestUtil {
 
+    public static final BigDecimal VALID_LOAN_VALUE_ONE = new BigDecimal("500.00");
+    public static final BigDecimal VALID_LOAN_VALUE_TWO = new BigDecimal("42.67");
+    public static final BigDecimal VALID_LOAN_VALUE_THREE = new BigDecimal("0.01");
+    public static final Date VALID_LOAN_START_DATE_ONE;
+    public static final Date VALID_LOAN_START_DATE_TWO;
+    public static final Date VALID_LOAN_START_DATE_THREE;
+
+    public static final Date VALID_LOAN_RETURN_DATE_ONE;
+    public static final Date VALID_LOAN_RETURN_DATE_TWO;
+    public static final Date VALID_LOAN_RETURN_DATE_THREE;
+
+    static {
+        try {
+            VALID_LOAN_START_DATE_ONE = DateUtil.parse("2016-08-25");
+            VALID_LOAN_START_DATE_TWO = DateUtil.parse("2024-02-29");
+            VALID_LOAN_START_DATE_THREE = DateUtil.parse("2027-12-15");
+
+            VALID_LOAN_RETURN_DATE_ONE = DateUtil.parse("2020-01-07");
+            VALID_LOAN_RETURN_DATE_TWO = DateUtil.parse("2024-03-31");
+            VALID_LOAN_RETURN_DATE_THREE = DateUtil.parse("2030-06-02");
+        } catch (IllegalValueException e) {
+            throw new RuntimeException(e);
+        }
+    }
     public static final String VALID_NAME_AMY = "Amy Bee";
     public static final String VALID_NAME_BOB = "Bob Choo";
     public static final String VALID_PHONE_AMY = "11111111";
