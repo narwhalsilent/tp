@@ -525,7 +525,6 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 | `* *`    | User who loans cash out regularly                 | See the overdue loans easily                            | chase after people more easily                                          |
 | `* * *`  | Busy user                                         | Keep track of all my loanees(view)                      | save time and use it for more meaningful activities                     |
 | `* * *`  | Busy user                                         | Quickly view a summary of all outstanding loans(view)   | have an overview without going through each contact individually        |
-| `* * *`  | User who loans cash                               | Track partial repayments                                | maintain accurate records of the outstanding balance                    |
 | `* * *`  | User with a dynamic network                       | Delete loan                                             | my records always reflect the current status of each loan               |
 | `* *`    | User with a dynamic network                       | Update loan entries as situations change                | my records always reflect the current status of each loan               |
 | `* *`    | First time user                                   | See the available commands/usage manual                 | familiarize with the command structure                                  |
@@ -559,13 +558,13 @@ Precondition: `list` command shows a numbered list of contacts.
 1. User requests to delete a contact, specifying the index.
 2. System deletes the contact from the address book.
 3. System shows the contact that was deleted in the status message.
-   Use case ends.
+
+Use case ends.
 
 #### Extensions
-
-1a. Index is invalid (e.g. negative, zero, or larger than the list size)
-1a1. System shows an error message in the status message.
-Use case ends.
+- 1a. Index is invalid (e.g. negative, zero, or larger than the list size)
+  - 1a1. System shows an error message in the status message. 
+  - Use case ends.
 
 #### Use case: UC2 - Find a person by name
 
@@ -573,43 +572,38 @@ Use case ends.
 
 1. User searches for a contact with desired prompt.
 2. System shows the list of contacts that match the prompt.
-   Use case ends.
+
+Use case ends.
 
 #### Extensions
 
-1a. User searches for a contact using an empty prompt.
-1a1. System shows an error message in the status message.
-Use case ends.
+- 1a. User searches for a contact using an empty prompt.
+  - 1a1. System shows an error message in the status message. 
+  - Use case ends.
 
-1a. No contact matches the prompt.
-1a1. System shows a message in the status message that no contact matches the prompt.
-Use case ends.
+- 1b. No contact matches the prompt.
+  - 1b1. System shows a message in the status message that no contact matches the prompt. 
+  - Use case ends.
 
 #### Use case: UC3 - Link a loan to contact
 
 #### MSS
 
-1. User links a contact with a loan, specifying the contact name and loan details.
+1. User links a contact with a loan, specifying the contact index and loan details.
 2. System links the loan to the contact.
 3. System shows the contact and the loan that was linked successfully in the status message.
-   Use case ends.
+
+Use case ends.
 
 #### Extensions
 
-1a. Contact does not exist in the address book.
-1a1. System shows an error message that no contact with the name exists.
-Use case ends.
+- 1a. Person index is invalid (e.g. negative, zero, or larger than the list size)
+  - 1a1. System shows an error message in the status message.
+  - Use case ends.
 
-1a. Loan details are invalid (e.g. empty, incomplete, wrong format).
-1a1. System shows an error message that the loan details are invalid.
-Use case ends.
-
-1a. Multiple contacts with the same name exist.
-1a1. System shows list of contacts with the same name and asks user to choose one by index.
-1a2. User chooses a contact by index.
-1a3. System links the loan to the chosen contact.
-1a4. System shows the contact and the loan that was linked successfully in the status message.
-Use case ends.
+- 1b. Loan details are invalid (e.g. empty, incomplete, wrong format).
+  - 1b1. System shows an error message that the loan details are invalid. 
+  - Use case ends.
 
 #### Use case: UC4 - View all loans linked to particular contact
 
@@ -621,47 +615,41 @@ Use case ends.
 
 #### Extensions
 
-1a. Contact name does not exist in the address book.
-1a1. System shows an error message that no contact with the name exists.
-Use case ends.
+- 1a. Index is invalid (e.g. negative, zero, or larger than the list size)
+  - 1a1. System shows an error message in the status message.
+  - Use case ends.
 
-1a. Multiple contacts with the same name exist.
-1a1. System shows list of contacts with the same name and asks user to choose one by index.
-1a2. User chooses a contact by index.
-1a3. System shows the list of loans linked to the chosen contact.
-Use case ends.
-
-#### Use case: UC5 - Clear a loan from contact
+#### Use case: UC5 - Delete a loan from contact
 
 #### MSS
 
 1. User <u>views all loans linked to the contact (UC4)</u>.
-2. User issues `clear` command with the name of contact and the index of loan to be cleared.
+2. User issues `deleteloan` command with the index of loan to be cleared.
 3. System clears the loan from the contact.
 4. System shows the contact and the loan that was cleared successfully in the status message.
    Use case ends.
 
 #### Extensions
 
-1a. Index is invalid (e.g. negative, zero, or larger than the list size)
-1a1. System shows an error message that the index is invalid.  
-Use case ends.
+- 1a. Index is invalid (e.g. negative, zero, or larger than the list size)
+    - 1a1. System shows an error message in the status message.
+    - Use case ends.
 
 #### Use case: UC6 - Mark a loan as returned
 
 #### MSS
 
 1. User <u>views all loans linked to the contact (UC4)</u>.
-2. User marks a loan as returned specifying contact name and loan index.
+2. User marks a loan as returned specifying the loan index.
 3. System marks the loan as returned.
 4. System shows the contact and the loan that was marked as returned successfully in the status message.
    Use case ends.
 
 #### Extensions
 
-1a. Index is invalid (e.g. negative, zero, or larger than the list size)
-1a1. System shows an error message that the index is invalid.
-Use case ends.
+- 1a. Index is invalid (e.g. negative, zero, or larger than the list size)
+  - 1a1. System shows an error message that the index is invalid.
+  - Use case ends.
 
 ### Non-Functional Requirements
 
@@ -852,19 +840,19 @@ In particular, we are proud of the analytics feature, which we believe is a uniq
 
 Team size: 5
 
-1. After executing viewloan, if we call `viewloan 1`, the error message provided states "The person index is invalid". 
+1. After executing `viewloan`, if we call `viewloan 1`, the error message provided states "The person index is invalid". 
     A better error message would be something like "Please run the list command before running this command again".
 2. When entering an email for a new person in the form of  `name@domain`(e.g. `jameshoexample@com`), an error message should be displayed and 
     the new person shouldn't be added, as opposed to the current behaviour. This is because emails are typically 
     in the form of `local-part@mail-server.domain`(`jameshoexample@gmail.com`)
-3. Detect duplicate names, including case insensitive ones. For example, if we have a person named "John Doe", 
+3. Detect duplicate names, including case-insensitive ones. For example, if we have a person named "John Doe", 
     we should not be able to add another person named "john doe". 
 4. Do not allow the `/` character inside any field when adding a new person, since it is a special character for prefixes.
 5. Error message for the `linkloan` command should be more specific to the error, e.g. different error messages for 
 incorrect date format and a start date before end date.
-6. All fields should have a minimum length of 1 character and maximum length of 100 characters. 
+6. All fields should have a minimum length of 1 character and maximum length of 500 characters. 
 Otherwise, an error message should be displayed, e.g. for name, "Name cannot be empty" or 
-"Name is cannot exceed 100 characters". Similar for other fields.
+"Name is cannot exceed 500 characters". Similar for other fields.
 7. Error messages related to indices should be more specific to the error. 
 For example, if the user enters `viewloan 0`, the error message should be something like "INDEX must be a positive integer".
 If the user enters `viewloan 8` when there are only 7 contacts, the error message should be something like "INDEX must be between 1 and 7".
