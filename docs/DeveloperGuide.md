@@ -5,10 +5,55 @@ title: Developer Guide
 
 [//]: <> (comment, To-do, make working links)
 [//]: <> (more To-dos: Instructions for Manual Testing, Appendix: Effort, Planned Enhancements)
-* Table of Contents
-  {:toc}
-  
 
+## Table of Contents
+[1. Acknowledgements](#acknowledgements)<br>
+[2. Setting up, getting started](#setting-up-getting-started)<br>
+[3. Design](#design)<br>
+- [3.1 Architecture](#architecture)<br>
+- [3.2 UI component](#ui-component)<br>
+- [3.3 Logic component](#logic-component)<br>
+- [3.4 Model component](#model-component)<br>
+- [3.5 Storage component](#storage-component)<br>
+- [3.6 Common classes](#common-classes)<br>
+
+[4. Enhancements Added](#enhancements-added)<br>
+- [4.1 Loan Analytics - Joseph](#loan-analytics---joseph)<br>
+- [4.2 Delete Loan - Xiaorui](#delete-loan---xiaorui)<br>
+- [4.3 Loan view command - Wang Junwu](#loan-view-command---wang-junwu)<br>
+- [4.4 Loan view GUI - Kyal Sin Min Thet](#loan-view-gui---kyal-sin-min-thet)<br>
+- [4.5 Linking a loan - Khor Jun Wei](#linking-a-loan---khor-jun-wei)<br>
+
+[5. Documentation, logging, testing, configuration, dev-ops](#documentation-logging-testing-configuration-dev-ops)<br>
+[6. Appendix: Requirements](#appendix-requirements)<br>
+
+- [6.1 Product scope](#product-scope)<br>
+- [6.2 User stories](#user-stories)<br>
+- [6.3 Use cases](#use-cases)<br>
+- [6.4 Non-Functional Requirements](#non-functional-requirements)<br>
+
+[7. Appendix: Instructions for manual testing](#appendix-instructions-for-manual-testing)<br>
+- [7.1 Launch and shutdown](#launch-and-shutdown)<br>
+- [7.2 Deleting a person](#deleting-a-person)<br>
+- [7.3 Linking a loan](#linking-a-loan)<br>
+- [7.4 Viewing loans](#viewing-loans)<br>
+- [7.5 Marking and unmarking a loan](#marking-and-unmarking-a-loan)<br>
+- [7.6 Editing a loan](#editing-a-loan)<br>
+- [7.7 Deleting a loan](#deleting-a-loan)<br>
+- [7.8 Analytics Command](#analytics-command)<br>
+- [7.9 Saving data](#saving-data)<br>
+- [7.10 Exiting the app](#exiting-the-app)<br>
+
+[8. Appendix: Effort](#appendix-effort)<br>
+[9. Glossary](#glossary)<br>
+
+
+--------------------------------------------------------------------------------------------------------------------
+
+## **Acknowledgements**
+
+This project is modified upon the [AddressBook-Level3 project](https://github.com/se-edu/addressbook-level3) project created by the SE-EDU initiative, 
+as well as the [tutorials](https://nus-cs2103-ay2021s1.github.io/tp/tutorials/AddRemark.html) and guides provided.
 
 --------------------------------------------------------------------------------------------------------------------
 
@@ -645,40 +690,6 @@ Use case ends.
    standards.
 10. Loan deadlines should not be more than 100 years from the date of loan creation.
 
-### Glossary
-
-Order is roughly according to the order in which they first appear in the guide.
-
-* **Architecture Diagram**: A diagram that shows how the different components interact with each
-  other at a high level.
-* **Sequence Diagram**: A diagram that shows how the different components interact with each other
-  when a particular command is executed.
-* **API**: Application Programming Interface, a set of rules that allows different software applications
-  to communicate with each other to form an entire system.
-* **UI**: User Interface
-* **OOP**: Object-Oriented Programming, a programming paradigm based on the concept of "objects",
-  which can contain data and code: data in the form of fields, and code in the form of procedures.
-  The objects interact with each other.
-* **Class**: Classes are used to create and define objects. A feature of OOP.
-* **JSON**: JavaScript Object Notation, a lightweight data-interchange format. Files of this format
-  are used to store loan data on the hard disk.
-* **Data archiving**: The process of moving data that is no longer actively used to a separate storage
-* **CLI**: Command Line Interface
-* **GUI**: Graphical User Interface
-* **User stories**: A user story is an informal, general explanation of a software feature written from the
-  perspective of the end user.
-* **Cash**: Money in the form of coins or notes, as opposed to cheques or credit. *All loans in this project
-  are in cash, rather than items*. For consistency, we will avoid using the term "money" in this guide.
-* **Currency**: Money of a certain country(e.g. USD, SGD, EUR for United States Dollars, SinGapore Dollars,
-  and EURos respectively).
-* **Use cases**: A specific situation in which a product or service could potentially be used.
-* **Actor**: A person or thing that performs an action.
-* **MSS**: Main Success Scenario, the most common path through a use case.
-* **Extensions**: The alternative paths through a use case.
-* **Non-Functional Requirements**: A requirement that specifies criteria that can be used to judge the operation of
-  a system, rather than specific behaviours.
-* **Mainstream OS**: Windows, Linux, Unix, or MacOS
-
 --------------------------------------------------------------------------------------------------------------------
 
 ## **Appendix: Instructions for manual testing**
@@ -844,3 +855,66 @@ in particular the pie chart, was also challenging to implement.
 
 Nonetheless, we managed to implement all the features we set out to do, and we are proud of the final product. 
 In particular, we are proud of the analytics feature, which we believe is a unique feature that sets our app apart.
+
+--------------------------------------------------------------------------------------------------------------------
+
+## **Appendix: Planned Enhancements**
+
+Team size: 5
+
+1. After executing viewloan, if we call `viewloan 1`, the error message provided states "The person index is invalid". 
+    A better error message would be something like "Please run the list command before running this command again".
+2. When entering an email for a new person in the form of  `name@domain`(e.g. `jameshoexample@com`), an error message should be displayed and 
+    the new person shouldn't be added, as opposed to the current behaviour. This is because emails are typically 
+    in the form of `local-part@mail-server.domain`(`jameshoexample@gmail.com`)
+3. Detect duplicate names, including case insensitive ones. For example, if we have a person named "John Doe", 
+    we should not be able to add another person named "john doe". 
+4. Do not allow the `/` character inside any field when adding a new person, since it is a special character for prefixes.
+5. Error message for the `linkloan` command should be more specific to the error, e.g. different error messages for 
+incorrect date format and a start date before end date.
+6. All fields should have a minimum length of 1 character and maximum length of 100 characters. 
+Otherwise, an error message should be displayed, e.g. for name, "Name cannot be empty" or 
+"Name is cannot exceed 100 characters". Similar for other fields.
+7. Error messages related to indices should be more specific to the error. 
+For example, if the user enters `viewloan 0`, the error message should be something like "INDEX must be a positive integer".
+If the user enters `viewloan 8` when there are only 7 contacts, the error message should be something like "INDEX must be between 1 and 7".
+8. Reject loans that are > 2 decimal places as invalid. 
+For those loans that are < 2 decimal places, change them to 2 decimal places
+format when displaying them instead of showing their exact value.
+
+--------------------------------------------------------------------------------------------------------------------
+
+## Glossary
+
+Order is roughly according to when they first appear in the guide.
+
+* **Architecture Diagram**: A diagram that shows how the different components interact with each
+  other at a high level.
+* **Sequence Diagram**: A diagram that shows how the different components interact with each other
+  when a particular command is executed.
+* **API**: Application Programming Interface, a set of rules that allows different software applications
+  to communicate with each other to form an entire system.
+* **UI**: User Interface
+* **OOP**: Object-Oriented Programming, a programming paradigm based on the concept of "objects",
+  which can contain data and code: data in the form of fields, and code in the form of procedures.
+  The objects interact with each other.
+* **Class**: Classes are used to create and define objects. A feature of OOP.
+* **JSON**: JavaScript Object Notation, a lightweight data-interchange format. Files of this format
+  are used to store loan data on the hard disk.
+* **Data archiving**: The process of moving data that is no longer actively used to a separate storage
+* **CLI**: Command Line Interface
+* **GUI**: Graphical User Interface
+* **User stories**: A user story is an informal, general explanation of a software feature written from the
+  perspective of the end user.
+* **Cash**: Money in the form of coins or notes, as opposed to cheques or credit. *All loans in this project
+  are in cash, rather than items*. For consistency, we will avoid using the term "money" in this guide.
+* **Currency**: Money of a certain country(e.g. USD, SGD, EUR for United States Dollars, SinGapore Dollars,
+  and EURos respectively).
+* **Use cases**: A specific situation in which a product or service could potentially be used.
+* **Actor**: A person or thing that performs an action.
+* **MSS**: Main Success Scenario, the most common path through a use case.
+* **Extensions**: The alternative paths through a use case.
+* **Non-Functional Requirements**: A requirement that specifies criteria that can be used to judge the operation of
+  a system, rather than specific behaviours.
+* **Mainstream OS**: Windows, Linux, Unix, or MacOS
+* **Jar file**: A Java Archive file, used to distribute a set of Java classes or applications as a single file.
