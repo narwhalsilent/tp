@@ -165,7 +165,6 @@ public class MainWindow extends UiPart<Stage> {
         this.tabIndicator = logic.getTabIndicator();
 
         this.tabIndicator.addListener((observable, oldValue, newValue) -> {
-            System.out.println("Value changed!" + newValue);
             toggleTabs();
         });
 
