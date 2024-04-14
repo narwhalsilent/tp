@@ -65,4 +65,12 @@ public class DeleteLoanCommandTest {
         // different person -> returns false
         assertFalse(deleteLoanFirstCommand.equals(deleteLoanSecondCommand));
     }
+
+    @Test
+    public void toStringMethod() {
+        Index index = Index.fromOneBased(1);
+        DeleteLoanCommand deleteLoanCommand = new DeleteLoanCommand(index);
+        String expected = DeleteLoanCommand.class.getCanonicalName() + "{loanIndex=" + index + "}";
+        assertEquals(expected, deleteLoanCommand.toString());
+    }
 }
