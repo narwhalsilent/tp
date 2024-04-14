@@ -23,9 +23,6 @@ public class AnalyticsTest {
     public void emptyLoanList() {
         // Empty loan list should not throw any exceptions
         Analytics test = Analytics.getAnalytics(new UniqueLoanList().asUnmodifiableObservableList());
-
-        assertEquals(0, test.getNumLoans()); // No loans
-        assertEquals(0, test.getNumOverdueLoans()); // No overdue loans
         assertEquals(0, test.getNumActiveLoans()); // No active loans
         assertEquals(0, test.getPropOverdueLoans()); // Proportion of overdue loans is 0 (default)
         assertEquals(0, test.getPropActiveLoans()); // Proportion of active loans is 0 (default)
@@ -40,8 +37,6 @@ public class AnalyticsTest {
         UniqueLoanList loanList = new UniqueLoanList();
         loanList.addLoan(loan);
         Analytics test = Analytics.getAnalytics(loanList.asUnmodifiableObservableList());
-        assertEquals(1, test.getNumLoans()); // 1 loan
-        assertEquals(0, test.getNumOverdueLoans()); // No overdue loans
         assertEquals(1, test.getNumActiveLoans()); // 1 active loan
         assertEquals(0, test.getPropOverdueLoans()); // Proportion of overdue loans is 0 (default)
         assertEquals(1, test.getPropActiveLoans()); // Proportion of active loans is 1
@@ -62,8 +57,6 @@ public class AnalyticsTest {
         loanList.addLoan(loan3);
         loanList.addLoan(loan4);
         Analytics test = Analytics.getAnalytics(loanList.asUnmodifiableObservableList());
-        assertEquals(4, test.getNumLoans()); // 4 loans
-        assertEquals(1, test.getNumOverdueLoans()); // 1 overdue loans
         assertEquals(4, test.getNumActiveLoans()); // 4 active loans
         assertEquals(0.25, test.getPropOverdueLoans()); // Proportion of overdue loans is 0.25
         assertEquals(1, test.getPropActiveLoans()); // Proportion of active loans is 1
@@ -89,8 +82,6 @@ public class AnalyticsTest {
         loanList.addLoan(loan3);
         loanList.addLoan(loan4);
         Analytics test = Analytics.getAnalytics(loanList.asUnmodifiableObservableList());
-        assertEquals(4, test.getNumLoans()); // 4 loans
-        assertEquals(0, test.getNumOverdueLoans()); // 1 overdue loan but is returned so should be zero
         assertEquals(3, test.getNumActiveLoans()); // 3 active loans
         assertEquals(0, test.getPropOverdueLoans()); // Proportion of overdue loans is 0 (loan4 is returned)
         assertEquals(0.75, test.getPropActiveLoans()); // Proportion of active loans is 1

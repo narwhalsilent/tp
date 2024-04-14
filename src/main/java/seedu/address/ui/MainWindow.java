@@ -2,7 +2,7 @@ package seedu.address.ui;
 
 import java.util.logging.Logger;
 
-import javafx.beans.property.BooleanProperty;
+import javafx.beans.property.ObjectProperty;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.MenuItem;
@@ -19,6 +19,7 @@ import seedu.address.logic.Logic;
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.logic.parser.exceptions.ParseException;
+import seedu.address.model.tabindicator.TabIndicator;
 
 /**
  * The Main Window. Provides the basic application layout containing
@@ -70,14 +71,7 @@ public class MainWindow extends UiPart<Stage> {
     private VBox analytics;
     @FXML
     private VBox personList;
-
-    private BooleanProperty isLoansTab;
-
-    private BooleanProperty isAnalyticsTab;
-
-    private BooleanProperty isPersonTab;
-
-    private BooleanProperty loaneeInfoFlag;
+    private ObjectProperty<TabIndicator> tabIndicator;
 
     /**
      * Creates a {@code MainWindow} with the given {@code Stage} and {@code Logic}.
@@ -142,15 +136,12 @@ public class MainWindow extends UiPart<Stage> {
     void fillInnerParts() {
         initializeLocalListeners();
         // Initial value of isLoansTab is false by default
-        assert (!this.isLoansTab.getValue());
+        assert (!this.tabIndicator.getValue().getIsLoansTab());
         // Initial value of isAnalyticsTab is false by default
-        assert (!this.isAnalyticsTab.getValue());
+        assert (!this.tabIndicator.getValue().getIsAnalyticsTab());
         personListPanel = new PersonListPanel(logic.getFilteredPersonList());
-        this.loanListPanel = new LoanListPanel(logic.getSortedLoanList(), logic.getLoaneeInfoFlag());
-        logic.getLoaneeInfoFlag().addListener((observable, oldValue, newValue) -> {
-            this.loanListPanel = new LoanListPanel(logic.getSortedLoanList(), logic.getLoaneeInfoFlag());
-            System.out.println("Loanee info flag changed to: " + newValue);
-        });
+
+        loanListPanel = new LoanListPanel(logic.getSortedLoanList(), this.tabIndicator);
         analyticsPanel = new AnalyticsPanel(logic.getAnalytics());
         personListPanelPlaceholder.getChildren().add(personListPanel.getRoot());
         resultDisplay = new ResultDisplay();
@@ -171,70 +162,68 @@ public class MainWindow extends UiPart<Stage> {
     }
 
     private void initializeLocalListeners() {
-        // Add listener to tab flags
-        this.isLoansTab = logic.getIsLoansTab();
-        this.isAnalyticsTab = logic.getIsAnalyticsTab();
-        this.isPersonTab = logic.getIsPersonTab();
+        this.tabIndicator = logic.getTabIndicator();
 
-        // Add listener to loaneeInfoFlag
-        this.loaneeInfoFlag = logic.getLoaneeInfoFlag();
-
-        logic.setIsAnalyticsTab(false);
-        logic.setIsLoansTab(false);
-
-        this.isPersonTab.addListener((observable, oldValue, newValue) -> {
+        this.tabIndicator.addListener((observable, oldValue, newValue) -> {
             toggleTabs();
         });
-        this.isLoansTab.addListener((observable, oldValue, newValue) -> {
-            toggleTabs();
-        });
-        this.isAnalyticsTab.addListener((observable, oldValue, newValue) -> {
-            toggleTabs();
-        });
+
+
+    }
+
+    private void activateDualPanelView() {
+        clearAllPlaceholders();
+        VBox.setVgrow(personList, Priority.ALWAYS);
+        VBox.setVgrow(loanList, Priority.NEVER);
+        VBox.setVgrow(analytics, Priority.NEVER);
+        personListPanelPlaceholder.getChildren().add(personListPanel.getRoot());
+        VBox.setVgrow(loanList, Priority.ALWAYS);
+        loanListPanelPlaceholder.getChildren().add(loanListPanel.getRoot());
+        VBox.setVgrow(analytics, Priority.NEVER);
+        personListPanelPlaceholder.setMaxHeight(105);
+        personListPanelPlaceholder.setMinHeight(105);
+        VBox.setVgrow(personList, Priority.NEVER);
+    }
+
+    private void activatePersonListOnlyView() {
+        clearAllPlaceholders();
+        personListPanelPlaceholder.setMaxHeight(Double.POSITIVE_INFINITY);
+        VBox.setVgrow(personList, Priority.ALWAYS);
+        VBox.setVgrow(loanList, Priority.NEVER);
+        VBox.setVgrow(analytics, Priority.NEVER);
+        personListPanelPlaceholder.getChildren().add(personListPanel.getRoot());
+    }
+
+    private void activateAnalyticsView() {
+        clearAllPlaceholders();
+        VBox.setVgrow(analytics, Priority.ALWAYS);
+        VBox.setVgrow(personList, Priority.NEVER);
+        VBox.setVgrow(loanList, Priority.NEVER);
+        personListPanelPlaceholder.setMinHeight(0);
+        analyticsPanelPlaceholder.getChildren().add(analyticsPanel.getRoot());
+    }
+
+    private void activateLoanListOnlyView() {
+        clearAllPlaceholders();
+        VBox.setVgrow(loanList, Priority.ALWAYS);
+        VBox.setVgrow(personList, Priority.NEVER);
+        VBox.setVgrow(analytics, Priority.NEVER);
+        loanListPanelPlaceholder.getChildren().add(loanListPanel.getRoot());
+        personListPanelPlaceholder.setMinHeight(0);
     }
 
     private void toggleTabs() {
         // At most one of these can be active at a time
-        assert (!(this.isLoansTab.getValue() && this.isAnalyticsTab.getValue()));
-        if (isPersonTab.getValue() && isLoansTab.getValue()) {
-            // Default to person list panel
-            clearAllPlaceholders();
-            VBox.setVgrow(personList, Priority.ALWAYS);
-            VBox.setVgrow(loanList, Priority.NEVER);
-            VBox.setVgrow(analytics, Priority.NEVER);
-            personListPanelPlaceholder.getChildren().add(personListPanel.getRoot());
-            VBox.setVgrow(loanList, Priority.ALWAYS);
-            loanListPanelPlaceholder.getChildren().add(loanListPanel.getRoot());
-            VBox.setVgrow(analytics, Priority.NEVER);
-            personListPanelPlaceholder.setMaxHeight(105);
-            personListPanelPlaceholder.setMinHeight(105);
-            VBox.setVgrow(personList, Priority.NEVER);
+        assert (!(this.tabIndicator.getValue().getIsLoansTab() && this.tabIndicator.getValue().getIsAnalyticsTab()));
 
-            System.out.println("Both tabs are active");
-        } else if (isPersonTab.getValue()) {
-            // Default to person list panel
-            clearAllPlaceholders();
-            personListPanelPlaceholder.setMaxHeight(Double.POSITIVE_INFINITY);
-            VBox.setVgrow(personList, Priority.ALWAYS);
-            VBox.setVgrow(loanList, Priority.NEVER);
-            VBox.setVgrow(analytics, Priority.NEVER);
-            personListPanelPlaceholder.getChildren().add(personListPanel.getRoot());
-            System.out.println("Only person tab is active");
-        } else if (this.isLoansTab.getValue()) {
-            clearAllPlaceholders();
-            VBox.setVgrow(loanList, Priority.ALWAYS);
-            VBox.setVgrow(personList, Priority.NEVER);
-            VBox.setVgrow(analytics, Priority.NEVER);
-            loanListPanelPlaceholder.getChildren().add(loanListPanel.getRoot());
-            personListPanelPlaceholder.setMinHeight(0);
-            System.out.println("Only loans tab is active");
+        if (this.tabIndicator.getValue().getIsPersonTab() && this.tabIndicator.getValue().getIsLoansTab()) {
+            activateDualPanelView();
+        } else if (this.tabIndicator.getValue().getIsPersonTab()) {
+            activatePersonListOnlyView();
+        } else if (this.tabIndicator.getValue().getIsLoansTab()) {
+            activateLoanListOnlyView();
         } else {
-            clearAllPlaceholders();
-            VBox.setVgrow(analytics, Priority.ALWAYS);
-            VBox.setVgrow(personList, Priority.NEVER);
-            VBox.setVgrow(loanList, Priority.NEVER);
-            personListPanelPlaceholder.setMinHeight(0);
-            analyticsPanelPlaceholder.getChildren().add(analyticsPanel.getRoot());
+            activateAnalyticsView();
         }
     }
 
@@ -310,8 +299,6 @@ public class MainWindow extends UiPart<Stage> {
             if (commandResult.isExit()) {
                 handleExit();
             }
-            // Enable/Disable the loan tab based on whether command is loan related
-            // logic.setIsLoansTab(commandResult.isLoanRelated());
 
             return commandResult;
         } catch (CommandException | ParseException e) {

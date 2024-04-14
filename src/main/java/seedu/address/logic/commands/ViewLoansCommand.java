@@ -23,7 +23,7 @@ public class ViewLoansCommand extends ViewLoanRelatedCommand {
         model.updateFilteredPersonList(PREDICATE_SHOW_NO_PERSONS);
         model.updateFilteredLoanList(unused -> true, isShowAllLoans);
         model.setIsLoansTab(true);
-        model.setLoaneeInfoFlag(true);
+        model.setIsShowLoaneeInfo(true);
         return new CommandResult(MESSAGE_SUCCESS, false, false, true);
     }
 }
