@@ -532,7 +532,6 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 | `* *`    | User who loans cash out regularly                 | View my past loans                                      | know how much cash to expect in the near future                         |
 | `* * *`  | User who loans cash out regularly                 | View my past loans                                      | decide whether to loan to a client again                                |
 | `* *`    | User who loans cash out regularly                 | See the overdue loans easily                            | chase after people more easily                                          |
-| `* * *`  | User who values relationships                     | Send automated reminders to contacts with overdue loans | I can maintain good relations while ensuring the return of items        |
 | `* * *`  | Busy user                                         | Keep track of all my loanees(view)                      | save time and use it for more meaningful activities                     |
 | `* * *`  | Busy user                                         | Quickly view a summary of all outstanding loans(view)   | have an overview without going through each contact individually        |
 | `* * *`  | User who loans cash                               | Track partial repayments                                | maintain accurate records of the outstanding balance                    |
