@@ -13,15 +13,9 @@ import java.util.stream.Collectors;
 
 import org.junit.jupiter.api.Test;
 
-import seedu.address.logic.commands.AddCommand;
-import seedu.address.logic.commands.ClearCommand;
-import seedu.address.logic.commands.DeleteCommand;
-import seedu.address.logic.commands.EditCommand;
+import seedu.address.commons.core.index.Index;
+import seedu.address.logic.commands.*;
 import seedu.address.logic.commands.EditCommand.EditPersonDescriptor;
-import seedu.address.logic.commands.ExitCommand;
-import seedu.address.logic.commands.FindCommand;
-import seedu.address.logic.commands.HelpCommand;
-import seedu.address.logic.commands.ListCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.person.NameContainsKeywordsPredicate;
 import seedu.address.model.person.Person;
@@ -90,20 +84,27 @@ public class AddressBookParserTest {
 
     @Test
     public void parseCommand_deleteLoan() throws Exception {
-        // TODO
-        assertTrue(true);
+        DeleteLoanCommand ddlc = new DeleteLoanCommand(Index.fromOneBased(3));
+        DeleteLoanCommand ddlc2 = (DeleteLoanCommand) parser.parseCommand(DeleteLoanCommand.COMMAND_WORD + " 3");
+        assertEquals(ddlc, ddlc2);
+        assertTrue(parser.parseCommand(DeleteLoanCommand.COMMAND_WORD + " 3") instanceof DeleteLoanCommand);
+        assert
     }
 
     @Test
     public void parseCommand_markLoan() throws Exception {
-        // TODO
-        assertTrue(true);
+        MarkLoanCommand mlc = new MarkLoanCommand(Index.fromOneBased(3));
+        MarkLoanCommand mlc2 = (MarkLoanCommand) parser.parseCommand(MarkLoanCommand.COMMAND_WORD + " 3");
+        assertEquals(mlc, mlc2);
+        assertTrue(parser.parseCommand(MarkLoanCommand.COMMAND_WORD + " 3") instanceof MarkLoanCommand);
     }
 
     @Test
     public void parseCommand_unmarkLoan() throws Exception {
-        // TODO
-        assertTrue(true);
+        UnmarkLoanCommand mlc = new UnmarkLoanCommand(Index.fromOneBased(3));
+        UnmarkLoanCommand mlc2 = (UnmarkLoanCommand) parser.parseCommand(UnmarkLoanCommand.COMMAND_WORD + " 3");
+        assertEquals(mlc, mlc2);
+        assertTrue(parser.parseCommand(UnmarkLoanCommand.COMMAND_WORD + " 3") instanceof UnmarkLoanCommand);
     }
 
     @Test
