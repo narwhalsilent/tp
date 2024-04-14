@@ -3,7 +3,8 @@ layout: page
 title: Developer Guide
 ---
 
-[//]: <> (comment, To-do)
+[//]: <> (comment, To-do, make working links)
+[//]: <> (more To-dos: Instructions for Manual Testing, Appendix: Effort, Planned Enhancements)
 * Table of Contents
   {:toc}
   
@@ -705,7 +706,6 @@ testers are expected to do more *exploratory* testing.
     1. Re-launch the app by double-clicking the jar file.<br>
        Expected: The most recent window size and location is retained.
 
-1. _{ more test cases …​ }_
 
 ### Deleting a person
 
@@ -723,12 +723,124 @@ testers are expected to do more *exploratory* testing.
     1. Other incorrect delete commands to try: `delete`, `delete x`, `...` (where x is larger than the list size)<br>
        Expected: Similar to previous.
 
-1. _{ more test cases …​ }_
+### Linking a loan
+
+1. Linking a loan to a contact
+
+    1. Prerequisites: At least one contact in the list.
+
+    1. Test case: `linkloan 1 v/100 s/2021-10-10 r/2021-10-20`<br>
+       Expected: A loan of value 100 is linked to the first contact in current view. Details of the linked loan shown in the status
+       message. Timestamp in the status bar is updated. Note that if there are no contacts in view this command will not work.
+       Perform `list` command if necessary.
+
+### Viewing loans
+1. Viewing loans of a contact
+
+    1. Prerequisites: At least one contact in the list. 
+
+    1. Test case: `viewloan 1`<br>
+       Expected: All unreturned loans linked to the first contact in the current view are shown. 
+       Note that if there are no contacts in view this command will not work. Perform `list` command if necessary.
+    1. Test case: `viewloan -a 1`<br>
+      Expected: All loans linked to the first contact in the current view are shown.
+      Here, the `-a` flag means all.
+      Note that if there are no contacts in view this command will not work. Perform `list` command if necessary.
+
+### Marking and unmarking a loan
+
+1. Marking a loan as returned
+
+    1. Prerequisites: At least one loan linked.
+
+    1. Test case: `viewloan -a`, followed by `markloan 1`<br>
+       Expected: The first loan is marked as returned. Details of the marked loan shown in the status message.
+
+2. Unmarking a loan (i.e. marking it as not returned)
+    1. Prerequisites: At least one loan linked.
+
+    1. Test case: `viewloan -a`, followed by `unmarkloan 1`<br>
+       Expected: The first loan is marked as not returned. Details of the unmarked loan shown in the status message.
+
+### Editing a loan
+
+1. Editing a loan
+
+    1. Prerequisites: At least one loan linked.
+
+    1. Test case: `viewloan -a`, followed by `editloan 1 v/200`<br>
+         Expected: The value of the first loan is updated to 200. Details of the edited loan shown in the status message.
+
+### Deleting a loan
+
+1. Deleting a loan
+
+    1. Prerequisites: At least one loan linked.
+
+    1. Test case: `viewloan -a`, followed by `deleteloan 1`<br>
+       Expected: The first loan is deleted. Details of the deleted loan shown in the status message.
+
+### Analytics Command
+1. Viewing analytics of a contact
+
+    1. Prerequisites: At least one contact in the list.
+
+    1. Test case: `analytics 1`<br>
+       Expected: The analytics of the first contact in the current view are shown. 
+       Note that if there are no contacts in view this command will not work. Perform `list` command if necessary.
 
 ### Saving data
 
 1. Dealing with missing/corrupted data files
+   1. Close the app. Choose either to simulate a missing data file or corrupted data file, but not both.
 
-    1. _{explain how to simulate a missing/corrupted file, and the expected behavior}_
+   1. _To simulate a missing file, go to ./data and delete the JSON file inside, where . refers to 
+   th directory containing the jar file._
+   2. _To simulate a corrupted file, open the JSON file and delete a few characters from the middle of the file._
 
-1. _{ more test cases …​ }_
+   1. Launch the app.<br>
+      Expected: The app should launch successfully. A new JSON file should be created in the
+      ./data folder. For a missing file, the address book should show the sample data. 
+      For a corrupted file, a blank address book should be shown.
+   2. After populating the address book with some data, repeat steps i to iv for the other of missing/corrupted.
+
+2. After performing several operations that changes the data (e.g. linkloan, add a person, etc.),
+   ensure that closing and re-opening the app retains the changed data.
+
+### Exiting the app
+
+You can exit the app in the following ways:
+1. Click the close button on the window title bar.<br>
+
+2. Enter `exit` into the GUI.
+
+In either case, the app should close.
+
+--------------------------------------------------------------------------------------------------------------------
+
+## **Appendix: Effort**
+
+The main effort for this project was spent on creating the loan management features, which were not present in AB3. 
+These include:
+* linking a loan
+* viewing loans
+* marking and unmarking a loan 
+* deleting loans
+* editing loans
+* viewing analytics of a contact
+
+Much inspiration was drawn from the existing commands in AB3, as well as the tutorial to add a new command.
+
+While the first five features looked similar, some required more effort than the others. 
+The main difficulty we faced include how to implement the deletion and editing of loans.
+We had to ensure deletion can only happen if that loan is currently within view, else there could 
+easily be mistakes. Likewise for editing a loan. The solution we came up with was to alter the 
+person and loan lists in view, based on the commands given. Based on the lists in view, we decide 
+if each operation can be done. 
+
+The analytics feature was the most challenging feature to implement. This is because we needed to define
+the analytics that we wanted to show, and then implement the logic to calculate these analytics. The GUI, 
+in particular the pie chart, was also challenging to implement.
+
+Nonetheless, we managed to implement all the features we set out to do, and we are proud of the final product. 
+In particular, we are proud of the analytics feature, which we believe is a unique feature that sets our app apart.
