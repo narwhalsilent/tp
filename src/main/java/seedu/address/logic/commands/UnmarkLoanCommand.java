@@ -5,6 +5,7 @@ import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 import java.util.List;
 
 import seedu.address.commons.core.index.Index;
+import seedu.address.commons.util.ToStringBuilder;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 import seedu.address.model.person.Loan;
@@ -65,5 +66,12 @@ public class UnmarkLoanCommand extends Command {
         }
         UnmarkLoanCommand e = (UnmarkLoanCommand) other;
         return loanIndex.equals(e.loanIndex);
+    }
+
+    @Override
+    public String toString() {
+        return new ToStringBuilder(this)
+                .add("loanIndex", loanIndex)
+                .toString();
     }
 }
