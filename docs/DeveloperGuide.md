@@ -52,7 +52,7 @@ title: Developer Guide
 
 ## **Acknowledgements**
 
-This project is modified upon the [AddressBook-Level3 project](https://github.com/se-edu/addressbook-level3) project created by the SE-EDU initiative, 
+This project is modified upon the [AddressBook-Level3 project](https://github.com/se-edu/addressbook-level3) project created by the SE-EDU initiative,
 as well as the [tutorials](https://nus-cs2103-ay2021s1.github.io/tp/tutorials/AddRemark.html) and guides provided.
 
 --------------------------------------------------------------------------------------------------------------------
@@ -269,7 +269,7 @@ It contains the following fields that can prove to be useful for the user:
 * `latestLoanDate`: latest loan date of all loans
 * `latestReturnDate`: latest return date of active loans
 
-The `AnalyticsCommand` class handles the viewing of analytics of any one person within the current contact list in view. 
+The `AnalyticsCommand` class handles the viewing of analytics of any one person within the current contact list in view.
 The following shows how the analytics class is used in the execution of a command to view the analytics of a person:
 ![AnalyticsSequenceDiagram](images/AnalyticsSequenceDiagram.png)
 
@@ -299,7 +299,7 @@ The following shows how the analytics class is used in the execution of a comman
 
 #### Implementation
 
-The `DeleteLoanCommand` class handles the deletion of a loan from the current contact in view, and executes the command 
+The `DeleteLoanCommand` class handles the deletion of a loan from the current contact in view, and executes the command
 after the input is parsed and transformed into an appropriate format.
 The parsing of the command is done by the `DeleteLoanCommandParser` class, which is responsible for parsing the user
 input.
@@ -433,7 +433,7 @@ The `LinkLoanCommand` class is instantiated in the `LinkLoanCommandParser` class
 `LinkLoanCommandParser` is instantiated in the `AddressBookParser` class. Both classes are instantiated when the user
 enters a `linkloan` command, which needs to be of the format `linkloan INDEX v/VALUE s/START_DATE r/RETURN_DATE`
 where INDEX (a positive whole number) is the index of the person, VALUE (a positive decimal number) is the value of the loan,
-and START_DATE and RETURN_DATE (both dates in the format yyyy-mm-dd) are the start and return dates of the loan respectively. 
+and START_DATE and RETURN_DATE (both dates in the format yyyy-mm-dd) are the start and return dates of the loan respectively.
 
 The `LinkLoanCommand` class contains the following fields which can prove to be useful for the user:
 
@@ -459,7 +459,7 @@ Sequence diagram for the linking of loans:
 
 ##### Aspect: How the command parameters (i.e. loan details) are stored:
 
-* **Alternative 1 (current choice):** The parameters are stored in a temporary `LinkLoanDescriptor`, 
+* **Alternative 1 (current choice):** The parameters are stored in a temporary `LinkLoanDescriptor`,
 which is then passed into the `LinkLoanCommand`.
     * Pros: As it follows the style of the `EditCommand`, it is simpler to debug. In addition, it follows the Single Responsibility Principle
   as then the `LinkLoanDescriptor` will be in charge of handling the loan details.
@@ -496,7 +496,7 @@ The target user is a business person who satisfies the following criteria:
 * can type fast;
 * prefers typing to mouse interactions;
 * is reasonably comfortable using CLI apps;
-* wants to manage contacts faster than a typical mouse/GUI driven app. 
+* wants to manage contacts faster than a typical mouse/GUI driven app.
 
 Typically, they want to answer the following questions quickly:
 
@@ -563,7 +563,7 @@ Use case ends.
 
 #### Extensions
 - 1a. Index is invalid (e.g. negative, zero, or larger than the list size)
-  - 1a1. System shows an error message in the status message. 
+  - 1a1. System shows an error message in the status message.
   - Use case ends.
 
 #### Use case: UC2 - Find a person by name
@@ -578,11 +578,11 @@ Use case ends.
 #### Extensions
 
 - 1a. User searches for a contact using an empty prompt.
-  - 1a1. System shows an error message in the status message. 
+  - 1a1. System shows an error message in the status message.
   - Use case ends.
 
 - 1b. No contact matches the prompt.
-  - 1b1. System shows a message in the status message that no contact matches the prompt. 
+  - 1b1. System shows a message in the status message that no contact matches the prompt.
   - Use case ends.
 
 #### Use case: UC3 - Link a loan to contact
@@ -602,7 +602,7 @@ Use case ends.
   - Use case ends.
 
 - 1b. Loan details are invalid (e.g. empty, incomplete, wrong format).
-  - 1b1. System shows an error message that the loan details are invalid. 
+  - 1b1. System shows an error message that the loan details are invalid.
   - Use case ends.
 
 #### Use case: UC4 - View all loans linked to particular contact
@@ -726,10 +726,10 @@ testers are expected to do more *exploratory* testing.
 ### Viewing loans
 1. Viewing loans of a contact
 
-    1. Prerequisites: At least one contact in the list. 
+    1. Prerequisites: At least one contact in the list.
 
     1. Test case: `viewloan 1`<br>
-       Expected: All unreturned loans linked to the first contact in the current view are shown. 
+       Expected: All unreturned loans linked to the first contact in the current view are shown.
        Note that if there are no contacts in view this command will not work. Perform `list` command if necessary.
     1. Test case: `viewloan -a 1`<br>
       Expected: All loans linked to the first contact in the current view are shown.
@@ -775,7 +775,7 @@ testers are expected to do more *exploratory* testing.
     1. Prerequisites: At least one contact in the list.
 
     1. Test case: `analytics 1`<br>
-       Expected: The analytics of the first contact in the current view are shown. 
+       Expected: The analytics of the first contact in the current view are shown.
        Note that if there are no contacts in view this command will not work. Perform `list` command if necessary.
 
 ### Saving data
@@ -783,13 +783,13 @@ testers are expected to do more *exploratory* testing.
 1. Dealing with missing/corrupted data files
    1. Close the app. Choose either to simulate a missing data file or corrupted data file, but not both.
 
-   1. _To simulate a missing file, go to ./data and delete the JSON file inside, where . refers to 
+   1. _To simulate a missing file, go to ./data and delete the JSON file inside, where . refers to
    th directory containing the jar file._
    2. _To simulate a corrupted file, open the JSON file and delete a few characters from the middle of the file._
 
    1. Launch the app.<br>
       Expected: The app should launch successfully. A new JSON file should be created in the
-      ./data folder. For a missing file, the address book should show the sample data. 
+      ./data folder. For a missing file, the address book should show the sample data.
       For a corrupted file, a blank address book should be shown.
    2. After populating the address book with some data, repeat steps i to iv for the other of missing/corrupted.
 
@@ -809,29 +809,29 @@ In either case, the app should close.
 
 ## **Appendix: Effort**
 
-The main effort for this project was spent on creating the loan management features, which were not present in AB3. 
+The main effort for this project was spent on creating the loan management features, which were not present in AB3.
 These include:
 * linking a loan
 * viewing loans
-* marking and unmarking a loan 
+* marking and unmarking a loan
 * deleting loans
 * editing loans
 * viewing analytics of a contact
 
 Much inspiration was drawn from the existing commands in AB3, as well as the tutorial to add a new command.
 
-While the first five features looked similar, some required more effort than the others. 
+While the first five features looked similar, some required more effort than the others.
 The main difficulty we faced include how to implement the deletion and editing of loans.
-We had to ensure deletion can only happen if that loan is currently within view, else there could 
-easily be mistakes. Likewise for editing a loan. The solution we came up with was to alter the 
-person and loan lists in view, based on the commands given. Based on the lists in view, we decide 
-if each operation can be done. 
+We had to ensure deletion can only happen if that loan is currently within view, else there could
+easily be mistakes. Likewise for editing a loan. The solution we came up with was to alter the
+person and loan lists in view, based on the commands given. Based on the lists in view, we decide
+if each operation can be done.
 
 The analytics feature was the most challenging feature to implement. This is because we needed to define
-the analytics that we wanted to show, and then implement the logic to calculate these analytics. The GUI, 
+the analytics that we wanted to show, and then implement the logic to calculate these analytics. The GUI,
 in particular the pie chart, was also challenging to implement.
 
-Nonetheless, we managed to implement all the features we set out to do, and we are proud of the final product. 
+Nonetheless, we managed to implement all the features we set out to do, and we are proud of the final product.
 In particular, we are proud of the analytics feature, which we believe is a unique feature that sets our app apart.
 
 --------------------------------------------------------------------------------------------------------------------
@@ -840,23 +840,23 @@ In particular, we are proud of the analytics feature, which we believe is a uniq
 
 Team size: 5
 
-1. After executing `viewloan`, if we call `viewloan 1`, the error message provided states "The person index is invalid". 
+1. After executing `viewloan`, if we call `viewloan 1`, the error message provided states "The person index is invalid".
     A better error message would be something like "Please run the list command before running this command again".
-2. When entering an email for a new person in the form of  `name@domain`(e.g. `jameshoexample@com`), an error message should be displayed and 
-    the new person shouldn't be added, as opposed to the current behaviour. This is because emails are typically 
+2. When entering an email for a new person in the form of  `name@domain`(e.g. `jameshoexample@com`), an error message should be displayed and
+    the new person shouldn't be added, as opposed to the current behaviour. This is because emails are typically
     in the form of `local-part@mail-server.domain`(`jameshoexample@gmail.com`)
-3. Detect duplicate names, including case-insensitive ones. For example, if we have a person named "John Doe", 
-    we should not be able to add another person named "john doe". 
+3. Detect duplicate names, including case-insensitive ones. For example, if we have a person named "John Doe",
+    we should not be able to add another person named "john doe".
 4. Do not allow the `/` character inside any field when adding a new person, since it is a special character for prefixes.
-5. Error message for the `linkloan` command should be more specific to the error, e.g. different error messages for 
+5. Error message for the `linkloan` command should be more specific to the error, e.g. different error messages for
 incorrect date format and a start date before end date.
-6. All fields should have a minimum length of 1 character and maximum length of 500 characters. 
-Otherwise, an error message should be displayed, e.g. for name, "Name cannot be empty" or 
+6. All fields should have a minimum length of 1 character and maximum length of 500 characters.
+Otherwise, an error message should be displayed, e.g. for name, "Name cannot be empty" or
 "Name is cannot exceed 500 characters". Similar for other fields.
-7. Error messages related to indices should be more specific to the error. 
+7. Error messages related to indices should be more specific to the error.
 For example, if the user enters `viewloan 0`, the error message should be something like "INDEX must be a positive integer".
 If the user enters `viewloan 8` when there are only 7 contacts, the error message should be something like "INDEX must be between 1 and 7".
-8. Reject loans that are > 2 decimal places as invalid. 
+8. Reject loans that are > 2 decimal places as invalid.
 For those loans that are < 2 decimal places, change them to 2 decimal places
 format when displaying them instead of showing their exact value.
 
