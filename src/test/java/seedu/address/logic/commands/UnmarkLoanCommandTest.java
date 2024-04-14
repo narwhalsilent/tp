@@ -65,4 +65,12 @@ public class UnmarkLoanCommandTest {
         // different person -> returns false
         assertFalse(unmarkLoanFirstCommand.equals(unmarkLoanSecondCommand));
     }
+
+    @Test
+    public void toStringMethod() {
+        Index index = Index.fromOneBased(1);
+        UnmarkLoanCommand unmarkLoanCommand = new UnmarkLoanCommand(index);
+        String expected = UnmarkLoanCommand.class.getCanonicalName() + "{loanIndex=" + index + "}";
+        assertEquals(expected, unmarkLoanCommand.toString());
+    }
 }

@@ -67,4 +67,12 @@ public class MarkLoanCommandTest {
         // different person -> returns false
         assertFalse(markLoanFirstCommand.equals(markLoanSecondCommand));
     }
+
+    @Test
+    public void toStringMethod() {
+        Index index = Index.fromOneBased(1);
+        MarkLoanCommand markLoanCommand = new MarkLoanCommand(index);
+        String expected = MarkLoanCommand.class.getCanonicalName() + "{loanIndex=" + index + "}";
+        assertEquals(expected, markLoanCommand.toString());
+    }
 }
