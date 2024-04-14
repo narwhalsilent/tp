@@ -40,9 +40,9 @@ title: User Guide
 
 LoanGuardPro is a desktop app for managing contacts, optimized for use via a Command Line Interface (CLI) while still
 having the benefits of a Graphical User Interface (GUI). 
-If you are money lender looking to **keep track of your clients' contacts and loans**, LoanGuardPro is the right tool for you.
+If you are a moneylender looking to **keep track of your clients' contacts and loans**, LoanGuardPro is the right tool for you.
 
-It supports basic contact and loan handling features like adding, editing, deleting, and viewing contacts and loans.
+It is in the form of an address book and supports basic contact and loan handling features like adding, editing, deleting, and viewing contacts and loans.
 More advanced features like analysing a client's loaning history are also available.
 
 ### How to Use this User Guide
@@ -134,7 +134,7 @@ There are three main categories of commands: Contact Management, Basic Loan Mana
  Action          | Format, Examples                                                                                              
 -----------------|---------------------------------------------------------------------------------------------------------------
  **Link Loan**   | `linkloan INDEX v/VALUE s/START_DATE r/RETURN_DATE`<br> e.g., `linkloan 1 v/500.00 s/2024-02-15 r/2025-02-15` 
- **View Loan**   | `viewloan OPTIONAL_FLAG INDEX`<br> e.g., `viewloan 1`, `viewloan -a 1`
+ **View Loan**   | `viewloan [FLAG] [INDEX]`<br> e.g., `viewloan 1`, `viewloan -a 1`
  **Mark Loan**   | `markloan INDEX`<br> e.g., `markloan 1`
  **Unmark Loan** | `unmarkloan INDEX`<br> e.g., `unmarkloan 1`            
  **Edit Loan**   | `editloan INDEX [v/VALUE] [s/START_DATE] [r/RETURN_DATE]`<br> e.g., `editloan 1 v/600.00 s/2024-02-15 r/2025-02-15`                                                         
@@ -312,18 +312,18 @@ Parameters Restrictions:
 
 * Links a loan to the person at the specified `INDEX`. The index refers to the index number shown in the displayed
   person list. The index **must be a positive integer** 1, 2, 3, …​, and it must not exceed the number of persons shown in the list.
-* The loan value must be a positive float value that is **at most 2 decimal places**, as the app behavior may not optimal for any higher precision.
+* The loan value must be a positive float value that is **at most 2 decimal places**, as the app behavior may not be optimal for any higher precision.
 * The start date and return date must be in the format `YYYY-MM-DD`.
 * The return date must be after the start date.
 * Year value has to be below 9999.
 
 :bulb: **Tip:**
-If you are on a view page with no person contacts, such as the view all loans page and the analytics page, you can use the `list` command to go back to the person list. That will allow you to use the `linkloan` command.
+If you are on a view page with no person contacts, such as the "view all loans" page or the "analytics" page, you can use the `list` command to go back to the person list. That will allow you to use the `linkloan` command.
 
 Expected Behaviour:
 
-* A success message in the form of "New loan linked: [person name]" will be shown.
-* The loan can then be found in the loan list.
+* A success message in the form of "New loan linked: [person name] [loan description]" will be shown.
+* The loan can then be found in both the overall loan list and the loan list of that person.
 
 Example: `linkloan 1 v/500.00 s/2024-02-15 r/2025-02-15`
 
@@ -334,12 +334,12 @@ Example: `linkloan 1 v/500.00 s/2024-02-15 r/2025-02-15`
 
 Shows loans in the address book.
 
-Format: `viewloan OPTIONAL_FLAG OPTIONAL_INDEX`
+Format: `viewloan [FLAG] [INDEX]`
 
 Parameters Restrictions:
 
 * The optional index refers to the index number shown in the displayed person list. The index **must be a positive
-  integer** 1, 2, 3, …​
+  integer** 1, 2, 3, …​, and it must not exceed the number of persons shown in the list.
 * If the optional index is not provided, all loans, across all clients in the list will be shown.
 * The only optional flag is `-a` to show all loans including the inactive ones.
 
@@ -349,9 +349,9 @@ Expected Behaviour:
 
 * A success message of the form "Listed all loans associated with [person details]." will be shown.
 * The list is ordered by the end date of the loan.
-* If the index is not provided, all loans across all clients in the list will be shown. Only the active loans will be shown if the flag `-a` is not provided.
-* If the index is provided, all loans of the person at the specified `INDEX` will be shown. Only the active loans will be shown if the flag `-a` is not provided.
-* If the flag `-a` is provided, the inactive loans will be shown alongside the active loans.
+* Only the active loans will be shown if the flag `-a` is not provided. If it is provided, both active and inactive loans will be shown.
+* If the index is not provided, all loans across all clients in the list will be shown.
+* If the index is provided, all loans of the person at the specified `INDEX` will be shown.
 
 Examples: `viewloan 1`, `viewloan -a 1`
 
@@ -380,12 +380,12 @@ Examples: `markloan 1`, `unmarkloan 1`
 
 Edits an existing loan in the address book.
 
-Format `editloan INDEX [v/VALUE] [s/START_DATE] [r/RETURN_DATE]`
+Format: `editloan INDEX [v/VALUE] [s/START_DATE] [r/RETURN_DATE]`
 
 Parameters Restrictions:
 
 * The index refers to the index number shown in the displayed loan list. The index **must be a positive integer** 1, 2, 3, …​, and it must not exceed the number of loans shown in the list.
-* The loan value must be a positive float value that is **at most 2 decimal places**, as the app behavior may not optimal for any higher precision.
+* The loan value must be a positive float value that is **at most 2 decimal places**, as the app behavior may not be optimal for any higher precision.
 * The start date and return date must be in the format `YYYY-MM-DD`.
 * The return date must be after the start date.
 * Year value has to be below 9999.
@@ -435,9 +435,11 @@ Example: `deleteloan 1`
 Provides visual analytics of a client's loan records based on three indices: Reliability, Impact, and Urgency.
 * The Reliability index is defined as the ratio of overdue loans to the total number of loans.
 * The Impact index is defined as the ratio of the average loan value to the maximum loan value.
-* The Urgency index is defined as the ratio of the number of days between the earliest return date among this particular client's active loans and the current date to the number of days between the earliest return date among all active loans and the current date.
+* The Urgency index is defined as follows:
+  * Define URGENCY_ALL as the number of days from the current date to the earliest return date among **all** active loans.
+  * Define URGENCY_CLIENT as the number of days from the current date to the earliest return date among **this particular client's** active loans.
+  * The Urgency index is equal to the ratio of URGENCY_ALL to URGENCY_CLIENT.
   * The computation will only consider loans that are not overdue.
-  * If a client has an overdue loan, the Urgency index will be set to 1.
 * These indexes are then converted in percentage form and visualized in a pie chart.
 
 Format: `analytics INDEX`
@@ -448,7 +450,7 @@ Parameters Restrictions:
 
 Expected Behaviour:
 
-* A success message in the form of "Analytics generated for [person name]." will be shown.
+* A success message in the form of "Analytics generated for [person name]" will be shown.
 * A visual representation of the client's loan records will be shown.
 
 Example: `analytics 1`
@@ -484,8 +486,8 @@ LoanGuardPro data are saved automatically as a JSON file `[JAR file location]/da
 welcome to update data directly by editing that data file.
 
 :exclamation: **Caution:**
-If your changes to the data file makes its format invalid, LoanGuardPro will discard all data and start with an empty
-data file at the next run. Hence, it is recommended to take a backup of the file before editing it.<br>
+If your changes to the data file makes its format invalid, LoanGuardPro **will discard all data and start with an empty
+data file at the next run**. Hence, it is recommended to take a backup of the file before editing it.<br>
 Furthermore, certain edits can cause the LoanGuardPro to behave in unexpected ways (e.g., if a value entered is outside
 of the acceptable range). Therefore, edit the data file only if you are confident that you can update it correctly.
 
