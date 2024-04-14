@@ -10,12 +10,10 @@ import static seedu.address.testutil.TypicalPersons.ALICE;
 import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.List;
 import java.util.function.Predicate;
 
 import org.junit.jupiter.api.Test;
 
-import javafx.beans.property.BooleanProperty;
 import javafx.beans.property.ObjectProperty;
 import javafx.collections.ObservableList;
 import seedu.address.commons.core.GuiSettings;
@@ -29,6 +27,7 @@ import seedu.address.model.analytics.DashboardData;
 import seedu.address.model.person.Analytics;
 import seedu.address.model.person.Loan;
 import seedu.address.model.person.Person;
+import seedu.address.model.tabindicator.TabIndicator;
 import seedu.address.testutil.PersonBuilder;
 
 public class AddCommandTest {
@@ -169,12 +168,6 @@ public class AddCommandTest {
             throw new AssertionError("This method should not be called.");
         }
 
-
-        @Override
-        public void setLoanList(List<Loan> loanList) {
-            throw new AssertionError("This method should not be called.");
-        }
-
         @Override
         public ObservableList<Loan> getSortedLoanList() {
             throw new AssertionError("This method should not be called.");
@@ -187,11 +180,6 @@ public class AddCommandTest {
 
         @Override
         public void updateFilteredLoanList(Predicate<Loan> predicate, boolean isShowAllLoans) {
-            throw new AssertionError("This method should not be called.");
-        }
-
-        @Override
-        public BooleanProperty getIsLoansTab() {
             throw new AssertionError("This method should not be called.");
         }
 
@@ -216,27 +204,17 @@ public class AddCommandTest {
         }
 
         @Override
-        public BooleanProperty getIsPersonTab() {
-            throw new AssertionError("This method should not be called.");
-        }
-
-        @Override
-        public void setIsPersonTab(Boolean isPersonTab) {
-            throw new AssertionError("This method should not be called.");
-        }
-
-        @Override
         public void setDualPanel() {
             throw new AssertionError("This method should not be called.");
         }
 
         @Override
-        public BooleanProperty getIsShowLoaneeInfo() {
+        public void setIsShowLoaneeInfo(Boolean isShowLoaneeInfo) {
             throw new AssertionError("This method should not be called.");
         }
 
         @Override
-        public void setIsShowLoaneeInfo(Boolean isShowLoaneeInfo) {
+        public ObjectProperty<TabIndicator> getTabIndicator() {
             throw new AssertionError("This method should not be called.");
         }
 
@@ -257,11 +235,6 @@ public class AddCommandTest {
 
         @Override
         public void setIsAnalyticsTab(Boolean isAnalyticsTab) {
-            throw new AssertionError("This method should not be called.");
-        }
-
-        @Override
-        public BooleanProperty getIsAnalyticsTab() {
             throw new AssertionError("This method should not be called.");
         }
 

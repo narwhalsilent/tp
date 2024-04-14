@@ -47,9 +47,11 @@ public class TabIndicator {
 
     public TabIndicator setIsAnalyticsTab(boolean newIsAnalyticsTab) {
         if (newIsAnalyticsTab) {
-            return new TabIndicator(false, newIsAnalyticsTab, false, this.isShowAllLoans, this.isShowLoaneeInfo);
+            return new TabIndicator(false, newIsAnalyticsTab, false,
+                    this.isShowAllLoans, this.isShowLoaneeInfo);
         }
-        return new TabIndicator(this.isLoansTab, newIsAnalyticsTab, this.isPersonTab, this.isShowAllLoans, this.isShowLoaneeInfo);
+        return new TabIndicator(this.isLoansTab, newIsAnalyticsTab, this.isPersonTab,
+                this.isShowAllLoans, this.isShowLoaneeInfo);
     }
 
     public boolean getIsPersonTab() {
@@ -58,9 +60,11 @@ public class TabIndicator {
 
     public TabIndicator setIsPersonTab(boolean newIsPersonTab) {
         if (newIsPersonTab) {
-            return new TabIndicator(false, false, newIsPersonTab, this.isShowAllLoans, this.isShowLoaneeInfo);
+            return new TabIndicator(false, false, newIsPersonTab,
+                    this.isShowAllLoans, this.isShowLoaneeInfo);
         }
-        return new TabIndicator(this.isLoansTab, this.isAnalyticsTab, newIsPersonTab, this.isShowAllLoans, this.isShowLoaneeInfo);
+        return new TabIndicator(this.isLoansTab, this.isAnalyticsTab, newIsPersonTab,
+                this.isShowAllLoans, this.isShowLoaneeInfo);
     }
 
     public boolean getIsShowAllLoans() {

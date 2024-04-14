@@ -172,11 +172,6 @@ public interface Model {
      */
     void setIsAnalyticsTab(Boolean isAnalyticsTab);
 
-    /**
-     * Sets the tab to the person tab.
-     *
-     * @param isPersonTab
-     */
     void setToPersonTab();
 
     void markLoan(Loan loanToMark);

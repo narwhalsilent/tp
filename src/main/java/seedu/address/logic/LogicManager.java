@@ -19,8 +19,9 @@ import seedu.address.model.ReadOnlyAddressBook;
 import seedu.address.model.analytics.DashboardData;
 import seedu.address.model.person.Loan;
 import seedu.address.model.person.Person;
-import seedu.address.storage.Storage;
 import seedu.address.model.tabindicator.TabIndicator;
+import seedu.address.storage.Storage;
+
 
 /**
  * The main LogicManager of the app.
