@@ -88,7 +88,6 @@ public class AddressBookParserTest {
         DeleteLoanCommand ddlc2 = (DeleteLoanCommand) parser.parseCommand(DeleteLoanCommand.COMMAND_WORD + " 3");
         assertEquals(ddlc, ddlc2);
         assertTrue(parser.parseCommand(DeleteLoanCommand.COMMAND_WORD + " 3") instanceof DeleteLoanCommand);
-        assert
     }
 
     @Test
