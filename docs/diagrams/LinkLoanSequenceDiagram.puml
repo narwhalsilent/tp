@@ -50,13 +50,13 @@ activate LinkLoanCommand
 LinkLoanCommand --> LinkLoanCommandParser :
 deactivate LinkLoanCommand
 
-LinkLoanCommandParser --> AddressBookParser : l
+LinkLoanCommandParser --> AddressBookParser :
 deactivate LinkLoanCommandParser
 'Hidden arrow to position the destroy marker below the end of the activation bar.
 LinkLoanCommandParser -[hidden]-> AddressBookParser
 destroy LinkLoanCommandParser
 
-AddressBookParser --> LogicManager : l
+AddressBookParser --> LogicManager :
 deactivate AddressBookParser
 
 LogicManager -> LinkLoanCommand : execute(m)
@@ -75,7 +75,7 @@ activate CommandResult
 CommandResult --> LinkLoanCommand
 deactivate CommandResult
 
-LinkLoanCommand --> LogicManager : r
+LinkLoanCommand --> LogicManager :
 deactivate LinkLoanCommand
 
 [<--LogicManager

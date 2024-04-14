@@ -1,16 +1,20 @@
+
 @startuml
 !include style.puml
 skinparam ArrowFontStyle plain
 
+box Logic LOGIC_COLOR_T1
+participant ":AnalyticsCommand" as AnalyticsCommand LOGIC_COLOR
+end box
+
 box Person MODEL_COLOR_T1
-participant ":Person" as Person MODEL_COLOR
 participant ":Analytics" as Analytics MODEL_COLOR
 end box
 
-[-> Person : getAnalytics()
-activate Person
+[-> AnalyticsCommand : execute(model)
+activate AnalyticsCommand
 
-Person -> Analytics : getAnalytics(LoanRecords)
+AnalyticsCommand -> Analytics : getAnalytics(LoanRecords)
 activate Analytics
 
 loop LoanRecords.size() times
@@ -20,10 +24,10 @@ Analytics -> Analytics :updateDateFields(Loan)
 end
 Analytics -> Analytics :updatePropFields(Loan)
 Analytics -> Analytics :updateAverageFields(Loan)
-Analytics --> Person :
+Analytics --> AnalyticsCommand :
 deactivate Analytics
 
-[<-- Person
-deactivate Person
+[<-- AnalyticsCommand
+deactivate AnalyticsCommand
 
 @enduml

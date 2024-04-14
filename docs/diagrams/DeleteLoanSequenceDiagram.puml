@@ -15,10 +15,10 @@ box Model MODEL_COLOR_T1
 participant "m:Model" as Model MODEL_COLOR
 end box
 
-[-> LogicManager : execute("deleteloan 1 l/2")
+[-> LogicManager : execute("deleteloan 1")
 activate LogicManager
 
-LogicManager -> AddressBookParser : parseCommand("deleteloan 1 l/2")
+LogicManager -> AddressBookParser : parseCommand("deleteloan 1")
 activate AddressBookParser
 
 create DeleteLoanCommandParser
@@ -28,7 +28,7 @@ activate DeleteLoanCommandParser
 DeleteLoanCommandParser --> AddressBookParser
 deactivate DeleteLoanCommandParser
 
-AddressBookParser -> DeleteLoanCommandParser : parse("1 l/2")
+AddressBookParser -> DeleteLoanCommandParser : parse("1")
 activate DeleteLoanCommandParser
 
 DeleteLoanCommandParser -> ParserUtil : parseIndex("1")
@@ -37,11 +37,6 @@ activate ParserUtil
 ParserUtil --> DeleteLoanCommandParser
 deactivate ParserUtil
 
-DeleteLoanCommandParser -> ParserUtil : parseIndex("2")
-activate ParserUtil
-
-ParserUtil --> DeleteLoanCommandParser
-deactivate ParserUtil
 
 create DeleteLoanCommand
 DeleteLoanCommandParser -> DeleteLoanCommand
@@ -50,19 +45,19 @@ activate DeleteLoanCommand
 DeleteLoanCommand --> DeleteLoanCommandParser :
 deactivate DeleteLoanCommand
 
-DeleteLoanCommandParser --> AddressBookParser : d
+DeleteLoanCommandParser --> AddressBookParser :
 deactivate DeleteLoanCommandParser
 'Hidden arrow to position the destroy marker below the end of the activation bar.
 DeleteLoanCommandParser -[hidden]-> AddressBookParser
 destroy DeleteLoanCommandParser
 
-AddressBookParser --> LogicManager : d
+AddressBookParser --> LogicManager
 deactivate AddressBookParser
 
-LogicManager -> DeleteLoanCommand : execute(m)
+LogicManager -> DeleteLoanCommand : execute(model)
 activate DeleteLoanCommand
 
-DeleteLoanCommand -> Model : getFilteredPersonList()
+DeleteLoanCommand -> Model : getSortedLoanList()
 activate Model
 
 Model --> DeleteLoanCommand
@@ -75,7 +70,7 @@ activate CommandResult
 CommandResult --> DeleteLoanCommand
 deactivate CommandResult
 
-DeleteLoanCommand --> LogicManager : r
+DeleteLoanCommand --> LogicManager :
 deactivate DeleteLoanCommand
 
 [<--LogicManager
