@@ -12,9 +12,6 @@ end box
 
 box Model MODEL_COLOR_T1
 participant ":Model" as Model MODEL_COLOR
-participant "l:List<Person>" as FilteredList MODEL_COLOR
-participant "p:Person" as Person MODEL_COLOR
-participant "lr:LoanRecords" as LoanRecords MODEL_COLOR
 end box
 
 [-> LogicManager : execute("viewloan 1")
@@ -52,31 +49,25 @@ deactivate AddressBookParser
 LogicManager -> ViewLoanCommand : execute(m)
 activate ViewLoanCommand
 
-ViewLoanCommand -> Model : getFilteredPersonList()
+ViewLoanCommand -> Model : updateFilteredPersonList(...)
 activate Model
 
 Model --> ViewLoanCommand :
 deactivate Model
 
-ViewLoanCommand -> FilteredList : get(0)
-activate FilteredList
+ViewLoanCommand -> Model : updateFilteredLoanList(...)
+activate Model
 
-FilteredList --> ViewLoanCommand :
-deactivate FilteredList
+Model --> ViewLoanCommand :
+deactivate Model
 
-ViewLoanCommand -> Person : getLoanRecords()
-activate Person
+ViewLoanCommand -> Model : setDualPanel()
+activate Model
 
-Person --> ViewLoanCommand :
-deactivate Person
+Model--> ViewLoanCommand :
+deactivate Model
 
-ViewLoanCommand -> LoanRecords : getLoanList()
-activate LoanRecords
-
-LoanRecords --> ViewLoanCommand :
-deactivate LoanRecords
-
-ViewLoanCommand -> Model : setLoanList(ll)
+ViewLoanCommand -> Model : setLoaneeInfoFlag(false)
 activate Model
 
 Model --> ViewLoanCommand
