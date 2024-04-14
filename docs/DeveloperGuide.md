@@ -507,13 +507,7 @@ Typically, they want to answer the following questions quickly:
 
 **Value proposition**: Manage contacts faster than a typical mouse/GUI driven app
 
-Our address book is tailored for business owners whose job might involve loaning items on a
-regular basis. It simplifies loan categorization and tracks product quality post-return,
-ensuring efficient decision-making. Some boundaries include no detailed client reviews or
-personal loan management, as we focus solely on business loans and contact management for
-a select client group.
-
-Our software streamlines loanee management, preventing profit loss and enhancing partner relations.
+Our software streamlines loanee management, preventing profit loss and enhancing loanee engagement.
 It simplifies loan categorization and tracks product quality post-return, ensuring efficient
 decision-making. Some boundaries include no detailed client reviews or personal loan management,
 as we focus solely on business loans and contact management for a select client group.
