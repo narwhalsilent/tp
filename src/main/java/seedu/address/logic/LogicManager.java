@@ -5,7 +5,6 @@ import java.nio.file.AccessDeniedException;
 import java.nio.file.Path;
 import java.util.logging.Logger;
 
-import javafx.beans.property.BooleanProperty;
 import javafx.beans.property.ObjectProperty;
 import javafx.collections.ObservableList;
 import seedu.address.commons.core.GuiSettings;
@@ -20,7 +19,9 @@ import seedu.address.model.ReadOnlyAddressBook;
 import seedu.address.model.analytics.DashboardData;
 import seedu.address.model.person.Loan;
 import seedu.address.model.person.Person;
+import seedu.address.model.tabindicator.TabIndicator;
 import seedu.address.storage.Storage;
+
 
 /**
  * The main LogicManager of the app.
@@ -96,37 +97,12 @@ public class LogicManager implements Logic {
     }
 
     @Override
-    public void setIsLoansTab(boolean isLoansTab) {
-        model.setIsLoansTab(isLoansTab);
-    }
-
-    @Override
-    public BooleanProperty getIsLoansTab() {
-        return model.getIsLoansTab();
-    }
-
-    @Override
     public ObjectProperty<DashboardData> getAnalytics() {
         return model.getDashboardData();
     }
 
     @Override
-    public BooleanProperty getIsAnalyticsTab() {
-        return model.getIsAnalyticsTab();
-    }
-
-    @Override
-    public void setIsAnalyticsTab(boolean isAnalyticsTab) {
-        model.setIsAnalyticsTab(isAnalyticsTab);
-    }
-
-    @Override
-    public BooleanProperty getIsPersonTab() {
-        return model.getIsPersonTab();
-    }
-
-    @Override
-    public BooleanProperty getLoaneeInfoFlag() {
-        return model.getLoaneeInfoFlag();
+    public ObjectProperty<TabIndicator> getTabIndicator() {
+        return model.getTabIndicator();
     }
 }

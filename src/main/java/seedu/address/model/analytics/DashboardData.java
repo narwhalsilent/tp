@@ -63,7 +63,7 @@ public class DashboardData {
      * @return urgency index between 0 and 1
      */
     public Float getUrgencyIndex() {
-        // Should take extra measures to ensure no overdue loans are used for calculations
+        // both variables can be null if the lists are empty
         if (analytics.getEarliestReturnDate() == null || earliestReturnDate == null) {
             return null;
         }

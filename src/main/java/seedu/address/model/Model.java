@@ -1,10 +1,8 @@
 package seedu.address.model;
 
 import java.nio.file.Path;
-import java.util.List;
 import java.util.function.Predicate;
 
-import javafx.beans.property.BooleanProperty;
 import javafx.beans.property.ObjectProperty;
 import javafx.collections.ObservableList;
 import seedu.address.commons.core.GuiSettings;
@@ -13,6 +11,7 @@ import seedu.address.model.analytics.DashboardData;
 import seedu.address.model.person.Analytics;
 import seedu.address.model.person.Loan;
 import seedu.address.model.person.Person;
+import seedu.address.model.tabindicator.TabIndicator;
 
 /**
  * The API of the Model component.
@@ -159,14 +158,18 @@ public interface Model {
      */
     void updateFilteredLoanList(Predicate<Loan> predicate, boolean isShowAllLoans);
 
-    void setLoanList(List<Loan> loanList);
-
-    BooleanProperty getIsLoansTab();
-
+    /**
+     * Sets the tab to the loans tab.
+     *
+     * @param isLoansTab
+     */
     void setIsLoansTab(Boolean isLoansTab);
 
-    BooleanProperty getIsAnalyticsTab();
-
+    /**
+     * Sets the tab to the analytics tab.
+     *
+     * @param isAnalyticsTab
+     */
     void setIsAnalyticsTab(Boolean isAnalyticsTab);
 
     void setToPersonTab();
@@ -179,13 +182,9 @@ public interface Model {
 
     ObjectProperty<DashboardData> getDashboardData();
 
-    BooleanProperty getIsPersonTab();
-
-    void setIsPersonTab(Boolean isPersonTab);
-
     void setDualPanel();
 
-    BooleanProperty getLoaneeInfoFlag();
+    void setIsShowLoaneeInfo(Boolean isShowLoaneeInfo);
 
-    void setLoaneeInfoFlag(Boolean loaneeInfoFlag);
+    ObjectProperty<TabIndicator> getTabIndicator();
 }
