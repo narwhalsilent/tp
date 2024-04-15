@@ -54,11 +54,6 @@ public class Person {
         return address;
     }
 
-    public Analytics getAnalytics() { // This method will likely be deprecated
-        // TODO
-        return null;
-    }
-
     /**
      * Returns an immutable tag set, which throws {@code UnsupportedOperationException}
      * if modification is attempted.

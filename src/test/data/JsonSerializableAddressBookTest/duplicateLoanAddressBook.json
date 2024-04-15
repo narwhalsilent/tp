@@ -1,0 +1,42 @@
+{
+  "persons" : [ {
+    "name" : "Alex Yeet",
+    "phone" : "87438807",
+    "email" : "alexyeoh@example.com",
+    "address" : "Blk 30 Geylang Street 29, #06-40",
+    "tags" : [ "friends" ]
+  }, {
+    "name" : "Bernice Yu",
+    "phone" : "99272758",
+    "email" : "berniceyu@example.com",
+    "address" : "Blk 30 Lorong 3 Serangoon Gardens, #07-18",
+    "tags" : [ "colleagues", "friends" ]
+  } ],
+  "loans" : [ {
+    "value" : 200,
+    "startDate" : "2024-02-02",
+    "returnDate" : "2024-04-09",
+    "id" : 2,
+    "isReturned" : false,
+    "assignee" : {
+      "name" : "Alex Yeet",
+      "phone" : "87438807",
+      "email" : "alexyeoh@example.com",
+      "address" : "Blk 30 Geylang Street 29, #06-40",
+      "tags" : [ "friends" ]
+    }
+  }, {
+    "value" : 2000,
+    "startDate" : "2024-01-01",
+    "returnDate" : "2024-04-11",
+    "id" : 2,
+    "isReturned" : true,
+    "assignee" : {
+      "name" : "Alex Yeet",
+      "phone" : "87438807",
+      "email" : "alexyeoh@example.com",
+      "address" : "Blk 30 Geylang Street 29, #06-40",
+      "tags" : [ "friends" ]
+    }
+  } ]
+}
